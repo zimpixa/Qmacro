@@ -1,0 +1,41 @@
+[General]
+Description=Mana refiller Spam
+BeginHotkey=83
+BeginHotkeyMod=2
+PauseHotkey=80
+PauseHotkeyMod=2
+StopHotkey=81
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=Tibia
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim mana,keyMana,delayT
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar mana=50 If MP<%, supply MP
+UserVar keyMana=123 What key MANA (F1-12 - 112-123)
+UserVar delayT=660 Delay after supply for MP(in milliseconds)
+Rem Begin
+Delay 300
+Rem MP
+//160 Tibia 11 mana hex 7572F5
+//374 Tibia 10 mana hex 7572F5
+IfColor mana/100*(1856-1771)+1771 160 5E5E5E 2
+    Delay 60
+    IfColor mana/100*(1856-1771)+1771 160 5E5E5E 2
+        KeyPress keyMana 1
+        70
+        KeyPress keyMana 1
+        Delay delayT
+    EndIf 
+EndIf 
+Goto Begin

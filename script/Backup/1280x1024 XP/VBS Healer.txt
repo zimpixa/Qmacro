@@ -1,0 +1,83 @@
+[General]
+Description=.VBS Healer
+BeginHotkey=49
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=54
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
+UserVar hphigh=96 Light healing %
+UserVar hplow=60 Strong healing %
+UserVar keyHigh=121 Light healing Key
+UserVar keyLow=116 Strong healing Key
+UserVar PotHealer=1 Potion User
+UserVar hpplow=35 Strong pot %
+UserVar keypLow=117 Strong pot Key
+UserVar mana=60 Mana Refiller max 40%
+UserVar keyMana=122 Mana Refiller Key
+UserVar keyOT=123 HealingOT Key
+Rem Begin
+hplowX=hplow/100*(1857-1771)+1771
+hpplowX=hpplow/100*(1857-1771)+1771
+hphighX=hphigh/100*(1857-1771)+1771
+ManaX=mana/100*(1857-1771)+1771
+Delay 350
+t1=timer():t2=timer():t3=timer()
+Rem Script
+Delay 380
+t4=Timer()
+If t1<=Timer()
+    Rem HP
+    VBSCall FindColor(hplowX,148,hplowX,148,"7171FF",aX,aY)
+    If aX<=0 and aY<=0
+        KeyPress keyLow 1
+        t1=Timer()+1.01
+    Else 
+        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",bX,bY)
+        If bX<=0 and bY<=0
+            If t3<=Timer()
+                KeyPress keyOT 1
+                t1=Timer+1.01
+                t3=Timer()+61
+                Goto POT
+            EndIf 
+            KeyPress keyHigh 1
+            t1=Timer+1.01
+        EndIf 
+    EndIf 
+EndIf 
+Rem POT
+If t2<=Timer()
+    If PotHealer=1
+        VBSCall FindColor(hpplowX,148,hpplowX,148,"7171FF",cX,cY)
+        If cX<=0 and cY<=0
+            KeyPress keypLow 1
+            t2=Timer()+1.01
+            Goto pEnd
+        EndIf 
+    EndIf 
+    VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",dX,dY)
+    If dX<=0 and dY<=0
+        KeyPress keyMana 1
+        t2=Timer()+1.01
+        Goto pEnd
+    EndIf 
+EndIf 
+Rem pEnd
+t5=Timer()
+VBSCall MessageBox(t5-t4)
+Goto Script

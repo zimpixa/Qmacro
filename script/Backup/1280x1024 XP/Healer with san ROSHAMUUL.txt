@@ -1,0 +1,90 @@
+[General]
+Description=Healer with san Roshamuul
+BeginHotkey=50
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=51
+StopHotkeyMod=1
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2
+UserVar SpellHealer=1 Spell Healer
+UserVar hphigh=77 Light healing %
+UserVar hplow=50 Strong healing %
+UserVar keyHigh=116 Light healing Key
+UserVar keyLow=116 Strong healing Key
+UserVar PotHealer=1 Potion User
+UserVar hpphigh=90 Light pot %
+UserVar hpplow=40 Strong pot %
+UserVar keypHigh=120 Light pot Key
+UserVar keypLow=117 Strong pot Key
+UserVar ManaSystem=1 Mana monster counting system
+UserVar mana=65 Mana Refiller max 40%
+UserVar keyMana=122 Mana Refiller Key
+// Fullscreen +7 +28
+Rem Begin
+Delay 100
+t1=now:t2=now
+Rem Script
+If SpellHealer=1
+    If Datediff("s",t1,now)>=1
+        Rem HP
+        IfColor hplow/100*(1857-1771)+1771 154  7171FF 1
+            Delay 10
+            KeyPress keyLow 1
+            t1=now
+        Else 
+            IfColor hphigh/100*(1857-1771)+1771 154  7171FF 1
+                Delay 10
+                KeyPress keyHigh 1
+                t1=now
+            EndIf 
+        EndIf 
+    EndIf 
+EndIf 
+If Datediff("s",t2,now)>=1
+    If PotHealer=1
+        IfColor hpplow/100*(1857-1771)+1771 154  7171FF 1
+            KeyPress keypLow 1
+            t2=now
+        EndIf 
+    EndIf 
+    If ManaSystem=1
+        IfColor mana/100*(1857-1771)+1771 167 FF7174 1
+            KeyPress keyMana 1
+            t2=now
+            Goto pEnd
+        EndIf 
+    Else 
+        If ManaSystem=2
+            Rem Repp
+            IfColor 1769,400,0,0
+                IfColor mana/100*(1857-1771)+1771 167 F7174 1
+                    KeyPress keyMana 1
+                    t2=now
+                    Goto pEnd
+                EndIf 
+            Else 
+                IfColor (mana+50)/100*(1857-1771)+1771 167 F7174 1
+                    KeyPress keyMana 1
+                    t2=now
+                    Goto pEnd
+                EndIf 
+            EndIf 
+        EndIf 
+    EndIf 
+EndIf 
+Rem pEnd
+Goto Script

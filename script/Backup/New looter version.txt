@@ -1,0 +1,65 @@
+[General]
+Description=New looter version
+BeginHotkey=49
+BeginHotkeyMod=2
+PauseHotkey=50
+PauseHotkeyMod=2
+StopHotkey=51
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim Times,BP
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar Times=5 Looping
+UserVar BP=0 0 or 103
+UserVar PATH=C:\loot.bmp Path to EMPTY pic
+UserVar TEN=C:\10+.bmp Path to 10+ gp
+UserVar 2Five=C:\25+.bmp Path to 25+ gp
+UserVar 5TEN=C:\50+.bmp Path to 50+ gp
+Rem Begin
+Delay 400
+Rem Script
+IfColor 1268,692-BP,b5b5b5,2
+    SaveMousePos 
+    Delay 40
+    Rem Detect
+    VBSCall FindPic(1100,590,1150,640,PATH,1.0,IntX,IntY)
+    Delay 40
+    If intX>=0 and intY>=0
+        Goto Close
+    Else 
+        Rem Loot
+        MoveTo 1128,716-BP
+        Delay 10
+        LeftDown 1
+        LeftDown 1
+        KeyDown 17 1
+        Delay 30
+        MoveTo 1128,652-BP
+        Delay 30
+        LeftUp 1
+        KeyUp 17 1
+        Delay 330
+        Goto Detect
+    EndIf 
+    Rem Close
+    MoveTo 1268,692-BP
+    Delay 50
+    LeftClick 1
+    Delay 10
+    LeftClick 1
+    RestoreMousePos 
+    Delay 100
+EndIf 
+Goto Begin

@@ -1,0 +1,71 @@
+[General]
+Description=Tibia - Heal DateDiff IfColor
+BeginHotkey=49
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=51
+StopHotkeyMod=1
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2
+UserVar hphigh=96 Light healing %
+UserVar hplow=60 Strong healing %
+UserVar keyHigh=121 Light healing Key
+UserVar keyLow=116 Strong healing Key
+UserVar PotHealer=1 Potion User
+UserVar hpplow=35 Strong pot %
+UserVar keypLow=117 Strong pot Key
+UserVar mana=60 Mana Refiller max 40%
+UserVar keyMana=122 Mana Refiller Key
+// Fullscreen +7 +28
+Rem Begin
+Delay 200
+t1=now:t2=now
+Rem Script
+Delay 200
+If Datediff("s",t1,now)>=1
+    Rem HP
+    IfColor hplow/100*(1857-1771)+1771 148  7371FF 1
+        Delay 50
+        KeyPress keyLow 1
+        Delay 100
+        t1=now
+    Else 
+        IfColor hphigh/100*(1857-1771)+1771 148  7371FF 1
+            Delay 50
+            KeyPress keyHigh 1
+            Delay 100
+            t1=now
+        EndIf 
+    EndIf 
+EndIf 
+If Datediff("s",t2,now)>=1
+    If PotHealer=1
+        IfColor hpplow/100*(1857-1771)+1771 148  7371FF 1
+            KeyPress keypLow 1
+            Delay 100
+            t2=now
+            Goto pEnd
+        EndIf 
+    EndIf 
+    IfColor mana/100*(1857-1771)+1771 161 FF7173 1
+        KeyPress keyMana 1
+        Delay 100
+        t2=now
+        Goto pEnd
+    EndIf 
+EndIf 
+Rem pEnd
+Goto Script

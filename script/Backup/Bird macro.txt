@@ -1,0 +1,53 @@
+[General]
+Description=Level with loot
+BeginHotkey=49
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=145
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim t1
+UserVar VIP=C:\Reset.bmp Path to reset pic
+t1=now
+Rem Begin
+Delay 1000
+If Datediff("s",t1,now)>=10
+    Delay 100
+    IfColor 927,63,0,0
+        Delay 5200
+        IfColor 928,64,0,0
+            MoveTo 820,330
+            Delay 100
+            LeftClick 1
+            Delay 6200
+            MoveTo 820,820
+            Delay 100
+            LeftClick 1
+            Delay 9200
+            MoveTo 1595,65
+            IfColor 1595,65,ffffff,0
+                Delay 100
+                LeftClick 1
+            EndIf 
+            Delay 1200
+            MoveTo 1560,820
+            Delay 100
+            LeftClick 1
+            t1=now
+        EndIf 
+    EndIf 
+EndIf 
+Goto Begin

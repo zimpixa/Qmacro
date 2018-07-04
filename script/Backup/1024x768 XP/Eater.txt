@@ -1,0 +1,46 @@
+[General]
+Description=Eater
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim Food,DelayE,sx,sy
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar Food=1 Yes-1/No-0
+UserVar DelayE=10 In seconds
+Rem Begin
+Delay 1000
+MessageBox (Cursor over food, please. Then Press Enter)
+Delay 10
+VBSCall GetCursorPos(sx,sy)
+Rem Script
+Rem Eat
+If Food=1
+    MoveTo sx sy
+    RightClick 1
+    RightClick 1
+    Delay 50
+    RightDown 1
+    RightDown 1
+    Delay 100
+    RightUp 1
+    RightUp 1
+    Delay DelayE*1000
+EndIf 
+Delay 1000
+Goto Script

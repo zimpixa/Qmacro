@@ -1,0 +1,56 @@
+[General]
+Description=San experiment
+BeginHotkey=50
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=145
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=1
+Number=2
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar StrikeKey=120 Key to use
+UserVar strikeT=2070 Delay for next cast
+//Define the variables
+//Define an array of the colors to be searched, please edit them as your like
+Rem Begin
+Delay 30
+IfColor 1572 38 0000FF 0
+    Delay 15
+    Delay 10
+    KeyPress StrikeKey 1
+    Delay strikeT
+    Goto Begin
+EndIf 
+IfColor 1572 38 8080FF 0
+    Delay 15
+    Delay 10
+    KeyPress StrikeKey 1
+    Delay strikeT
+    Goto Begin
+EndIf 
+IfColor 1572 61 0000FF 0
+    Delay 15
+    Delay 10
+    KeyPress StrikeKey 1
+    Delay strikeT
+    Goto Begin
+EndIf 
+IfColor 1572 61 8080FF 0
+    Delay 15
+    Delay 10
+    KeyPress StrikeKey 1
+    Delay strikeT
+    Goto Begin
+EndIf 
+Goto Begin

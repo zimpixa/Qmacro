@@ -1,0 +1,77 @@
+[General]
+Description=Zimpixa Green Healer
+BeginHotkey=52
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=54
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
+UserVar hphigh=96 Light healing %
+UserVar hplow=60 Strong healing %
+UserVar keyHigh=121 Light healing Key
+UserVar keyLow=116 Strong healing Key
+UserVar PotHealer=1 Potion User
+UserVar hpplow=35 Strong pot %
+UserVar keypLow=117 Strong pot Key
+UserVar mana=60 Mana Refiller max 40%
+UserVar keyMana=122 Mana Refiller Key
+// Fullscreen +7 +28
+Rem Begin
+Delay 200
+t1=Timer():t2=Timer():t3=mow
+Rem Script
+Delay 310
+If t1<=Timer()
+    Rem HP
+    VBSCall FindColor(hplow/100*(1857-1771)+1771,148,hplow/100*(1857-1771)+1771,148,"7171FF",aX,aY)
+    //VBSCall FindColor(1822,148,1822,148,"7371FF",aX,aY)
+    //VBSCall MessageBox(aX)
+    If aX<=0 and aY<=0
+        KeyPress keyLow 1
+        t1=Timer()+1
+    Else 
+        VBSCall FindColor(hphigh/100*(1857-1771)+1771,148,hphigh/100*(1857-1771)+1771,148,"7171FF",bX,bY)
+        //VBSCall FindColor(1854,148,1855,148,"7371FF",bX,bY)
+        If bX<=0 and bY<=0
+            KeyPress keyHigh 1
+            Delay 100
+            t1=Timer()+1
+        EndIf 
+    EndIf 
+EndIf 
+Rem POT
+If t2<=Timer()
+    If PotHealer=1
+        VBSCall FindColor(hpplow/100*(1857-1771)+1771,148,hpplow/100*(1857-1771)+1771,148,"7171FF",cX,cY)
+        //VBSCall FindColor(1802,148,1803,148,"7371FF",cX,cY)
+        If cX<=0 and cY<=0
+            KeyPress keypLow 1
+            t2=now
+            Goto pEnd
+        EndIf 
+    EndIf 
+    VBSCall FindColor( mana/100*(1857-1771)+1771,161, mana/100*(1857-1771)+1772,161,"FF7174",dX,dY)
+    //VBSCall FindColor( mana/100*(1857-1771)+1771,161, mana/100*(1857-1771)+1772,161,"FF7173",dX,dY)
+    If dX<=0 and dY<=0
+        KeyPress keyMana 1
+        Delay 100
+        t2=Timer()
+        Goto pEnd
+    EndIf 
+EndIf 
+Rem pEnd
+Goto Script

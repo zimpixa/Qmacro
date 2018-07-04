@@ -1,0 +1,37 @@
+[General]
+Description=Player Kick
+BeginHotkey=49
+BeginHotkeyMod=2
+PauseHotkey=50
+PauseHotkeyMod=2
+StopHotkey=51
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim t1
+Rem Begin
+t1=now
+Rem Script
+Delay 20
+If DateDiff("ms",t1,now)>=40
+    IfColor 1129,408,0,0
+        KeyDown 17,1
+        Delay 10
+        KeyPress 76,1
+        Delay 10
+        KeyUp 17,1
+    EndIf 
+    t3=now
+EndIf 
+Goto Script

@@ -1,0 +1,115 @@
+[General]
+Description=VBS Healer + Strike
+BeginHotkey=52
+BeginHotkeyMod=2
+PauseHotkey=33
+PauseHotkeyMod=8
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=1
+Number=2
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
+VBS dim color(1),cX,cY
+VBS color(0)="0000FF": color(1)="8080FF"
+UserVar hphigh=92 Light healing %
+UserVar hplow=55 Strong healing %
+UserVar keyHigh=121 Light healing Key
+UserVar keyLow=116 Strong healing Key
+UserVar PotHealer=1 Potion User
+UserVar hpplow=32 Strong pot %
+UserVar keypLow=117 Strong pot Key
+UserVar mana=65 Mana Refiller max 40%
+UserVar keyMana=122 Mana Refiller Key
+UserVar keyOT=123 HealingOT Key
+UserVar KeepFullMana=0 Keep Full Mana
+UserVar StrikeKey=120 Strike Key
+Rem Begin
+hplowX=hplow/100*(1857-1771)+1771
+hpplowX=hpplow/100*(1857-1771)+1771
+hphighX=hphigh/100*(1857-1771)+1771
+ManaX=mana/100*(1857-1771)+1771
+ManaKFM=92/100*(1857-1771)+1771
+MonsterHP1=20/100*(1715-1595)+1595
+Delay 350
+t1=timer():t2=timer():t3=timer()
+tS=Timer()
+Rem Script
+Delay 100
+//t4=Timer()
+If t1<=Timer()
+    Rem HP
+    VBSCall FindColor(hplowX,148,hplowX,148,"7171FF",aX,aY)
+    If aX<=0 and aY<=0
+        KeyPress keyLow 1
+        t1=Timer()+1.01
+    Else 
+        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",bX,bY)
+        //VBSCall MessageBox(bX)
+        If bX<=0 and bY<=0
+            If t3<=Timer()
+                KeyPress keyOT 1
+                t1=Timer()+1.01
+                t3=Timer()+61
+                Goto POT
+            EndIf 
+            KeyPress keyHigh 1
+            t1=Timer()+1
+        EndIf 
+    EndIf 
+EndIf 
+Rem POT
+If t2<=Timer()
+    If PotHealer=1
+        VBSCall FindColor(hpplowX,148,hpplowX,148,"7171FF",cX,cY)
+        If cX<=0 and cY<=0
+            KeyPress keypLow 1
+            t2=Timer()+1.01
+            Goto pEnd
+        EndIf 
+    EndIf 
+    VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",dX,dY)
+    If dX<=0 and dY<=0
+        KeyPress keyMana 1
+        t2=Timer()+1
+        Goto pEnd
+    EndIf 
+    If KeepFullMana=1
+        VBSCall FindColor(ManaKFM,161,ManaKFM,161,"FF7174",kfmX,kfmY)
+        VBSCall FindColor(MonsterHP1,54,MonsterHP1,54,"000000",mX,mY)
+        If kfmX<=0 and mY<=0
+            KeyPress keyMana 1
+            t2=Timer()+1.01
+        EndIf 
+    EndIf 
+EndIf 
+Rem pEnd
+If tS<=Timer()
+    VBS s=0
+    For 2
+        //Delay 10
+        VBSCall FindColor(1572,38,1572,83,color(s),intX,intY)
+        //VBSCall MessageBox(intX)
+        If intX>=0 and intY>=0
+            //Delay 25
+            KeyPress StrikeKey 1
+            tS=Timer()+2
+            Goto Script
+        Else 
+            VBS s=s+1
+        EndIf 
+    EndFor 
+EndIf 
+Goto Script
+Delay 1000
+Goto Script

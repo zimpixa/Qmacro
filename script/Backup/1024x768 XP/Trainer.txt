@@ -1,0 +1,92 @@
+[General]
+Description=Trainer
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar mStart=90 % mana to cast
+UserVar mStop=50 % mana to stop casting
+UserVar keyTrain=112 Hotkey to cast
+UserVar TIMES=10 Delay in minutes
+Rem Begin
+Delay 1000
+//Spear to hand
+MoveTo 950,285
+Delay 100
+LeftDown 1
+Delay 100
+KeyDown 17 1
+Delay 100
+MoveTo 950,250
+Delay 100
+LeftUp 1
+Delay 100
+KeyUp 17 1
+Delay 100
+KeyDown 16 1
+Delay 100
+RightClick 1
+Delay 100
+KeyUp 16 1
+Delay 100
+//Food
+For 3
+    Delay 100
+    MoveTo 875,580
+    Delay 10
+    KeyDown 16 1
+    Delay 100
+    RightClick 1
+    Delay 100
+    KeyUp 16 1
+EndFor 
+//From bag
+For 15
+    MoveTo 875,525
+    Delay 100
+    LeftDown 1
+    Delay 100
+    KeyDown 16 1
+    Delay 100
+    MoveTo 950,285
+    Delay 100
+    LeftUp 1
+    Delay 100
+    KeyUp 16 1
+    Delay 100
+EndFor 
+//Mana trainer
+Rem TRAIN
+IfColor mStart/100*(961-876)+876 172 ff7d80 2
+    Delay 100
+    IfColor mStart/100*(961-876)+876 172 ff7d80 2
+        //x2=Right side of the MP bar, x1=Left side of the MP bar
+        //y=Y axis of the center of MP bar, color=The color when MP bar is empty
+        Rem Repeat
+        KeyPress keyTrain 1
+        Delay 1000
+        //Press the supply MP hot key
+        IfColor mStop/100*(961-876)+876 172 ff7d80 2
+            Delay 1500
+            Goto Repeat
+        EndIf 
+    EndIf 
+    //delay after supply MP, waiting for supply complete
+EndIf 
+Delay 1000*57*TIMES
+Goto Begin

@@ -1,0 +1,48 @@
+[General]
+Description=Healing Normal
+BeginHotkey=83
+BeginHotkeyMod=2
+PauseHotkey=80
+PauseHotkeyMod=2
+StopHotkey=81
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar hphigh=96 If HP<%, Lighthealing
+UserVar hplow=65 If HP<%, Hardhealing
+UserVar keyHigh=121 What key HIGH (F1-12 - 112-123)
+UserVar keyLow=116 What key LOW
+UserVar delayT=800 Delay after supply for HP(in milliseconds)
+Rem Begin
+Delay 100
+//The delay will reduce the CPU usage
+Rem HP
+IfColor hplow/100*(1217-1131)+1131 156  4F4FDB 1
+    Delay 100
+    IfColor hplow/100*(1217-1131)+1131 155  4040C0 1
+        KeyPress keyLow 1
+        Delay delayT
+    EndIf 
+Else 
+    IfColor hphigh/100*(1217-1131)+1131 156 4F4FDB 1
+        Delay 100
+        IfColor hphigh/100*(1217-1131)+1131 156  4F4FDB 1
+            KeyPress keyHigh 1
+            Delay delayT
+        EndIf 
+    EndIf 
+EndIf 
+Goto Begin

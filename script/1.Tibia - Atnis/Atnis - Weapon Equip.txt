@@ -1,0 +1,63 @@
+[General]
+Description=Atnis - Weapon Equip
+BeginHotkey=51
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar Equip=123 Key to Equip Weapon
+VBS dim color(1)
+VBS color(0)="0000FF": color(1)="8080FF"
+Rem Begin
+VBS s=0
+Delay 500
+VBSCall PixelB=GetPixelColor(1762,252)
+//VBSCall MessageBox(PixelB)
+//Bow
+If PixelB="584755"
+    Goto Begin
+EndIf 
+//Empty
+VBSCall PixelC=GetPixelColor(1768,224)
+//VBSCall MessageBox(PixelC)
+If PixelC="1C1C1C"
+    VBSCall PixelM=GetPixelColor(1594,54)
+    If PixelM="000000"
+        //Loop for 2 times
+        KeyPress Equip 1
+        Goto Begin
+    EndIf 
+EndIf 
+//Weapon
+If PixelC="A498A8"
+    //VBSCall FindColor(1594,54,1594,54,"000000",intB,intB)
+    VBSCall PixelW=GetPixelColor(1594,54)
+    If PixelW<>"000000"
+        //VBSCall MessageBox(intB)
+        //If intB<=0 and intB<=0
+        KeyPress Equip 1
+    EndIf 
+    Goto Begin
+EndIf 
+Goto Begin
+//Food Eater
+UserVar Food=123 Key to Eat Food
+Tf=Timer()
+If Tf+300<=Timer()
+    KeyPress Food 1
+    Tf=Timer()
+EndIf 

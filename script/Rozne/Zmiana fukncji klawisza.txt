@@ -1,0 +1,37 @@
+[General]
+Description=Zmiana fukncji klawisza
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+dim sk,pk
+UserVar Skey=12 Key to change
+UserVar Pkey=120 New key function
+Rem Begin
+Delay 10
+sk=cint(Skey)
+pk=cint(Pkey)
+Delay 10
+Rem Script
+Delay 10
+WaitKey ck
+If ck=sk
+    KeyPress pk 1
+    Delay 100
+EndIf 
+Goto Script

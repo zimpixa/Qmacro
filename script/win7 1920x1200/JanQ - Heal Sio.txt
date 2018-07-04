@@ -1,0 +1,72 @@
+[General]
+Description=Healing Spam SIO
+BeginHotkey=50
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim hphigh,hplow,delayT,keyHigh,keyLow,aX,aY
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar hphigh=85 If HP<%, Lighthealing
+UserVar hplow=70 If HP<%, Hardhealing
+UserVar keyHigh=113 What key HIGH (F1-12 - 112-123)
+UserVar keyLow=115 What key LOW
+UserVar delayT=800 Delay after supply for HP(in milliseconds)
+UserVar PATH=C:\Users\Systell_Maciej\Pictures\Nick.bmp Path to nick pic
+UserVar BattleX=1750 X of Battle
+UserVar BattleY=400 Y of Battle
+UserVar EKlow=60 % of hp
+UserVar keyEK=120 Healing Key
+Rem Script
+t1=timer()
+Rem Begin
+Delay 200
+Rem HP
+//148 Tibia 11 hp hex F87175
+//361 Tibia 10 hp hex F87175
+IfColor hplow/100*(1856-1771)+1771 148  5E5E5E 2
+    Delay 20
+    IfColor hplow/100*(1856-1771)+1771 148  5E5E5E 2
+        KeyPress keyLow 1
+        Delay delayT-20
+        Goto HP
+    EndIf 
+Else 
+    IfColor hphigh/100*(1856-1771)+1771 148  5E5E5E 2
+        Delay 20
+        IfColor hphigh/100*(1856-1771)+1771 148  5E5E5E 2
+            KeyPress keyHigh 1
+            Delay delayT
+            Goto HP
+        EndIf 
+    EndIf 
+EndIf 
+VBSCall FindPic(BattleX,BattleY,BattleX+150,BattleY+200,PATH,0.75,IntX,IntY)
+If IntX>0 and IntY>0
+    VBSCall FindColor(IntX,IntY,IntX+10,IntY+20,"000000",aX,aY)
+    If aX>0 and aY>0
+        aY=aY+1
+        IfColor EKlow/100*(125)+aX aY 454545 2
+            Delay 20
+            IfColor EKlow/100*(125)+aX aY 454545 2
+                KeyPress keyEK 1
+                Delay delayT
+            EndIf 
+        EndIf 
+    EndIf 
+EndIf 
+Goto Begin

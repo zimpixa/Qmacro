@@ -1,0 +1,42 @@
+[General]
+Description=Mana refiller Normal
+BeginHotkey=83
+BeginHotkeyMod=2
+PauseHotkey=80
+PauseHotkeyMod=2
+StopHotkey=81
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim mana,keyMana,delayT
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar mana=95 If MP<%, supply MP
+UserVar keyMana=122 What key MANA (F1-12 - 112-123)
+UserVar delayT=400 Delay after supply for MP(in milliseconds)
+Rem Begin
+Delay 500
+//The delay will reduce the CPU usage
+Rem MP
+IfColor mana/100*(1217-1131)+1131 171 5E5E5E 2
+    Delay 100
+    IfColor mana/100*(1217-1131)+1131 171 5E5E5E 2
+        //x2=Right side of the MP bar, x1=Left side of the MP bar
+        //y=Y axis of the center of MP bar, color=The color when MP bar is empty
+        KeyPress keyMana 1
+        //Press the supply MP hot key
+        Delay delayT
+    EndIf 
+    //delay after supply MP, waiting for supply complete
+EndIf 
+Goto Begin

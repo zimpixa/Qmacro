@@ -1,0 +1,70 @@
+[General]
+Description=Level without loot
+BeginHotkey=50
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim t1
+UserVar VIP=C:\Reset.bmp Path to reset pic
+t1=now
+Rem Begin
+Delay 400
+MoveTo 700,560
+Delay 70
+LeftDown 1
+Delay 70
+MoveTo 1130,450
+Delay 70
+LeftUp 1
+Delay 1000
+MoveTo 550,670
+Delay 70
+LeftDown 1
+Delay 70
+MoveTo 1130,450
+Delay 70
+LeftUp 1
+Delay 3500
+MoveTo 100,100
+Delay 70
+LeftClick 1
+Delay 1000
+MoveTo 140,300
+Delay 70
+LeftClick 1
+//insert antiloop
+Delay 10500
+IfColor 1594,72,c0c4c9,0
+    MoveTo 1595,65
+    Delay 70
+    LeftClick 1
+EndIf 
+IfColor 1596,65,ffffff,0
+    MoveTo 1595,65
+    Delay 70
+    LeftClick 1
+EndIf 
+t1=now
+Goto Begin
+Rem antiloop
+IfColor 388,690,ffffff,1
+    MoveTo 930,50
+    LeftClick 1
+    Delay 500
+    Goto antiloop
+EndIf 

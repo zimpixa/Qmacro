@@ -1,0 +1,62 @@
+[General]
+Description=Test datediff
+BeginHotkey=49
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar PATH=C:\Users\Systell_Maciej\Pictures\Nick.bmp Path to nick pic
+UserVar BattleX=1750 X of Battle
+UserVar BattleY=400 Y of Battle
+UserVar hplow=60 % of hp
+UserVar keyLow=120 Healing Key
+// Fullscreen +7 +28
+Rem Begin
+Delay 200
+t1=timer()
+Rem Script
+Delay 500
+VBSCall FindPic(BattleX,BattleY,BattleX+150,BattleY+200,PATH,0.75,IntX,IntY)
+//VBSCall MessageBox(intY)
+If IntX>0
+    VBSCall FindColor(IntX,IntY,IntX+10,IntY+20,"000000",aX,aY)
+    //VBSCall MessageBox(aX)
+    //VBSCall MessageBox(aY)
+    aY=aY+1
+    VBSCall cC=GetPixelColor(hplow/100*(125)+aX,aY)
+    //VBSCall MessageBox(cC)
+    IfColor hplow/100*(125)+aX aY  454545 2
+        Delay 20
+        IfColor hplow/100*(125)+aX aY  454545 2
+            KeyPress keyLow 1
+            Delay 1100
+        EndIf 
+    EndIf 
+EndIf 
+Rem POT
+Goto Script
+//VBSCall MessageBox(aX)
+//VBSCall FindColor(1822,148,1822,148,"7371FF",aX,aY)
+//VBSCall MessageBox(t2)
+//If Datediff("s",t1,now)>=1
+If t1<=Timer()
+    Rem HP
+    VBSCall FindColor(44,107,44,107,"3400DD",aX,aY)
+    If aX>=0 and aY>=0
+        t1=timer()+1
+    EndIf 
+EndIf 

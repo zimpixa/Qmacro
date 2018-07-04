@@ -1,0 +1,28 @@
+[General]
+Description=Find keyboard key
+BeginHotkey=50
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBSCall Call MessageBox("Press keyboard button")
+WaitKey kc
+VBSCall Call MessageBox("Pressed keyboard button key: "&kc)
+Plugin t2=GetSysInfo.GetTime()
+Delay 1000
+Plugin t1=GetSysInfo.GetTime()
+VBSCall Call MessageBox(t1-t2)

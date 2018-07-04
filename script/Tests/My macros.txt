@@ -1,0 +1,28 @@
+[General]
+Description=Find coordinates and color
+BeginHotkey=56
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBSCall Call MessageBox("Put your mouseover desired coordinates and press DEL button to pick coordinates and color")
+WaitKey lk
+If lk=110
+    VBSCall Call GetCursorPos(cx,cy)
+    VBSCall cpix=GetPixelColor(cx,cy)
+    VBSCall Call MessageBox("Colorpick succeed.")
+    VBSCall Call MessageBox("Coordinates: X"&cx&" Y"&cy&" Color: "&cpix)

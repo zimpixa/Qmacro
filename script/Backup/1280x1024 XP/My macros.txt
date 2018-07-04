@@ -1,0 +1,69 @@
+[General]
+Description=My macros
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+Rem ==========The following is what  Quick Macro records ==========
+For 20
+    Delay 50
+    MoveTo 1765,772
+    Delay 6
+    MoveTo 1765,772
+    MoveTo 1765,772
+    Delay 100
+    LeftDown 1
+    LeftDown 1
+    Delay 6
+    MoveTo 1766,771
+    MoveTo 1766,771
+    Delay 5
+    MoveTo 1768,766
+    MoveTo 1768,766
+    Delay 6
+    MoveTo 1768,752
+    MoveTo 1768,752
+    Delay 6
+    MoveTo 1767,736
+    MoveTo 1767,736
+    Delay 5
+    MoveTo 1764,721
+    MoveTo 1764,721
+    Delay 6
+    MoveTo 1762,707
+    MoveTo 1762,707
+    Delay 5
+    MoveTo 1761,696
+    MoveTo 1761,696
+    Delay 6
+    MoveTo 1761,691
+    MoveTo 1761,691
+    Delay 6
+    MoveTo 1761,688
+    MoveTo 1761,688
+    Delay 11
+    MoveTo 1761,686
+    MoveTo 1761,686
+    MoveTo 1761,686
+    Delay 5
+    LeftUp 1
+    LeftUp 1
+    MoveTo 1761,686
+    MoveTo 1761,686
+EndFor 
+Rem ==========The above is what Quick Macro records==========

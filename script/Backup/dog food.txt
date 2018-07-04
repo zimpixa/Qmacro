@@ -1,0 +1,28 @@
+[General]
+Description=dog food
+BeginHotkey=49
+BeginHotkeyMod=3
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=145
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+Rem begin
+MoveTo 486,684
+MoveTo 487,684
+LeftClick 1
+Delay 305000
+Goto begin
+Rem ==========The above is what Quick Macro records==========

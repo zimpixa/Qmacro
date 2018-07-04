@@ -1,0 +1,34 @@
+[General]
+Description=Kick Alarm
+BeginHotkey=57
+BeginHotkeyMod=1
+PauseHotkey=80
+PauseHotkeyMod=2
+StopHotkey=48
+StopHotkeyMod=1
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+Rem Begin
+Delay 10000
+Rem CHECK
+IfColor 1147,76,666666,1
+    IfColor 1195,113,666666,1
+        IfColor 1145,113,666666,1
+            Beep 
+            Delay 300
+            Goto CHECK
+        EndIf 
+    EndIf 
+EndIf 
+Goto Begin

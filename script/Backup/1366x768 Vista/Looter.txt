@@ -1,0 +1,96 @@
+[General]
+Description=Looter
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim Times,BP
+//Use Quick Macro pick point toolkit to get x1, x2, y, color below and replace them
+UserVar PATH=C:\pic\loot.bmp Path to EMPTY pic
+UserVar ONE=C:\pic\10+.bmp Path to 10+ gp
+UserVar TWO=C:\pic\25+.bmp Path to 25+ gp
+UserVar FIVE=C:\pic\50+.bmp Path to 50+ gp
+UserVar VIP=C:\pic\VIP.bmp Path to vip pic
+UserVar SKILLS=C:\pic\SKILLS.bmp Path to skills pic
+UserVar BLANK=C:\pic\NO.bmp Path to No bp pic
+UserVar DEL=0 Set personally for delay
+Rem Begin
+Delay 400
+Rem Script
+IfColor 1350,555,b5b5b5,2
+    SaveMousePos 
+    Delay 10
+    Rem Detect
+    VBSCall FindPic(1180,545,1260,580,VIP,0.9,vX,vY)
+    VBSCall FindPic(1180,545,1260,580,SKILLS,0.9,sX,sY)
+    VBSCall FindPic(1190,550,1265,620,BLANK,0.9,bX,bY)
+    Delay 30
+    If vX>=0 or bX>=0 or sX>=0
+        RestoreMousePos 
+        Delay 50
+        Goto Begin
+    EndIf 
+    VBSCall FindPic(1180,560,1240,610,PATH,1.0,IntX,IntY)
+    Delay 50
+    If intX>=0 and intY>=0
+        Goto Close
+    Else 
+        VBSCall FindPic(1180,560,1240,610,ONE,0.9,tenX,tenY)
+        VBSCall FindPic(1180,560,1240,610,TWO,0.9,tfX,tfY)
+        VBSCall FindPic(1180,560,1240,610,FIVE,0.9,fX,fY)
+        Delay 40
+        If tenX>=0 or tfX>=0 or fX>=0
+            Rem GP
+            MoveTo 1212,583
+            Delay 10
+            LeftDown 1
+            LeftDown 1
+            KeyDown 17 1
+            Delay 20
+            MoveTo 1316,527
+            Delay 20
+            LeftUp 1
+            KeyUp 17 1
+            Delay 300+DEL
+            Goto Detect
+        Else 
+            Rem Loot
+            MoveTo 1212,583
+            Delay 10
+            LeftDown 1
+            LeftDown 1
+            KeyDown 17 1
+            Delay 20
+            MoveTo 1212,460
+            Delay 20
+            LeftUp 1
+            KeyUp 17 1
+            Delay 300+DEL
+            Goto Detect
+        EndIf 
+    EndIf 
+    Rem Close
+    MoveTo 1350,555
+    Delay 50
+    LeftClick 1
+    Delay 10
+    LeftClick 1
+    RestoreMousePos 
+    Delay 100
+EndIf 
+Goto Begin

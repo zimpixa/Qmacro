@@ -1,0 +1,59 @@
+[General]
+Description=Zimpixa Green - Strike
+BeginHotkey=50
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar StrikeKey=120 Key to use
+UserVar StrikeKey2=119 Key to use
+//Define the variables
+//Define an array of the colors to be searched, please edit them as your like
+VBS dim color(1),cX,cY
+VBS color(0)="0000FF": color(1)="8080FF"
+//VBS color(0)="0000FF": color(1)="8482FF"
+t1=Timer():t2=timer():t3=timer()
+Rem Begin
+Delay 60
+VBS s=0
+For 2
+    //Loop for 2 times
+    Delay 10
+    //Delay in the loop, in order to reduce the CPU usage
+    VBSCall FindColor(1572,38,1572,61,color(s),intX,intY)
+    //VBSCall MessageBox(intX)
+    If intX>=0 and intY>=0
+        If t3<=Timer()
+            If t1<Timer()
+                KeyPress StrikeKey 1
+                t1=Timer()+6.19
+                t3=Timer()+2.07
+                Goto Begin
+            EndIf 
+            If t2<Timer()
+                KeyPress StrikeKey2 1
+                t3=Timer()+2.07
+                t2=Timer()+6.19
+                Goto Begin
+            EndIf 
+        EndIf 
+    Else 
+        VBS s=s+1
+    EndIf 
+EndFor 
+//Loop end
+Goto Begin

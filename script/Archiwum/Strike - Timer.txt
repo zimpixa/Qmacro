@@ -1,0 +1,48 @@
+[General]
+Description=Strike - Timer
+BeginHotkey=50
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar StrikeKey=120 Key to use
+UserVar strikeT=2070 Delay for next cast
+//Define the variables
+//Define an array of the colors to be searched, please edit them as your like
+VBS dim color(1),cX,cY
+VBS color(0)="0000FF": color(1)="8080FF"
+//VBS color(0)="0000FF": color(1)="8482FF"
+tS=Timer()
+Rem Begin
+Delay 90
+If tS<=Timer()
+    VBS s=0
+    For 2
+        Delay 10
+        VBSCall FindColor(1572,38,1572,83,color(s),intX,intY)
+        //VBSCall MessageBox(intX)
+        If intX>=0 and intY>=0
+            Delay 25
+            KeyPress StrikeKey 1
+            tS=Timer()+2
+            Goto Begin
+        Else 
+            VBS s=s+1
+        EndIf 
+    EndFor 
+EndIf 
+Goto Begin

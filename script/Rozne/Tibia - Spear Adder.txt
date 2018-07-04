@@ -1,0 +1,119 @@
+[General]
+Description=Tibia - Spear Adder
+BeginHotkey=49
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=81
+StopHotkeyMod=2
+RunOnce=1
+EnableWindow=Tibia
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim a,t1,t2,t3,t4
+UserVar SINGLESPEAR=C:\SINGLESPEAR.bmp Spear at arrows slot
+UserVar BAG=1 1(yes)/0(no) Additional spear bag
+UserVar FOOD=0 1(yes)/0(no) Eating
+UserVar TIFOOD=120 Delay in eating (s)
+UserVar SOULS=0 How many soulpoints U want to spend
+UserVar TIMANA=60 Delay to manatrain (s)
+UserVar sAdd=10 Ammount of spears to add
+Rem Begin
+Delay 1000
+VBS SP=Cint(SOULS)
+VBS tMana=CInt(TIMANA)
+VBS tFood=CInt(TIFOOD)
+VBS sTimes=Abs(((sAdd-6)*60)+100)
+t1=-1:t2=-1:t3=-1:t4=-1
+Rem Script
+Delay 1000
+If DateDiff("s",t1,now)>=300 or t1=-1
+    Rem Spear_Click
+    MoveTo 1200,248
+    Delay 20
+    KeyDown 16 1
+    Delay 10
+    RightClick 1
+    Delay 10
+    KeyUp 16 1`
+    Delay 20
+    t1=now
+EndIf 
+If DateDiff("s",t2,now)>=tFood or t2=-1
+    Rem EAT
+    If FOOD=1
+        MoveTo 1126,495
+        Delay 100
+        RightClick 1
+        Delay 100
+        RightClick 1
+        Delay 20
+    EndIf 
+    t2=now
+EndIf 
+If DateDiff("s",t3,now)>=tMana or t3=-1
+    Rem TRAIN
+    Delay 20
+    IfColor 70/100*(1217-1131)+1131 172 ff7d80 2
+        Delay 10
+        IfColor 70/100*(1217-1131)+1131 172 ff7d80 2
+            Rem Repeat
+            If SP >=3
+                KeyPress 119 1
+                Delay 1000
+                VBS SP=SP-3
+                IfColor 55/100*(1217-1131)+1131 172 ff7d80 2
+                    Delay 1500
+                    Goto Repeat
+                EndIf 
+            EndIf 
+        EndIf 
+    EndIf 
+    t3=now
+EndIf 
+If DateDiff("s",t4,now)>=sTimes or t4=-1
+    Rem Adding
+    Rem Hand_Spear
+    VBSCall FindPic(1182,268,1221,305,SINGLESPEAR,1.0,sX,sY)
+    If sX>=0 and sY>=0
+        MoveTo 1200,288
+        Delay 100
+        LeftDown 1
+        Delay 100
+        KeyDown 17 1
+        Delay 100
+        MoveTo 1200,248
+        Delay 100
+        LeftUp 1
+        Delay 100
+        KeyUp 17 1
+    EndIf 
+    Rem Add_Spear
+    If BAG=1
+        For sAdd
+            MoveTo 1130,555
+            Delay 100
+            LeftDown 1
+            Delay 100
+            KeyDown 16 1
+            Delay 100
+            MoveTo 1200,288
+            Delay 100
+            LeftUp 1
+            Delay 100
+            KeyUp 16 1
+            Delay 100
+        EndFor 
+    EndIf 
+    t4=now
+EndIf 
+Goto Script

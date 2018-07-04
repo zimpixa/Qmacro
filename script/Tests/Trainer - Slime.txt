@@ -1,0 +1,266 @@
+[General]
+Description=Trainer - Slime
+BeginHotkey=56
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar hphigh=60 %HP
+UserVar KeyHigh=121 Heal Hotkey
+UserVar hphighOT=80 %HP OT
+UserVar KeyHighOT=123 HealOT Hotkey
+UserVar mana=20 %Mana
+UserVar KeyMana=122 MF Hotkey
+UserVar Slime=0 SlimeTrainer
+UserVar Zao=1 ZaoTrainer
+UserVar Garg=0 Gargoyle Trainer
+UserVar Stones=1 Refill ammo
+UserVar StoneKey=115 Equip ammo hotkey
+UserVar FoodKey=114 Food hotkey
+UserVar fDelay=10 Delay of food (s)
+UserVar Idle=1 Keep Online
+Rem Begin
+t1=Timer():t2=Timer():t3=Timer():t4=Timer():t5=Timer():t6=Timer()
+hphighX=hphigh/100*(1857-1771)+1771
+hphighOTX=hphighOT/100*(1857-1771)+1771
+ManaX=mana/100*(1857-1771)+1771
+ManaMax=98/100*(1857-1771)+1771
+MonsterHP=50/100*(1715-1595)+1595
+MonsterHP1=20/100*(1715-1595)+1595
+Rem Script
+Delay 1000
+If Stones=1
+    If t5<Timer()
+        KeyPress StoneKey,1
+        t5=Timer()+600
+        Delay 100
+    EndIf 
+EndIf 
+Rem Food
+If t4<Timer()
+    KeyPress FoodKey,1
+    t4=Timer()+fDelay
+EndIf 
+Rem Idle
+If t6<=Timer()
+    If Idle=1
+        KeyPress 75,1
+        KeyPress 79,1
+        KeyPress 84,1
+        Delay 10
+        KeyPress 13,1
+        KeyPress 40,1
+        Delay 200
+        KeyPress 38,1
+        t6=Timer()+850
+    EndIf 
+EndIf 
+Rem ManaTrainer
+If t1<Timer()
+    VBSCall FindColor(ManaMax,161,ManaMax,161,"FF7174",sX,sY)
+    If sX>0 and sY>0
+        KeyPress KeyHigh 1
+        t1=Timer()+1
+    EndIf 
+EndIf 
+Rem Zao
+If Zao=1
+    Rem Existonbattle
+    VBSCall PixelW=GetPixelColor(1594,76)
+    //If PixelW<>"000000"
+    Rem Healing
+    If t3<=Timer()
+        VBSCall FindColor(hphighOTX,148,hphighOTX,148,"7171FF",hoX,hoY)
+        If hoX<=0 and hoY<=0
+            //VBSCall messagebox(hoX)
+            KeyPress KeyHighOT 1
+            t3=Timer()+60.01
+            t1=Timer()+4.01
+        EndIf 
+    EndIf 
+    If t1<=Timer()
+        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",hX,hY)
+        If hX<=0 and hY<=0
+            KeyPress KeyHigh 1
+            t1=Timer()+1.01
+        EndIf 
+    EndIf 
+    Rem Manas
+    If t2<=Timer()
+        VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",sX,sY)
+        If sX<=0 and sY<=0
+            KeyPress keyMana 1
+            t2=Timer()+1.01
+        EndIf 
+    EndIf 
+    Rem StartAttack
+    VBSCall FindColor(MonsterHP,55,MonsterHP,55,"60C060",mX,mY)
+    VBSCall FindColor(MonsterHP,55,MonsterHP,55,"00C000",m2X,m2Y)
+    If mX>0 or m2X>0
+        VBSCall FindColor(1572,38,1572,61,"0000FF",aX,aY)
+        If aX<=0 and bX<=0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,50
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto StopAttack
+        EndIf 
+    EndIf 
+    Rem StopAttack
+    VBSCall FindColor(MonsterHP1,55,MonsterHP1,55,"3030C0",msX,msY)
+    If msX>0 and msY>0
+        VBSCall FindColor(1572,38,1572,61,"0000FF",bX,bY)
+        If bX>0 and bX>0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,50
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+        EndIf 
+    EndIf 
+    //EndIf
+EndIf 
+Rem Stones
+If Slime=1
+    Rem Healing
+    If t1<=Timer()
+        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",hX,hY)
+        If hX<=0 and hY<=0
+            KeyPress keyHigh 1
+            t1=Timer()+1.01
+        EndIf 
+    EndIf 
+    Rem Manas
+    If t2<=Timer()
+        VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",sX,sY)
+        If sX<=0 and sY<=0
+            KeyPress keyMana 1
+            t2=Timer()+1.01
+        EndIf 
+    EndIf 
+    Rem StartAttack
+    VBSCall FindColor(MonsterHP,77,MonsterHP,77,"60C060",mX,mY)
+    If mX>0 and mY>0
+        VBSCall FindColor(1572,60,1572,81,"0000FF",aX,aY)
+        If aX<=0 and aY<=0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,70
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto StopAttack2
+        EndIf 
+    EndIf 
+    VBSCall FindColor(MonsterHP,77,MonsterHP,77,"00C000",mX,mY)
+    If mX>0 and mY>0
+        VBSCall FindColor(1572,60,1572,81,"0000FF",aX,aY)
+        If aX<=0 and aY<=0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,70
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto StopAttack2
+        EndIf 
+    EndIf 
+EndIf 
+Goto StopAttack2
+If Garg=1
+    Rem Healing
+    If t1<=Timer()
+        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",hX,hY)
+        If hX<=0 and hY<=0
+            KeyPress keyHigh 1
+            t1=Timer()+1.01
+        EndIf 
+    EndIf 
+    Rem Manas
+    If t2<=Timer()
+        VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",sX,sY)
+        If sX<=0 and sY<=0
+            KeyPress keyMana 1
+            t2=Timer()+1.01
+        EndIf 
+    EndIf 
+    Rem StartAttackG
+    VBSCall FindColor(1572,38,1572,80,"0000FF",aX,aY)
+    If aX<=0 and aY<=0
+        VBSCall FindColor(MonsterHP1,55,MonsterHP1,55,"60C060",mX,mY)
+        VBSCall FindColor(MonsterHP1,55,MonsterHP1,55,"00C000",m2X,m2Y)
+        If mX>0 or m2X>0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,50
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto Script
+        EndIf 
+        VBSCall FindColor(MonsterHP1,77,MonsterHP1,77,"60C060",m3X,m3Y)
+        VBSCall FindColor(MonsterHP1,77,MonsterHP1,77,"00C000",m4X,m4Y)
+        If m3X>0 or m4X>0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,70
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto Script
+        EndIf 
+    EndIf 
+    Rem StopAttackG
+    VBSCall FindColor(1572,38,1572,57,"0000FF",a1X,a1Y)
+    If a1X>0 and a1Y>0
+        VBSCall FindColor(MonsterHP1,55,MonsterHP1,55,"00C0C0",mm1X,mm1Y)
+        If mm1X>0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,50
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto Script
+        EndIf 
+    EndIf 
+    VBSCall FindColor(1572,60,1572,79,"0000FF",a2X,a2Y)
+    If a2X>0 and a2Y>0
+        VBSCall FindColor(MonsterHP1,77,MonsterHP1,77,"00C0C0",mm2X,mm2Y)
+        If mm2X>0
+            SaveMousePos 
+            Delay 10
+            MoveTo 1620,70
+            Delay 10
+            LeftClick 1
+            Delay 10
+            RestoreMousePos 
+            Goto Script
+        EndIf 
+    EndIf 
+EndIf 
+Goto Script

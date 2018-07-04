@@ -1,0 +1,32 @@
+[General]
+Description=Pisanie w oknie z tylu
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=123
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+Delay 5000
+Plugin hWnd = Window.Foreground()
+Plugin txtH=Window.GetText(hWnd)
+Delay 1000
+WndText= " Now you can put the notepad window in background or minimize it.Window title is : "& txtH
+MessageBox WndText
+//Wait for 2 seconds
+Rem Begin
+Delay 2000
+Plugin Window.SendKeyPress(hwnd,85)
+Goto Begin

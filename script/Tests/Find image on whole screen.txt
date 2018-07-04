@@ -1,0 +1,31 @@
+[General]
+Description=Find image on whole screen
+BeginHotkey=51
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar BattleX=0
+UserVar BattleY=0
+UserVar Path=test.bmp
+Rem Begin
+Delay 100
+t1=Timer()
+VBSCall FindPic(BattleX,BattleY,BattleX+1920,BattleY+1200,PATH,0.9,IntX,IntY)
+t2=Timer()
+VBSCall MessageBox("Found in: "&t2-t1&" "&IntX&" "&IntY)
+Goto Begin

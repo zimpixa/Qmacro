@@ -1,0 +1,66 @@
+[General]
+Description=CATS quickfight
+BeginHotkey=121
+BeginHotkeyMod=0
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=122
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=0
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+Rem Begin
+Rem Click Fight
+IfColor 1074,855,64564C,2
+    Delay 100
+    IfColor 1074,855,64564C,2
+        Delay 200
+        MoveTo 1038, 895
+        LeftClick 1
+        Delay 500
+    EndIf 
+EndIf 
+Rem Start battle
+IfColor 685,168,FFFFFF,2
+    Delay 100
+    IfColor 685,168,FFFFFF,2
+        Delay 200
+        MoveTo 970, 450
+        LeftClick 1
+        Delay 500
+    EndIf 
+EndIf 
+Rem Outcome
+IfColor 675,872,FFF6E9,2
+    Delay 100
+    IfColor 675,872,FFF6E9,2
+        Delay 200
+        MoveTo 1027, 928
+        Delay 10
+        LeftClick 1
+        Delay 500
+    EndIf 
+EndIf 
+Rem Bonus
+IfColor 666,771,FFF6E9,2
+    Delay 100
+    IfColor 666,771,FFF6E9,2
+        Delay 200
+        MoveTo 1018, 820
+        Delay 10
+        LeftClick 1
+        Delay 500
+    EndIf 
+EndIf 
+Delay 200
+Goto Begin
