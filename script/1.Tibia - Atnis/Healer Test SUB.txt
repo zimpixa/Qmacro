@@ -187,13 +187,13 @@ EndIf
 //Midnight END
 Goto Script
 Sub StrikeSub
-    forKey=1
+    VBS forKey=1
     For 2
         If tAOE(forKey)<=Timer()
             Key=forKey
         Return 
     Else 
-        forKey=forKey+1
+        VBS forKey=forKey+1
     EndIf 
 EndFor 
 If tAOE(1)>=Timer() and tAOE(2)>=Timer()
