@@ -53,7 +53,7 @@ UserVar CooldownAOE2=2 Cooldown of AOE2
 Rem Begin
 StrikeKeyAOE(1)=StrikeKeyAOE1
 StrikeKeyAOE(2)=StrikeKeyAOE2
-Key=1
+VBS Key=1
 hplowX=hplow/100*(1857-1771)+1771
 hpPotX=hpplow/100*(1857-1771)+1771
 hphighX=hphigh/100*(1857-1771)+1771
@@ -143,14 +143,21 @@ EndIf
 Rem StrikeEnd
 //Striker END
 //Pots START
-If Timer()-tStrike>=0.05
-    Goto DelayEnd
+If Key=2
+    If tAOE(2)<=Timer()+1
+        If tAOE(1)<=Timer()+3
+            tPotion=Timer()+1.5
+        EndIf 
+    EndIf 
 EndIf 
-If tStrike<=Timer()+1
-    tPotion=Timer()+1
-    Goto PotEnd
-EndIf 
-Rem DelayEnd
+//If Timer()-tAOE(2)>=0.05
+//    Goto DelayEnd
+//EndIf
+//If tAOE(2)<=Timer()+1
+//    tPotion=Timer()+1
+//    Goto PotEnd
+//EndIf
+//Rem DelayEnd
 If tPotion<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)
