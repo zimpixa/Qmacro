@@ -77,7 +77,7 @@ If tSpell<=Timer()
         VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",hphX,hphY)
         If hphX<=0 and hphY<=0
             If OverTimeSpell=1
-				If tSpellOT<=Timer()
+                If tSpellOT<=Timer()
                     KeyPress keyOT 1
                     tSpell=Timer()+1
                     tSpellOT=Timer()+61
@@ -106,19 +106,19 @@ If Striker=1
         For 2
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
-				Gosub StrikeSub
-				If Key>2
-					tStrike=Timer()+2.01
-					Goto StrikeEnd
+                Gosub StrikeSub
+                If Key>2
+                    tStrike=Timer()+2
+                    Goto StrikeEnd
                 EndIf 
                 KeyPress StrikeKey(Key) 1
                 If Key=1
-					tStrikeKey(Key)=Timer()+Cooldown1
+                    tStrikeKey(Key)=Timer()+Cooldown1
                 ElseIf Key=2
-					tStrikeKey(Key)=Timer()+Cooldown2
+                    tStrikeKey(Key)=Timer()+Cooldown2
                 EndIf 
                 Key=Key+1
-                tStrike=Timer()+2.01
+                tStrike=Timer()+2
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
@@ -161,8 +161,7 @@ Rem PotEnd
 If tSpell-Timer()>1000 or tPotion-Timer()>1000 or tSpellOT-Timer()>1000 or tStrike-Timer()>1000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
     tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer()
-EndIf
-
+EndIf 
 Goto Script
 Sub StrikeSub
     VBS forKey=1
@@ -178,4 +177,4 @@ If tStrikeKey(1)>=Timer() and tStrikeKey(2)>=Timer()
     Key=0
 Return 
 EndIf 
-Return
+Return 
