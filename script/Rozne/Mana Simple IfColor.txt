@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Mana Simple IfColor
+Description=Mana Simple IfColor
 BeginHotkey=83
 BeginHotkeyMod=2
 PauseHotkey=80

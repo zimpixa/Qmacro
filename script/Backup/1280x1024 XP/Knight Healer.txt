@@ -1,5 +1,5 @@
 [General]
-Description=Zimpixa Green Healer
+Description=Knight Healer
 BeginHotkey=52
 BeginHotkeyMod=1
 PauseHotkey=0

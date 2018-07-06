@@ -1,14 +1,14 @@
 [General]
-Description=Zimpixa Green - Strike
-BeginHotkey=50
+Description=Knight hur
+BeginHotkey=53
 BeginHotkeyMod=1
 PauseHotkey=0
 PauseHotkeyMod=0
-StopHotkey=0
-StopHotkeyMod=0
+StopHotkey=54
+StopHotkeyMod=2
 RunOnce=1
 EnableWindow=
-Enable=0
+Enable=1
 AutoRun=0
 [Repeat]
 Type=0
@@ -21,6 +21,7 @@ Content=
 [Script]
 UserVar StrikeKey=120 Key to use
 UserVar StrikeKey2=119 Key to use
+UserVar strikeT=4070 Delay for next cast
 //Define the variables
 //Define an array of the colors to be searched, please edit them as your like
 VBS dim color(1),cX,cY
@@ -40,14 +41,14 @@ For 2
         If t3<=Timer()
             If t1<Timer()
                 KeyPress StrikeKey 1
-                t1=Timer()+6.19
-                t3=Timer()+2.07
+                t1=Timer()+6.2
+                t3=Timer()+2.1
                 Goto Begin
             EndIf 
             If t2<Timer()
                 KeyPress StrikeKey2 1
-                t3=Timer()+2.07
-                t2=Timer()+6.19
+                t3=Timer()+2.1
+                t2=Timer()+6.2
                 Goto Begin
             EndIf 
         EndIf 

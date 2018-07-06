@@ -1,6 +1,6 @@
 [General]
-Description=VBS Healer
-BeginHotkey=49
+Description=VBS Healing + Strike Extendeded
+BeginHotkey=53
 BeginHotkeyMod=2
 PauseHotkey=33
 PauseHotkeyMod=8
@@ -8,7 +8,7 @@ StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=1
+Enable=0
 AutoRun=0
 [Repeat]
 Type=0
@@ -20,6 +20,8 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
+VBS dim color(1),cX,cY
+VBS color(0)="0000FF": color(1)="8080FF"
 UserVar hphigh=92 Light healing %
 UserVar hplow=55 Strong healing %
 UserVar keyHigh=121 Light healing Key
@@ -31,6 +33,9 @@ UserVar mana=65 Mana Refiller max 40%
 UserVar keyMana=122 Mana Refiller Key
 UserVar keyOT=123 HealingOT Key
 UserVar KeepFullMana=0 Keep Full Mana
+UserVar StrikeKey=120 Strike Key
+UserVar StrikeKeyAOE1=119 Key to use AOE1
+UserVar StrikeKeyAOE2=115 Key to use AOE2
 Rem Begin
 hplowX=hplow/100*(1857-1771)+1771
 hpplowX=hpplow/100*(1857-1771)+1771
@@ -40,8 +45,9 @@ ManaKFM=92/100*(1857-1771)+1771
 MonsterHP1=20/100*(1715-1595)+1595
 Delay 350
 t1=timer():t2=timer():t3=timer()
+tS=Timer():tAOE1=Timer():tAOE2=Timer()
 Rem Script
-Delay 00
+Delay 100
 //t4=Timer()
 If t1<=Timer()
     Rem HP
@@ -90,6 +96,40 @@ If t2<=Timer()
     EndIf 
 EndIf 
 Rem pEnd
+If tS<=Timer()
+    VBS s=0
+    For 2
+        //Loop for 2 times
+        //Delay 20
+        //Delay in the loop, in order to reduce the CPU usage
+        VBSCall FindColor(1572,38,1572,91,color(s),intX,intY)
+        //VBSCall MessageBox(intX)
+        If intX>=0 and intY>=0
+            VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
+            If m2X>=0 and m2Y>=0
+                If tAOE1<Timer()
+                    KeyPress StrikeKeyAOE1 1
+                    tAOE1=Timer()+4
+                    tS=Timer()+2
+                    Goto Script
+                EndIf 
+                If tAOE2<Timer()
+                    KeyPress StrikeKeyAOE2 1
+                    tS=Timer()+2
+                    tAOE2=Timer()+2
+                    Delay 10
+                    //KeyPress 27 1
+                    Goto Script
+                EndIf 
+            EndIf 
+            KeyPress StrikeKey 1
+            tS=Timer()+2
+            Goto Script
+        Else 
+            VBS s=s+1
+        EndIf 
+    EndFor 
+EndIf 
 Goto Script
 Delay 1000
 Goto Script

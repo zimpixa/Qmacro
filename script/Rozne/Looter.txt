@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Looter
+Description=Looter
 BeginHotkey=121
 BeginHotkeyMod=0
 PauseHotkey=0

@@ -1,18 +1,18 @@
 [General]
-Description=VBS Healer Total Oramond Hard
-BeginHotkey=55
+Description=VBS Healer Total v2 Multistrike
+BeginHotkey=50
 BeginHotkeyMod=2
-PauseHotkey=0
+PauseHotkey=19
 PauseHotkeyMod=0
 StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=1
+Enable=0
 AutoRun=0
 [Repeat]
-Type=0
-Number=1
+Type=1
+Number=2
 [CallBack]
 OnSetup=
 [Comment]
@@ -60,6 +60,7 @@ tS=Timer()
 Rem Script
 Delay 100
 //t4=Timer()
+//spellHealer START
 If t1<=Timer()
     Rem HP
     If StrongSpell=1
@@ -67,7 +68,7 @@ If t1<=Timer()
         If aX<=0 and aY<=0
             KeyPress keyLow 1
             t1=Timer()+1
-            Goto POT
+            Goto SpellEnd
         EndIf 
     EndIf 
     If LightSpell=1
@@ -79,30 +80,77 @@ If t1<=Timer()
                     KeyPress keyOT 1
                     t1=Timer()+1
                     t3=Timer()+61
-                    Goto POT
+                    Goto SpellEnd
                 EndIf 
             EndIf 
             KeyPress keyHigh 1
             t1=Timer()+1
+            Goto SpellEnd
+        EndIf 
+        VBSCall FindColor(1755,321,1800,321,"0000FF",pX,pY)
+        If pX>0 and pY>0
+            KeyPress keyHigh 1
+            t1=Timer()+1
+            Goto SpellEnd
         EndIf 
     EndIf 
 EndIf 
-Rem POT
+Rem SpellEnd
+//spellHealer END
+//Striker START
+If Striker=1
+    If tS<=Timer()
+        VBS s=0
+        For 2
+            VBSCall FindColor(1572,38,1572,153,color(s),intX,intY)
+            If intX>=0 and intY>=0
+                If StrikerMultitarget=1
+                    VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
+                    If m2X>=0 and m2Y>=0
+                        If tAOE1<Timer()
+                            KeyPress StrikeKeyAOE1 1
+                            tAOE1=Timer()+4.10
+                            tS=Timer()+1.87
+                            Goto StrikeEnd
+                        EndIf 
+                        If tAOE2<Timer()+230
+                            Delay 220
+                            KeyPress StrikeKeyAOE2 1
+                            tS=Timer()+2.17
+                            tAOE2=Timer()+2.05
+                            Goto StrikeEnd
+                        EndIf 
+                    EndIf 
+                EndIf 
+                If tS<=Timer()
+                    KeyPress StrikeKey 1
+                    tS=Timer()+2
+                    Goto StrikeEnd
+                EndIf 
+            Else 
+                VBS s=s+1
+            EndIf 
+        EndFor 
+    EndIf 
+EndIf 
+Rem StrikeEnd
+//Striker END
+//Pots START
 If t2<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpplowX,148,hpplowX,148,"7171FF",cX,cY)
         If cX<=0 and cY<=0
             KeyPress keypLow 1
-            t2=Timer()+1.01
-            Goto pEnd
+            t2=Timer()+1
+            Goto PotEnd
         EndIf 
     EndIf 
     If ManaRefill=1
         VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",dX,dY)
         If dX<=0 and dY<=0
             KeyPress keyMana 1
-            t2=Timer()+1
-            Goto pEnd
+            t2=Timer()+2
+            Goto PotEnd
         EndIf 
     EndIf 
     If KeepFullMana=1
@@ -114,43 +162,13 @@ If t2<=Timer()
         EndIf 
     EndIf 
 EndIf 
-Rem pEnd
-If Striker=1
-    If tS<=Timer()
-        VBS s=0
-        For 2
-            VBSCall FindColor(1572,38,1572,91,color(s),intX,intY)
-            If intX>=0 and intY>=0
-                If StrikerMultitarget=1
-                    VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
-                    If m2X>=0 and m2Y>=0
-                        If tAOE1<Timer()
-                            KeyPress StrikeKeyAOE1 1
-                            tAOE1=Timer()+4
-                            tS=Timer()+2
-                            Goto Script
-                        EndIf 
-                        If tAOE2<Timer()
-                            KeyPress StrikeKeyAOE2 1
-                            tS=Timer()+2
-                            tAOE2=Timer()+2
-                            Goto Script
-                        EndIf 
-                    EndIf 
-                EndIf 
-                KeyPress StrikeKey 1
-                tS=Timer()+2
-                Goto Script
-            Else 
-                VBS s=s+1
-            EndIf 
-        EndFor 
-    EndIf 
-EndIf 
+Rem PotEnd
+//Pots END
 If t1-timer()>1000 or t2-timer()>1000 or t3-timer()>1000 or tS-timer()>1000
     t1=timer():t2=timer():t3=timer()
     tS=Timer()
+    tAOE1=Timer():tAOE2=Timer()
 EndIf 
-//t6=timer()
+//t6=Timer()
 //MessageBox(t6-t4)
 Goto Script

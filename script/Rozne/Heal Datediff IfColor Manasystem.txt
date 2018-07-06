@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Heal Datediff IfColor Manasystem
+Description=Heal Datediff IfColor Manasystem
 BeginHotkey=49
 BeginHotkeyMod=1
 PauseHotkey=0

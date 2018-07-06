@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Eater
+Description=Eater
 BeginHotkey=121
 BeginHotkeyMod=0
 PauseHotkey=0

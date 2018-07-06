@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Heal Simple IfColor
+Description=Heal Simple IfColor
 BeginHotkey=83
 BeginHotkeyMod=2
 PauseHotkey=80

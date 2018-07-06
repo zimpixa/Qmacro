@@ -1,6 +1,6 @@
 [General]
-Description=VBS Healer + Strike
-BeginHotkey=52
+Description=VBS Healer
+BeginHotkey=49
 BeginHotkeyMod=2
 PauseHotkey=33
 PauseHotkeyMod=8
@@ -8,11 +8,11 @@ StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=1
+Enable=0
 AutoRun=0
 [Repeat]
-Type=1
-Number=2
+Type=0
+Number=1
 [CallBack]
 OnSetup=
 [Comment]
@@ -20,8 +20,6 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
-VBS dim color(1),cX,cY
-VBS color(0)="0000FF": color(1)="8080FF"
 UserVar hphigh=92 Light healing %
 UserVar hplow=55 Strong healing %
 UserVar keyHigh=121 Light healing Key
@@ -33,7 +31,6 @@ UserVar mana=65 Mana Refiller max 40%
 UserVar keyMana=122 Mana Refiller Key
 UserVar keyOT=123 HealingOT Key
 UserVar KeepFullMana=0 Keep Full Mana
-UserVar StrikeKey=120 Strike Key
 Rem Begin
 hplowX=hplow/100*(1857-1771)+1771
 hpplowX=hpplow/100*(1857-1771)+1771
@@ -43,9 +40,8 @@ ManaKFM=92/100*(1857-1771)+1771
 MonsterHP1=20/100*(1715-1595)+1595
 Delay 350
 t1=timer():t2=timer():t3=timer()
-tS=Timer()
 Rem Script
-Delay 100
+Delay 00
 //t4=Timer()
 If t1<=Timer()
     Rem HP
@@ -94,22 +90,6 @@ If t2<=Timer()
     EndIf 
 EndIf 
 Rem pEnd
-If tS<=Timer()
-    VBS s=0
-    For 2
-        //Delay 10
-        VBSCall FindColor(1572,38,1572,83,color(s),intX,intY)
-        //VBSCall MessageBox(intX)
-        If intX>=0 and intY>=0
-            //Delay 25
-            KeyPress StrikeKey 1
-            tS=Timer()+2
-            Goto Script
-        Else 
-            VBS s=s+1
-        EndIf 
-    EndFor 
-EndIf 
 Goto Script
 Delay 1000
 Goto Script

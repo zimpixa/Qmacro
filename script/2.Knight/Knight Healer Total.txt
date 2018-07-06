@@ -1,5 +1,5 @@
 [General]
-Description=Zimpixa Green - Total
+Description=Knight Healer Total
 BeginHotkey=49
 BeginHotkeyMod=1
 PauseHotkey=0

@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Spear Adder
+Description=Spear Adder
 BeginHotkey=49
 BeginHotkeyMod=2
 PauseHotkey=0

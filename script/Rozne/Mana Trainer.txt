@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Mana Trainer
+Description=Mana Trainer
 BeginHotkey=83
 BeginHotkeyMod=2
 PauseHotkey=80

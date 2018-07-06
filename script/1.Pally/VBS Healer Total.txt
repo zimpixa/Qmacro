@@ -1,6 +1,6 @@
 [General]
-Description=VBS Healer Total v2 Multistrike
-BeginHotkey=50
+Description=VBS Healer Total
+BeginHotkey=49
 BeginHotkeyMod=2
 PauseHotkey=19
 PauseHotkeyMod=0
@@ -19,9 +19,8 @@ OnSetup=
 Content=
 
 [Script]
-VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
-VBS dim color(1),cX,cY
-VBS color(0)="0000FF": color(1)="8080FF"
+VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
+VBS dim color(1),cX,cY,s
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=92 Light healing %
@@ -35,7 +34,7 @@ UserVar keyLow=116 Strong healing Key
 UserVar spellhealing3=------------------------ -------------------
 UserVar PotHealer=1 Use Potion Healing
 UserVar hpplow=32 Strong pot %
-UserVar keypLow=117 Strong pot Key
+UserVar keyPOTlow=117 Strong pot Key
 UserVar spellhealing3=------------------------ -------------------
 UserVar ManaRefill=1 Use Mana Refiller
 UserVar mana=65 Mana Refiller max 40%
@@ -48,49 +47,49 @@ UserVar StrikerMultitarget=0 Strike AOE
 UserVar StrikeKeyAOE1=119 Strike Key AOE1
 UserVar StrikeKeyAOE2=115 Strike Key AOE2
 Rem Begin
+VBS color(0)="0000FF": color(1)="8080FF"
 hplowX=hplow/100*(1857-1771)+1771
-hpplowX=hpplow/100*(1857-1771)+1771
+hpPotX=hpplow/100*(1857-1771)+1771
 hphighX=hphigh/100*(1857-1771)+1771
-ManaX=mana/100*(1857-1771)+1771
+ManaPosX=mana/100*(1857-1771)+1771
 ManaKFM=92/100*(1857-1771)+1771
-MonsterHP1=20/100*(1715-1595)+1595
+Monster1HP=20/100*(1715-1595)+1595
 Delay 350
-t1=timer():t2=timer():t3=timer()
-tS=Timer()
+tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
+tStrike=Timer()
 Rem Script
 Delay 100
-//t4=Timer()
 //spellHealer START
-If t1<=Timer()
+If tSpell<=Timer()
     Rem HP
     If StrongSpell=1
-        VBSCall FindColor(hplowX,148,hplowX,148,"7171FF",aX,aY)
-        If aX<=0 and aY<=0
+        VBSCall FindColor(hplowX,148,hplowX,148,"7171FF",hplX,hplY)
+        If hplX<=0 and hplY<=0
             KeyPress keyLow 1
-            t1=Timer()+1
+            tSpell=Timer()+1
             Goto SpellEnd
         EndIf 
     EndIf 
     If LightSpell=1
-        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",bX,bY)
-        //VBSCall MessageBox(bX)
-        If bX<=0 and bY<=0
-            If t3<=Timer()
-                If OverTimeSpell=1
+        VBSCall FindColor(hphighX,148,hphighX,148,"7171FF",hphX,hphY)
+        If hphX<=0 and hphY<=0
+            If OverTimeSpell=1
+                If tSpellOT<=Timer()
                     KeyPress keyOT 1
-                    t1=Timer()+1
-                    t3=Timer()+61
+                    tSpell=Timer()+1
+                    tSpellOT=Timer()+61
                     Goto SpellEnd
                 EndIf 
             EndIf 
             KeyPress keyHigh 1
-            t1=Timer()+1
+            tSpell=Timer()+1
             Goto SpellEnd
         EndIf 
-        VBSCall FindColor(1755,321,1800,321,"0000FF",pX,pY)
+        //Paralyze heal
+        VBSCall FindColor(1755,318,1800,318,"0000FF",pX,pY)
         If pX>0 and pY>0
             KeyPress keyHigh 1
-            t1=Timer()+1
+            tSpell=Timer()+1
             Goto SpellEnd
         EndIf 
     EndIf 
@@ -99,32 +98,32 @@ Rem SpellEnd
 //spellHealer END
 //Striker START
 If Striker=1
-    If tS<=Timer()
+    If tStrike<=Timer()
         VBS s=0
         For 2
-            VBSCall FindColor(1572,38,1572,153,color(s),intX,intY)
-            If intX>=0 and intY>=0
+            VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
+            If atkX>=0 and atkY>=0
                 If StrikerMultitarget=1
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
                         If tAOE1<Timer()
                             KeyPress StrikeKeyAOE1 1
-                            tAOE1=Timer()+4.10
-                            tS=Timer()+1.87
+                            tAOE1=Timer()+4.12
+                            tStrike=Timer()+1.72
                             Goto StrikeEnd
                         EndIf 
-                        If tAOE2<Timer()+230
-                            Delay 220
+                        If tAOE2<Timer()+330
+                            Delay 320
                             KeyPress StrikeKeyAOE2 1
-                            tS=Timer()+2.17
-                            tAOE2=Timer()+2.05
+                            tStrike=Timer()+2.17
+                            tAOE2=Timer()+2.1
                             Goto StrikeEnd
                         EndIf 
                     EndIf 
                 EndIf 
-                If tS<=Timer()
+                If tStrike<=Timer()
                     KeyPress StrikeKey 1
-                    tS=Timer()+2
+                    tStrike=Timer()+2.01
                     Goto StrikeEnd
                 EndIf 
             Else 
@@ -136,39 +135,38 @@ EndIf
 Rem StrikeEnd
 //Striker END
 //Pots START
-If t2<=Timer()
+If tPotion<=Timer()
     If PotHealer=1
-        VBSCall FindColor(hpplowX,148,hpplowX,148,"7171FF",cX,cY)
-        If cX<=0 and cY<=0
-            KeyPress keypLow 1
-            t2=Timer()+1
+        VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)
+        If hpPlX<=0 and hpPlY<=0
+            KeyPress keyPOTlow 1
+            tPotion=Timer()+1
             Goto PotEnd
         EndIf 
     EndIf 
     If ManaRefill=1
-        VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",dX,dY)
-        If dX<=0 and dY<=0
+        VBSCall FindColor(ManaPosX,161,ManaPosX,161,"FF7174",manaX,manaY)
+        If manaX<=0 and manaY<=0
             KeyPress keyMana 1
-            t2=Timer()+2
+            tPotion=Timer()+1.7
             Goto PotEnd
         EndIf 
     EndIf 
     If KeepFullMana=1
         VBSCall FindColor(ManaKFM,161,ManaKFM,161,"FF7174",kfmX,kfmY)
-        VBSCall FindColor(MonsterHP1,54,MonsterHP1,54,"000000",mX,mY)
-        If kfmX<=0 and mY<=0
+        VBSCall FindColor(Monster1HP,54,Monster1HP,54,"000000",m1X,m1Y)
+        If kfmX<=0 and m1Y<=0
             KeyPress keyMana 1
-            t2=Timer()+1
+            tPotion=Timer()+1
         EndIf 
     EndIf 
 EndIf 
 Rem PotEnd
 //Pots END
-If t1-timer()>1000 or t2-timer()>1000 or t3-timer()>1000 or tS-timer()>1000
-    t1=timer():t2=timer():t3=timer()
-    tS=Timer()
-    tAOE1=Timer():tAOE2=Timer()
+//Midnight START
+If tSpell-Timer()>1000 or tPotion-Timer()>1000 or tSpellOT-Timer()>1000 or tStrike-Timer()>1000
+    tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
+    tStrike=Timer():tAOE1=Timer():tAOE2=Timer()
 EndIf 
-//t6=Timer()
-//MessageBox(t6-t4)
+//Midnight END
 Goto Script

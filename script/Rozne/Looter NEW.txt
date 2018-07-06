@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Looter NEW with IGN
+Description=Looter NEW with IGN
 BeginHotkey=49
 BeginHotkeyMod=2
 PauseHotkey=80

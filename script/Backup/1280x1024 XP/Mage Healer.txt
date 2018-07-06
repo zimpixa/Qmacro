@@ -1,5 +1,5 @@
 [General]
-Description=Zimpixa Mage Healer
+Description=Mage Healer
 BeginHotkey=54
 BeginHotkeyMod=1
 PauseHotkey=0

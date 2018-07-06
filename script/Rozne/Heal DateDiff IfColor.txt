@@ -1,5 +1,5 @@
 [General]
-Description=Tibia - Heal DateDiff IfColor
+Description=Heal DateDiff IfColor
 BeginHotkey=49
 BeginHotkeyMod=1
 PauseHotkey=0

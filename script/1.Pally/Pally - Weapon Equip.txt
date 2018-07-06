@@ -1,5 +1,5 @@
 [General]
-Description=Atnis - Weapon Equip
+Description=Pally - Weapon Equip
 BeginHotkey=51
 BeginHotkeyMod=1
 PauseHotkey=0

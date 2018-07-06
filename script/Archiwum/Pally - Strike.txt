@@ -1,5 +1,5 @@
 [General]
-Description=Atnis - Strike
+Description=Pally - Strike
 BeginHotkey=50
 BeginHotkeyMod=1
 PauseHotkey=0
@@ -8,7 +8,7 @@ StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=1
+Enable=0
 AutoRun=0
 [Repeat]
 Type=0
