@@ -123,7 +123,7 @@ If Striker=1
                 EndIf 
                 If tStrike<=Timer()
                     KeyPress StrikeKey 1
-                    tStrike=Timer()+2.01
+                    tStrike=Timer()+2.03
                     Goto StrikeEnd
                 EndIf 
             Else 

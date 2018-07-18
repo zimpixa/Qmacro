@@ -104,6 +104,7 @@ Rem SpellEnd
 //Striker START
 If Striker=1
     If tStrike<=Timer()
+        Gosub StrikeSub
         VBS s=0
         For 2
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
@@ -111,7 +112,6 @@ If Striker=1
                 If StrikerMultitarget=1
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
-                        Gosub StrikeSub
                         If Key>2
                             tStrike=Timer()+2.01
                             Goto StrikeEnd
@@ -144,8 +144,8 @@ Rem StrikeEnd
 //Pots START
 If Key=2
     If tAOE(2)<=Timer()+1
-        If tAOE(1)<=Timer()+3
-            tPotion=Timer()+1.5
+        If tAOE(1)>=Timer()
+            tPotion=Timer()+1.1
         EndIf 
     EndIf 
 EndIf 

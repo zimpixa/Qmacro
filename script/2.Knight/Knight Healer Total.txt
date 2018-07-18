@@ -61,7 +61,7 @@ Delay 350
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
 tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer()
 Rem Script
-Delay 100
+Delay 50
 //spellHealer START
 If tSpell<=Timer()
     Rem HP
