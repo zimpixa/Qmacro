@@ -113,7 +113,7 @@ If Striker=1
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
                         If Key>2
-                            tStrike=Timer()+2.01
+                            tStrike=Timer()+2.03
                             Goto StrikeEnd
                         EndIf 
                         KeyPress StrikeKeyAOE(Key) 1
@@ -124,13 +124,13 @@ If Striker=1
                             tPotion=Timer()+1
                         EndIf 
                         Key=Key+1
-                        tStrike=Timer()+2.01
+                        tStrike=Timer()+2.03
                         Goto StrikeEnd
                     EndIf 
                 EndIf 
                 If tStrike<=Timer()
                     KeyPress StrikeKey 1
-                    tStrike=Timer()+2.01
+                    tStrike=Timer()+2.03
                     Goto StrikeEnd
                 EndIf 
             Else 
@@ -144,19 +144,10 @@ Rem StrikeEnd
 //Pots START
 If Key=2
     If tAOE(2)<=Timer()+1
-        If tAOE(1)>=Timer()
-            tPotion=Timer()+1.1
+            tPotion=Timer()+1
         EndIf 
     EndIf 
 EndIf 
-//If Timer()-tAOE(2)>=0.05
-//    Goto DelayEnd
-//EndIf
-//If tAOE(2)<=Timer()+1
-//    tPotion=Timer()+1
-//    Goto PotEnd
-//EndIf
-//Rem DelayEnd
 If tPotion<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)
