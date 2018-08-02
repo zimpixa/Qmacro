@@ -118,7 +118,7 @@ If Striker=1
                     tStrikeKey(Key)=Timer()+Cooldown2
                 EndIf 
                 Key=Key+1
-                tStrike=Timer()+2
+                tStrike=Timer()+2.03
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
