@@ -128,11 +128,9 @@ If Striker=1
                         Goto StrikeEnd
                     EndIf 
                 EndIf 
-                If tStrike<=Timer()
                     KeyPress StrikeKey 1
                     tStrike=Timer()+2.03
-                    Goto StrikeEnd
-                EndIf 
+                    Goto StrikeEnd 
             Else 
                 VBS s=s+1
             EndIf 
@@ -143,11 +141,10 @@ Rem StrikeEnd
 //Striker END
 //Pots START
 If Key=2
-    If tAOE(2)<=Timer()+1
-            tPotion=Timer()+1
-        EndIf 
+    If tStrike<=Timer()+1
+		tPotion=Timer()+1
     EndIf 
-EndIf 
+EndIf
 If tPotion<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)
@@ -194,7 +191,7 @@ Sub StrikeSub
     EndIf 
 EndFor 
 If tAOE(1)>=Timer() and tAOE(2)>=Timer()
-    Key=0
+    Key=3
 Return 
 EndIf 
 Return 
