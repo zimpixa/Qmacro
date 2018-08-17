@@ -38,7 +38,7 @@ UserVar hpplow=35 Strong pot %
 UserVar keyPOTlow=117 Strong pot Key
 UserVar spellhealing3=------------------------ -------------------
 UserVar ManaRefill=1 Use Mana Refiller
-UserVar mana=50 Mana Refiller max 40%
+UserVar mana=50 Mana Refiller %
 UserVar keyMana=122 Mana Refiller Key
 UserVar KeepFullMana=0 Refill to Full Mana
 UserVar spellhealing4=------------------------ -------------------
@@ -158,7 +158,7 @@ EndIf
 Rem PotEnd
 //Pots END
 //Midnight START
-If tSpell-Timer()>1000 or tPotion-Timer()>1000 or tSpellOT-Timer()>1000 or tStrike-Timer()>1000
+If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
     tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer()
 EndIf 

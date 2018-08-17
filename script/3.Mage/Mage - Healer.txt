@@ -71,7 +71,7 @@ If t2<=Timer()
     EndIf 
 EndIf 
 Rem pEnd
-If t1-timer()>1000 or t2-timer()>1000 or t3-timer()>1000 or tS-timer()>1000
+If (t1-Timer()>1000 or t2-Timer()>1000) and Timer()<2000
     t1=timer():t2=timer():t3=timer()
 EndIf 
 Goto Script
