@@ -1,0 +1,30 @@
+0.mmt
+*.dll
+ad-qmacro.xml
+command.ini
+envlist.txt
+eula-qmacro.rtf
+plugin/Window.ini
+plugin/GetSysInfo.ini
+plugin/Console.ini
+plugin/File.ini
+mmt/1.mmt
+plugin/Memory.ini
+1280x800 Vista/Mana refiller.txt
+1280x800 Vista/Generic macro to supply HP,MP automatically in your online game.txt
+WINIO.VXD
+WinIo.sys
+version.ini
+unins000.exe
+unins000.dat
+syntax.xml
+stdlib.vbs
+QMacro6.exe
+QMacro6.url
+Generic macro to supply HP,MP automatically in your online game.txt
+hknm.sys
+MSSCRIPT.OCX
+oem_qm.dat
+qmacro.chm
+rename.ini
+qmacro.ini
