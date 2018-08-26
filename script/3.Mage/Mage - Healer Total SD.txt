@@ -63,11 +63,11 @@ Rem Script
 Delay 100
 //specialSpell START
 If KeepSpellActive=1
-	If tKeepSpellActive<=Timer()
-		KeyPress KeepSpellActiveKey
-		tKeepSpellActive=Timer()+KeepSpellActiveCooldown
-	EndIf
-EndIf
+    If tKeepSpellActive<=Timer()
+        KeyPress KeepSpellActiveKey
+        tKeepSpellActive=Timer()+KeepSpellActiveCooldown
+    EndIf 
+EndIf 
 //specialSpell END
 //spellHealer START
 If tSpell<=Timer()
@@ -114,7 +114,7 @@ If Striker=1
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
                 KeyPress StrikeKey 1
-                tStrike=Timer()+2.03
+                tStrike=Timer()+2.05
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
@@ -125,11 +125,11 @@ EndIf
 Rem StrikeEnd
 //Striker END
 //Pots START
-If tStrike<=Timer()+1
-	If Timer()-tStrike<=0
-		tPotion=Timer()+1
-	EndIf
-EndIf
+If tStrike<=Timer()+1.05
+    If Timer()-tStrike<=0
+        tPotion=Timer()+1.05
+    EndIf 
+EndIf 
 If tPotion<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)
@@ -165,4 +165,3 @@ If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
 EndIf 
 //Midnight END
 Goto Script
-

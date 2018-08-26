@@ -20,32 +20,49 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
-UserVar mana=80 Mana Refiller
+UserVar manaRefillerActive=1 Mana Refiller
+UserVar mana=10 Mana Refiller %
 UserVar keyMana=122 Mana Refiller Key
-UserVar spell=50 Spell %
-UserVar keySpell=122 Spell Key
+UserVar spell=80 Spell %
+UserVar keySpell=114 Spell Key
+UserVar foodEaterActive=1 Food Eater
+UserVar keyFood= Food Eater Key
+UserVar Cooldown=400 Food Eater Cooldown
 Rem Begin
 ManaX=mana/100*(1857-1771)+1771
 SpellX=spell/100*(1857-1771)+1771
-Delay 350
-t1=timer():t2=timer():t3=timer()
+Delay 100
+tSpell=timer():tMana=timer():tFood=timer()
 Rem Script
-Delay 50
-If t1<=Timer()
+Delay 10000
+If tSpell<=Timer()
     VBSCall FindColor(SpellX,161,SpellX,161,"FF7174",dX,dY)
     If dX>0 and dY>0
         KeyPress keySpell 1
-        t1=Timer()+2
+        tSpell=Timer()+2
     EndIf 
 EndIf 
-If t2<=Timer()
+If tMana<=Timer()
     VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",dX,dY)
     If dX<=0 and dY<=0
         KeyPress keyMana 1
-        t2=Timer()+0.96
+        tMana=Timer()+1
         Goto pEnd
     EndIf 
 EndIf 
-Rem pEnd
+If foodEaterActive=1
+    If tFood<=Timer()
+        For 4
+            KeyPress keyFood 1
+            Delay 100
+            tFood=Timer()+Cooldown
+        EndFor 
+    EndIf 
 EndIf 
+Rem pEnd
+//Midnight START
+If (tSpell-Timer()>2000 or tFood-Timer()>2000) and Timer()<2000
+    tSpell=Timer():tMana=Timer():tFood=Timer()
+EndIf 
+//Midnight END
 Goto Script

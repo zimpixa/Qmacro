@@ -161,7 +161,8 @@ Rem PotEnd
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
     tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer()
-EndIf 
+EndIf
+//Midnight END
 Goto Script
 Sub StrikeSub
     VBS forKey=1

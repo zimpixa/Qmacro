@@ -2,13 +2,13 @@
 Description=Mage - Healer VBS Total AOE
 BeginHotkey=52
 BeginHotkeyMod=2
-PauseHotkey=0
+PauseHotkey=19
 PauseHotkeyMod=0
 StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=1
+Enable=0
 AutoRun=0
 [Repeat]
 Type=0
@@ -20,7 +20,7 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
-VBS dim color(1),cX,cY,Key,KeyAOE,forKey,s
+VBS dim color(1),cX,cY,Key,forKey,s
 VBS dim StrikeKey(4),tStrikeKey(3)
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
@@ -71,11 +71,11 @@ Rem Script
 Delay 100
 //specialSpell START
 If KeepSpellActive=1
-	If tKeepSpellActive<=Timer()
-		KeyPress KeepSpellActiveKey
-		tKeepSpellActive=Timer()+KeepSpellActiveCooldown
-	EndIf
-EndIf
+    If tKeepSpellActive<=Timer()
+        KeyPress KeepSpellActiveKey
+        tKeepSpellActive=Timer()+KeepSpellActiveCooldown
+    EndIf 
+EndIf 
 //specialSpell END
 //spellHealer START
 If tSpell<=Timer()
@@ -126,9 +126,9 @@ If Striker=1
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
                         KeyPress StrikeKeyAOE1 1
-						tStrikeAOE=Timer()+2.03
+                        tStrikeAOE=Timer()+2.03
                         tStrike=Timer()+2.03
-						tPotion=Timer()+1
+                        tPotion=Timer()+1
                         Goto StrikeEnd
                     EndIf 
                 EndIf 
@@ -155,12 +155,12 @@ Rem StrikeEnd
 //Striker END
 //Pots START
 If StrikerMultitarget=1
-	If tStrikeAOE<=Timer()+1
-		If Timer()-tStrikeAOE<=0
-			tPotion=Timer()+1
-		EndIf
-	EndIf
-EndIf
+    If tStrikeAOE<=Timer()+1
+        If Timer()-tStrikeAOE<=0
+            tPotion=Timer()+1
+        EndIf 
+    EndIf 
+EndIf 
 If tPotion<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)

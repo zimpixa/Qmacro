@@ -2,7 +2,7 @@
 Description=Healer Test SUB
 BeginHotkey=52
 BeginHotkeyMod=2
-PauseHotkey=0
+PauseHotkey=19
 PauseHotkeyMod=0
 StopHotkey=0
 StopHotkeyMod=0
