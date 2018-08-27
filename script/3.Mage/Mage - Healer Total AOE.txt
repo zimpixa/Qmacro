@@ -116,7 +116,7 @@ Rem SpellEnd
 //spellHealer END
 //Striker START
 If Striker=1
-    If tStrike<=Timer()
+    If tStriker<=Timer()
         Gosub StrikeSub
         VBS s=0
         For 2

@@ -107,7 +107,7 @@ If Striker=1
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
                 Gosub StrikeSub
-                If Key>2
+                If Key>2 or Key=0
                     tStriker=Timer()+2
                     Goto StrikeEnd
                 EndIf 
