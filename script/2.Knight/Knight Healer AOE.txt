@@ -128,7 +128,8 @@ If Striker=1
                         ElseIf KeyAOE=2
                             tStrikeAOE(KeyAOE)=Timer()+CooldownAOE2
                         ElseIf KeyAOE=3
-							tStrikeAOE(KeyAOE)=Timer()+CooldownAOE3
+                            tStrikeAOE(KeyAOE)=Timer()+CooldownAOE3
+                        EndIf 
                         KeyAOE=KeyAOE+1
                         tStriker=Timer()+2.02
                         Goto StrikeEnd
