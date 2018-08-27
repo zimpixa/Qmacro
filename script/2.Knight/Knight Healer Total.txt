@@ -59,7 +59,7 @@ ManaKFM=92/100*(1857-1771)+1771
 Monster1HP=20/100*(1715-1595)+1595
 Delay 350
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer()
+tStriker=Timer():tStrike(1)=Timer():tStrike(2)=Timer()
 Rem Script
 Delay 50
 //spellHealer START
@@ -101,24 +101,24 @@ Rem SpellEnd
 //spellHealer END
 //Striker START
 If Striker=1
-    If tStrike<=Timer()
+    If tStriker<=Timer()
         VBS s=0
         For 2
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
                 Gosub StrikeSub
                 If Key>2
-                    tStrike=Timer()+2
+                    tStriker=Timer()+2
                     Goto StrikeEnd
                 EndIf 
                 KeyPress StrikeKey(Key) 1
                 If Key=1
-                    tStrikeKey(Key)=Timer()+Cooldown1
+                    tStrike(Key)=Timer()+Cooldown1
                 ElseIf Key=2
-                    tStrikeKey(Key)=Timer()+Cooldown2
+                    tStrike(Key)=Timer()+Cooldown2
                 EndIf 
                 Key=Key+1
-                tStrike=Timer()+2.03
+                tStriker=Timer()+2.03
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
@@ -160,21 +160,21 @@ Rem PotEnd
 //Midnight START
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-    tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer()
+    tStriker=Timer():tStrike(1)=Timer():tStrike(2)=Timer()
 EndIf
 //Midnight END
 Goto Script
 Sub StrikeSub
     VBS forKey=1
     For 2
-        If tStrikeKey(forKey)<=Timer()
+        If tStrike(forKey)<=Timer()
             Key=forKey
         Return 
     Else 
         VBS forKey=forKey+1
     EndIf 
 EndFor 
-If tStrikeKey(1)>=Timer() and tStrikeKey(2)>=Timer()
+If tStrike(1)>=Timer() and tStrike(2)>=Timer()
     Key=0
 Return 
 EndIf 

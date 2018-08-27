@@ -56,7 +56,7 @@ ManaKFM=92/100*(1857-1771)+1771
 Monster1HP=20/100*(1715-1595)+1595
 Delay 350
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-tStrike=Timer()
+tStriker=Timer():tStrikeAOE1=Timer():tStrikeAOE2=Timer()
 Rem Script
 Delay 100
 //spellHealer START
@@ -98,7 +98,7 @@ Rem SpellEnd
 //spellHealer END
 //Striker START
 If Striker=1
-    If tStrike<=Timer()
+    If tStriker<=Timer()
         VBS s=0
         For 2
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
@@ -106,24 +106,24 @@ If Striker=1
                 If StrikerMultitarget=1
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
-                        If tAOE1<Timer()
+                        If tStrikeAOE1<Timer()
                             KeyPress StrikeKeyAOE1 1
-                            tAOE1=Timer()+4.12
-                            tStrike=Timer()+1.72
+                            tStrikeAOE1=Timer()+4.12
+                            tStriker=Timer()+1.72
                             Goto StrikeEnd
                         EndIf 
-                        If tAOE2<Timer()+330
+                        If tStrikeAOE2<Timer()+330
                             Delay 320
                             KeyPress StrikeKeyAOE2 1
-                            tStrike=Timer()+2.17
-                            tAOE2=Timer()+2.1
+                            tStriker=Timer()+2.17
+                            tStrikeAOE2=Timer()+2.1
                             Goto StrikeEnd
                         EndIf 
                     EndIf 
                 EndIf 
-                If tStrike<=Timer()
+                If tStriker<=Timer()
                     KeyPress StrikeKey 1
-                    tStrike=Timer()+2.03
+                    tStriker=Timer()+2.03
                     Goto StrikeEnd
                 EndIf 
             Else 
@@ -166,7 +166,7 @@ Rem PotEnd
 //Midnight START
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-    tStrike=Timer():tAOE1=Timer():tAOE2=Timer()
+    tStriker=Timer():tStrikeAOE1=Timer():tAStrikeAOE2=Timer()
 EndIf 
 //Midnight END
 Goto Script

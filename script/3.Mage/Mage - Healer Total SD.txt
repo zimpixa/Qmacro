@@ -58,7 +58,7 @@ ManaKFM=92/100*(1857-1771)+1771
 Monster1HP=20/100*(1715-1595)+1595
 Delay 350
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-tStrike=Timer()
+tStriker=Timer()
 Rem Script
 Delay 100
 //specialSpell START
@@ -108,13 +108,13 @@ Rem SpellEnd
 //spellHealer END
 //Striker START
 If Striker=1
-    If tStrike<=Timer()
+    If tStriker<=Timer()
         VBS s=0
         For 2
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
                 KeyPress StrikeKey 1
-                tStrike=Timer()+2.05
+                tStriker=Timer()+2.05
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
@@ -125,8 +125,8 @@ EndIf
 Rem StrikeEnd
 //Striker END
 //Pots START
-If tStrike<=Timer()+1.05
-    If Timer()-tStrike<=0
+If tStriker<=Timer()+1.05
+    If Timer()-tStriker<=0
         tPotion=Timer()+1.05
     EndIf 
 EndIf 
@@ -161,7 +161,7 @@ Rem PotEnd
 //Midnight START
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-    tStrike=Timer()
+    tStriker=Timer()
 EndIf 
 //Midnight END
 Goto Script

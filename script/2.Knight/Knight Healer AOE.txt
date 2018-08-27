@@ -20,8 +20,8 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
-VBS dim color(1),cX,cY,Key,KeyAOE,forKey,s
-VBS dim StrikeKey(4),tStrikeKey(3),StrikeKeyAOE(3),tStrikeKeyAOE(3)
+VBS dim color(1),cX,cY,Key,KeyAOE,forKey,forKeyAOE,s
+VBS dim StrikeKey(3),tStrike(3),StrikeAOEKey(3),tStrikeAOE(3)
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=92 Light healing %
@@ -48,15 +48,17 @@ UserVar Cooldown1=6 Cooldown (1)
 UserVar StrikeKey2=119 Strike Key (2)
 UserVar Cooldown2=6 Cooldown (2)
 UserVar StrikerMultitarget=1 Strike AOE
-UserVar StrikeKeyAOE1=119 Strike Key (AOE1)
+UserVar StrikeKeyAOE1=114 Strike Key (AOE1)
 UserVar CooldownAOE1=4 Cooldown (AOE1)
-UserVar StrikeKeyAOE2=119 Strike Key (AOE2)
+UserVar StrikeKeyAOE2=115 Strike Key (AOE2)
 UserVar CooldownAOE2=6 Cooldown (AOE2)
+UserVar StrikeKeyAOE3=118 Strike Key (AOE3)
+UserVar CooldownAOE3=8 Cooldown (AOE3)
 Rem Begin
 VBS Key=1
 VBS KeyAOE=1
 VBS StrikeKey(1)=StrikeKey1:StrikeKey(2)=StrikeKey2
-VBS StrikeKeyAOE(1)=StrikeKeyAOE1:StrikeKeyAOE(2)=StrikeKeyAOE2
+VBS StrikeAOEKey(1)=StrikeKeyAOE1:StrikeAOEKey(2)=StrikeKeyAOE2:StrikeAOEKey(3)=StrikeKeyAOE3
 VBS color(0)="0000FF": color(1)="8080FF"
 hplowX=hplow/100*(1857-1771)+1771
 hpPotX=hpplow/100*(1857-1771)+1771
@@ -66,7 +68,7 @@ ManaKFM=92/100*(1857-1771)+1771
 Monster1HP=20/100*(1715-1595)+1595
 Delay 350
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer():tStrikeKeyAOE(1)=Timer():tStrikeKeyAOE(2)=Timer()
+tStriker=Timer():tStrike(1)=Timer():tStrike(2)=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer():tStrikeAOE(3)=Timer()
 Rem Script
 Delay 50
 //spellHealer START
@@ -108,7 +110,7 @@ Rem SpellEnd
 //spellHealer END
 //Striker START
 If Striker=1
-    If tStrike<=Timer()
+    If tStriker<=Timer()
         VBS s=0
         For 2
             VBSCall FindColor(1572,38,1572,183,color(s),atkX,atkY)
@@ -117,33 +119,34 @@ If Striker=1
                 If StrikerMultitarget=1
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
-                        If KeyAOE>2
+                        If KeyAOE>3 or KeyAOE=0
                             Goto StrikeAOEEnd
                         EndIf 
-                        KeyPress StrikeKeyAOE(KeyAOE) 1
+                        KeyPress StrikeAOEKey(KeyAOE) 1
                         If KeyAOE=1
-                            tStrikeKeyAOE(KeyAOE)=Timer()+CooldownAOE1
+                            tStrikeAOE(KeyAOE)=Timer()+CooldownAOE1
                         ElseIf KeyAOE=2
-                            tStrikeKeyAOE(KeyAOE)=Timer()+CooldownAOE2
-                        EndIf 
+                            tStrikeAOE(KeyAOE)=Timer()+CooldownAOE2
+                        ElseIf KeyAOE=3
+							tStrikeAOE(KeyAOE)=Timer()+CooldownAOE3
                         KeyAOE=KeyAOE+1
-                        tStrike=Timer()+2.02
+                        tStriker=Timer()+2.02
                         Goto StrikeEnd
                     EndIf 
                 EndIf 
                 Rem StrikeAOEEnd
-                If Key>2
-                    tStrike=Timer()+2
+                If Key>2 or Key=0
+                    tStriker=Timer()+2
                     Goto StrikeEnd
                 EndIf 
                 KeyPress StrikeKey(Key) 1
                 If Key=1
-                    tStrikeKey(Key)=Timer()+Cooldown1
+                    tStrike(Key)=Timer()+Cooldown1
                 ElseIf Key=2
-                    tStrikeKey(Key)=Timer()+Cooldown2
+                    tStrike(Key)=Timer()+Cooldown2
                 EndIf 
                 Key=Key+1
-                tStrike=Timer()+2.02
+                tStriker=Timer()+2.02
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
@@ -185,35 +188,34 @@ Rem PotEnd
 //Midnight START
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-    tStrike=Timer():tStrikeKey(1)=Timer():tStrikeKey(2)=Timer():tStrikeKeyAOE(1)=Timer():tStrikeKeyAOE(2)=Timer()
+    tStriker=Timer():tStrike(1)=Timer():tStrike(2)=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer():tStrikeAOE(3)=Timer()
 EndIf 
 //Midnight END
 Goto Script
 Sub StrikeSub
     VBS forKey=1
     For 2
-        If tStrikeKey(forKey)<=Timer()
+        If tStrike(forKey)<=Timer()
             Key=forKey
             Goto StrikeSubSingleEnd
         Else 
             VBS forKey=forKey+1
         EndIf 
     EndFor 
-    If tStrikeKey(1)>=Timer() and tStrikeKey(2)>=Timer()
+    If tStrike(1)>=Timer() and tStrike(2)>=Timer()
         Key=0
-        Goto StrikeSubSingleEnd
     EndIf 
     Rem StrikeSubSingleEnd
     VBS forKeyAOE=1
-    For 2
-        If tStrikeKeyAOE(forKeyAOE)<=Timer()
+    For 3
+        If tStrikeAOE(forKeyAOE)<=Timer()
             KeyAOE=forKeyAOE
         Return 
     Else 
         VBS forKeyAOE=forKeyAOE+1
     EndIf 
 EndFor 
-If tStrikeKeyAOE(1)>=Timer() and tStrikeKeyAOE(2)>=Timer()
+If tStrikeAOE(1)>=Timer() and tStrikeAOE(2)>=Timer() and tStrikeAOE(3)>=Timer()
     KeyAOE=0
 Return 
 EndIf 

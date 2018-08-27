@@ -19,45 +19,45 @@ OnSetup=
 Content=
 
 [Script]
-UserVar Equip=123 Key to Equip Weapon
+UserVar EquipKey=123 Key to Equip Weapon
+UserVar FoodKey=123 Key to use Food
 VBS dim color(1)
 VBS color(0)="0000FF": color(1)="8080FF"
 Rem Begin
 VBS s=0
-Delay 500
-VBSCall PixelB=GetPixelColor(1762,252)
-//VBSCall MessageBox(PixelB)
+Delay 1000
+VBSCall PixelBow=GetPixelColor(1762,252)
+//VBSCall MessageBox(PixelBow)
 //Bow
-If PixelB="584755"
+If PixelBow="584755"
     Goto Begin
 EndIf 
 //Empty
-VBSCall PixelC=GetPixelColor(1768,224)
-//VBSCall MessageBox(PixelC)
-If PixelC="1C1C1C"
-    VBSCall PixelM=GetPixelColor(1594,54)
-    If PixelM="000000"
-        //Loop for 2 times
-        KeyPress Equip 1
+VBSCall PixelEmpty=GetPixelColor(1768,224)
+//VBSCall MessageBox(PixelEmpty)
+If PixelEmpty="1C1C1C"
+    VBSCall PixelMonsterBattle=GetPixelColor(1594,54)
+    If PixelMonsterBattle="000000"
+        KeyPress EquipKey 1
         Goto Begin
     EndIf 
 EndIf 
 //Weapon
-If PixelC="A498A8"
+If PixelEmpty="A498A8"
     //VBSCall FindColor(1594,54,1594,54,"000000",intB,intB)
-    VBSCall PixelW=GetPixelColor(1594,54)
-    If PixelW<>"000000"
+    VBSCall PixelMonsterBattle=GetPixelColor(1594,54)
+    If PixelMonsterBattle<>"000000"
         //VBSCall MessageBox(intB)
         //If intB<=0 and intB<=0
-        KeyPress Equip 1
+        KeyPress EquipKey 1
     EndIf 
     Goto Begin
 EndIf 
 Goto Begin
 //Food Eater
 UserVar Food=123 Key to Eat Food
-Tf=Timer()
-If Tf+300<=Timer()
-    KeyPress Food 1
-    Tf=Timer()
+tFood=Timer()
+If tFood<=Timer()
+    KeyPress FoodKey 1
+    tFood=Timer()+300
 EndIf 

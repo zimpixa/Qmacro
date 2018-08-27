@@ -210,7 +210,6 @@ If Gargoyle=1
             LeftClick 1
             Delay 10
             RestoreMousePos 
-            Goto Script
         EndIf 
     EndIf 
     VBSCall FindColor(1572,60,1572,79,"0000FF",attackX,attackY)
@@ -224,8 +223,13 @@ If Gargoyle=1
             LeftClick 1
             Delay 10
             RestoreMousePos 
-            Goto Script
         EndIf 
     EndIf 
 EndIf 
+Rem 
+//Midnight START
+If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
+	tSpell=Timer():tPotion=Timer():tHealingOT=Timer():tFood=Timer():tAmmoRefiler=Timer():tIdle=Timer()
+EndIf 
+//Midnight END
 Goto Script
