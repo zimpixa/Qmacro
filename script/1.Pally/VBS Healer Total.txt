@@ -20,7 +20,8 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
-VBS dim color(1),cX,cY,s
+VBS dim color(1),cX,cY,Key,forKey,s
+VBS dim StrikeAOEKey(4),tStrikeAOE(3)									 
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=92 Light healing %
@@ -45,8 +46,12 @@ UserVar Striker=1 Strike Target
 UserVar StrikeKey=120 Strike Key
 UserVar StrikerMultitarget=0 Strike AOE
 UserVar StrikeKeyAOE1=119 Strike Key AOE1
+UserVar CooldownAOE1=4 Cooldown of AOE1
 UserVar StrikeKeyAOE2=115 Strike Key AOE2
+UserVar CooldownAOE2=2 Cooldown of AOE2
 Rem Begin
+VBS Key=1
+VBS StrikeAOEKey(1)=StrikeKeyAOE1:StrikeAOEKey(2)=StrikeKeyAOE2
 VBS color(0)="0000FF": color(1)="8080FF"
 hplowX=hplow/100*(1857-1771)+1771
 hpPotX=hpplow/100*(1857-1771)+1771
@@ -56,7 +61,7 @@ ManaKFM=92/100*(1857-1771)+1771
 Monster1HP=20/100*(1715-1595)+1595
 Delay 350
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-tStriker=Timer():tStrikeAOE1=Timer():tStrikeAOE2=Timer()
+tStriker=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer()
 Rem Script
 Delay 100
 //spellHealer START
@@ -104,28 +109,28 @@ If Striker=1
             VBSCall FindColor(1572,38,1572,153,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
                 If StrikerMultitarget=1
+					Gosub StrikeSub
                     VBSCall FindColor(1595,76,1595,76,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
-                        If tStrikeAOE1<Timer()
-                            KeyPress StrikeKeyAOE1 1
-                            tStrikeAOE1=Timer()+4.12
-                            tStriker=Timer()+1.72
+                        If Key>2 or Key=0													
+                            tStriker=Timer()+2.03
                             Goto StrikeEnd
                         EndIf 
-                        If tStrikeAOE2<Timer()+330
-                            Delay 320
-                            KeyPress StrikeKeyAOE2 1
-                            tStriker=Timer()+2.17
-                            tStrikeAOE2=Timer()+2.1
-                            Goto StrikeEnd
+                        KeyPress StrikeAOEKey(Key) 1
+                        If Key=1
+                            tStrikeAOE(Key)=Timer()+CooldownAOE1
+                        ElseIf Key=2
+                            tStrikeAOE(Key)=Timer()+CooldownAOE2
+                            tPotion=Timer()+1
                         EndIf 
+                        Key=Key+1
+                        tStriker=Timer()+2.03
+                        Goto StrikeEnd
                     EndIf 
                 EndIf 
-                If tStriker<=Timer()
-                    KeyPress StrikeKey 1
-                    tStriker=Timer()+2.03
-                    Goto StrikeEnd
-                EndIf 
+                KeyPress StrikeKey 1
+                tStriker=Timer()+2.03
+                Goto StrikeEnd
             Else 
                 VBS s=s+1
             EndIf 
@@ -135,6 +140,11 @@ EndIf
 Rem StrikeEnd
 //Striker END
 //Pots START
+If Key=2
+    If tStriker<=Timer()+1
+        tPotion=Timer()+1
+    EndIf 
+EndIf 	  
 If tPotion<=Timer()
     If PotHealer=1
         VBSCall FindColor(hpPotX,148,hpPotX,148,"7171FF",hpPlX,hpPlY)
@@ -166,7 +176,22 @@ Rem PotEnd
 //Midnight START
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-    tStriker=Timer():tStrikeAOE1=Timer():tAStrikeAOE2=Timer()
+    tStriker=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer()
 EndIf 
 //Midnight END
 Goto Script
+Sub StrikeSub
+    VBS forKey=1
+    For 2
+        If tStrikeAOE(forKey)<=Timer()
+            Key=forKey
+        Return 
+    Else 
+        VBS forKey=forKey+1
+    EndIf 
+EndFor 
+If tStrikeAOE(1)>=Timer() and tStrikeAOE(2)>=Timer()
+    Key=3
+Return 
+EndIf 
+Return				
