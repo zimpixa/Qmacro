@@ -1,6 +1,6 @@
 [General]
-Description=VBS Healer Total Undead Darashia
-BeginHotkey=50
+Description=VBS Healer Total Debug
+BeginHotkey=49
 BeginHotkeyMod=2
 PauseHotkey=19
 PauseHotkeyMod=0
@@ -8,11 +8,11 @@ StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=1
+Enable=0
 AutoRun=0
 [Repeat]
-Type=0
-Number=1
+Type=1
+Number=2
 [CallBack]
 OnSetup=
 [Comment]
@@ -21,9 +21,10 @@ Content=
 [Script]
 VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
 VBS dim color(1),cX,cY,Key,forKey,s
-VBS dim StrikeAOEKey(4),tStrikeAOE(3)												   
+VBS dim StrikeAOEKey(4),tStrikeAOE(3)
+VBS dim a,x,myfile,scriptlog,fso,tsObj,objShell
 UserVar spellhealing5=------------------------ -------------------
-UserVar Mode=Main Resolution Mode (Main/Laptop/Janek/Override)																  																			 
+UserVar Mode=Main Resolution Variant (Main/Laptop/Janek/Override)								 
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=92 Light healing %
@@ -52,15 +53,16 @@ UserVar CooldownAOE1=4 Cooldown of AOE1
 UserVar StrikeKeyAOE2=115 Strike Key AOE2
 UserVar CooldownAOE2=2 Cooldown of AOE2
 Rem Begin
-Rem Constant			
+Ad=Timer()
+Rem Constant
 VBS Key=1
 VBS StrikeAOEKey(1)=StrikeKeyAOE1:StrikeAOEKey(2)=StrikeKeyAOE2
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
-tStriker=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer()											   
+tStriker=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer()
 Rem Variables
 If Mode=Main
 hpY=148
-manaY=161	 
+manaY=161
 VBS color(0)="0000FF": color(1)="8080FF"
 hplowX=hplow/100*(1857-1771)+1771
 hpPotX=hpplow/100*(1857-1771)+1771
@@ -99,6 +101,7 @@ monsterhp2Y=55 //monster1hpY+22
 EndIf
 Rem Script
 Delay 100
+tStart=Timer()
 //spellHealer START
 If tSpell<=Timer()
     Rem HP
@@ -214,6 +217,9 @@ If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tStriker=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer()
 EndIf 
 //Midnight END
+tEnd=Timer()
+Text=tEnd-tStart
+Gosub Log
 Goto Script
 Sub StrikeSub
     VBS forKey=1
@@ -229,4 +235,23 @@ If tStrikeAOE(1)>=Timer() and tStrikeAOE(2)>=Timer()
     Key=3
 Return StrikeSub
 EndIf 
-Return StrikeSub
+Return StrikeSub	
+Sub Log
+    VBS set tsObj = createobject("WScript.Shell")
+    Set objShell = CreateObject("WScript.Shell")
+    x = objShell.SpecialFolders.Item("desktop")
+    VBS set fso=CreateObject("Scripting.FileSystemObject")
+    If fso.FileExists(x&"\s"&Ad&".txt")=0
+        VBS const forreading=1
+        VBS const forwriting=2
+        VBS const forappending=8
+        VBS set myfile=fso.createtextfile(x&"\s"&Ad&".txt")
+    Else 
+        VBS Set myfile=fso.OpenTextFile(x&"\s"&Ad&".txt",1)
+        VBS a=myfile.ReadLine
+        VBS myfile.close
+    EndIf 
+    VBS set scriptlog=fso.opentextfile(x&"\s"&Ad&".txt",2)
+    VBS scriptlog.writeline(a&" "&Text)
+    VBS scriptlog.close
+Return Log			

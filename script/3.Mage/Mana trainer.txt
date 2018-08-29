@@ -20,6 +20,9 @@ Content=
 
 [Script]
 VBS dim hphigh,hplow,delayT,keyHigh,keyLow,t1,t2,t3
+UserVar spellhealing5=------------------------ -------------------
+UserVar Mode=Main Resolution Mode (Main/Laptop/Janek/Override)
+UserVar spellhealing5=------------------------ -------------------
 UserVar manaRefillerActive=1 Mana Refiller
 UserVar mana=10 Mana Refiller %
 UserVar keyMana=122 Mana Refiller Key
@@ -29,21 +32,29 @@ UserVar foodEaterActive=1 Food Eater
 UserVar keyFood= Food Eater Key
 UserVar Cooldown=400 Food Eater Cooldown
 Rem Begin
+Rem Constant
+tSpell=timer():tMana=timer():tFood=timer()
+Rem Rem Variables
+If Mode=Main
+manaY=161
 ManaX=mana/100*(1857-1771)+1771
 SpellX=spell/100*(1857-1771)+1771
-Delay 100
-tSpell=timer():tMana=timer():tFood=timer()
+ElseIf Mode=Laptop
+manaY=140
+ManaX=mana/100*(1303-1217)+1217
+SpellX=spell/100*(1303-1217)+1217
+EndIf
 Rem Script
 Delay 10000
 If tSpell<=Timer()
-    VBSCall FindColor(SpellX,161,SpellX,161,"FF7174",dX,dY)
+    VBSCall FindColor(SpellX,manaY,SpellX,manaY,"FF7174",dX,dY)
     If dX>0 and dY>0
         KeyPress keySpell 1
         tSpell=Timer()+2
     EndIf 
 EndIf 
 If tMana<=Timer()
-    VBSCall FindColor(ManaX,161,ManaX,161,"FF7174",dX,dY)
+    VBSCall FindColor(ManaX,manaY,ManaX,manaY,"FF7174",dX,dY)
     If dX<=0 and dY<=0
         KeyPress keyMana 1
         tMana=Timer()+1
