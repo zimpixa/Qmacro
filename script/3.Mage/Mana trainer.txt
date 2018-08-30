@@ -35,11 +35,11 @@ Rem Begin
 Rem Constant
 tSpell=timer():tMana=timer():tFood=timer()
 Rem Rem Variables
-If Mode=Main
+If Mode="Main"
 manaY=161
 ManaX=mana/100*(1857-1771)+1771
 SpellX=spell/100*(1857-1771)+1771
-ElseIf Mode=Laptop
+ElseIf Mode="Laptop"
 manaY=140
 ManaX=mana/100*(1303-1217)+1217
 SpellX=spell/100*(1303-1217)+1217

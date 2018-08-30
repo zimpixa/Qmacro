@@ -55,7 +55,7 @@ Rem Constant
 tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
 tStriker=Timer()
 Rem Variables
-If Mode=Main
+If Mode="Main"
 hpY=148
 manaY=161		 
 VBS color(0)="0000FF": color(1)="8080FF"
@@ -67,14 +67,18 @@ ManaKFM=92/100*(1857-1771)+1771
 Monster1HP=20/100*(1715-1595)+1595
 monster1hpY=54
 paralX=1755
-paralEndX=1800 //+45
+//+45	 
+paralEndX=1800 
 paralY=318
 attacksqX=1572
 attacksqY=38
-attacksqEndY=153 //+115
-monsterhp2X=1595 //same as Monster1HP startX
-monsterhp2Y=76 //monster1hpY+22
-ElseIf Mode=Laptop
+//+115
+attacksqEndY=153 
+//same as Monster1HP startX				 
+monsterhp2X=1595 
+//monster1hpY+22				 
+monsterhp2Y=76 
+ElseIf Mode="Laptop"
 hpY=127
 manaY=140
 VBS color(0)="0000FF": color(1)="8080FF"
@@ -85,14 +89,14 @@ ManaX=mana/100*(1303-1217)+1217
 ManaKFM=92/100*(1303-1217)+1217
 Monster1HP=20/100*(1166-1042)+1042
 monster1hpY=33
-paralX=0 //TODO
-paralEndX=0 //TODO
-paralY=0 //TODO
+paralX=1201
+paralEndX=1246
+paralY=297
 attacksqX=1019
 attacksqY=17
-attacksqEndY=132 //+115
-monsterhp2X=1042 //same as Monster1HP startX
-monsterhp2Y=55 //monster1hpY+22
+attacksqEndY=132 
+monsterhp2X=1042 
+monsterhp2Y=55 
 EndIf
 Rem Script
 Delay 100

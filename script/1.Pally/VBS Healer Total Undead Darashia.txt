@@ -92,15 +92,16 @@ ManaX=mana/100*(1303-1217)+1217
 ManaKFM=92/100*(1303-1217)+1217
 Monster1HP=20/100*(1166-1042)+1042
 monster1hpY=33
-paralX=0 //TODO
-paralEndX=0 //TODO
-paralY=0 //TODO
+paralX=1201
+//+45
+paralEndX=1246
+paralY=297
 attacksqX=1019
 attacksqY=17
 //+115
 attacksqEndY=132 
 //same as Monster1HP startX
-monsterhp2X=1042 
+monsterhp2X=1042
 //monster1hpY+22
 monsterhp2Y=55 
 EndIf
