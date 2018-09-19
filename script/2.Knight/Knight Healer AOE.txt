@@ -23,7 +23,7 @@ VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
 VBS dim color(1),cX,cY,Key,KeyAOE,forKey,forKeyAOE,s
 VBS dim StrikeKey(3),tStrike(3),StrikeAOEKey(3),tStrikeAOE(3)
 UserVar spellhealing5=------------------------ -------------------
-UserVar Mode=Main Resolution Mode (Main/Laptop/Janek/Override)																			 
+UserVar Mode=Main Resolution Mode (Main/Laptop/Janek/Override)
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=92 Light healing %
@@ -62,52 +62,52 @@ VBS Key=1
 VBS KeyAOE=1
 VBS StrikeKey(1)=StrikeKey1:StrikeKey(2)=StrikeKey2
 VBS StrikeAOEKey(1)=StrikeKeyAOE1:StrikeAOEKey(2)=StrikeKeyAOE2:StrikeAOEKey(3)=StrikeKeyAOE3
-tSpell=Timer():tPotion=Timer():tSpellOT=Timer()											   
+tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
 tStriker=Timer():tStrike(1)=Timer():tStrike(2)=Timer():tStrikeAOE(1)=Timer():tStrikeAOE(2)=Timer():tStrikeAOE(3)=Timer()
 Rem Variables
 If Mode="Main"
-hpY=148
-manaY=161																	 
-VBS color(0)="0000FF": color(1)="8080FF"
-hplowX=hplow/100*(1857-1771)+1771
-hpPotX=hpplow/100*(1857-1771)+1771
-hphighX=hphigh/100*(1857-1771)+1771
-ManaX=mana/100*(1857-1771)+1771
-ManaKFM=92/100*(1857-1771)+1771
-Monster1HP=20/100*(1715-1595)+1595
-monster1hpY=54
-paralX=1755
-//+45	 
-paralEndX=1800 
-paralY=318
-attacksqX=1572
-attacksqY=38
-//+115
-attacksqEndY=153 
-//same as Monster1HP startX				 
-monsterhp2X=1595 
-//monster1hpY+22				 
-monsterhp2Y=76 
+    hpY=148
+    manaY=161
+    VBS color(0)="0000FF": color(1)="8080FF"
+    hplowX=hplow/100*(1857-1771)+1771
+    hpPotX=hpplow/100*(1857-1771)+1771
+    hphighX=hphigh/100*(1857-1771)+1771
+    ManaX=mana/100*(1857-1771)+1771
+    ManaKFM=92/100*(1857-1771)+1771
+    Monster1HP=20/100*(1715-1595)+1595
+    monster1hpY=54
+    paralX=1755
+    //+45
+    paralEndX=1800
+    paralY=318
+    attacksqX=1572
+    attacksqY=38
+    //+115
+    attacksqEndY=153
+    //same as Monster1HP startX
+    monsterhp2X=1595
+    //monster1hpY+22
+    monsterhp2Y=76
 ElseIf Mode="Laptop"
-hpY=127
-manaY=140
-VBS color(0)="0000FF": color(1)="8080FF"
-hplowX=hplow/100*(1303-1217)+1217
-hpPotX=hpplow/100*(1303-1217)+1217
-hphighX=hphigh/100*(1303-1217)+1217
-ManaX=mana/100*(1303-1217)+1217
-ManaKFM=92/100*(1303-1217)+1217
-Monster1HP=20/100*(1166-1042)+1042
-monster1hpY=33
-paralX=1201
-paralEndX=1246
-paralY=297
-attacksqX=1019
-attacksqY=17
-attacksqEndY=132 
-monsterhp2X=1042 
-monsterhp2Y=55 
-EndIf	 
+    hpY=127
+    manaY=140
+    VBS color(0)="0000FF": color(1)="8080FF"
+    hplowX=hplow/100*(1303-1217)+1217
+    hpPotX=hpplow/100*(1303-1217)+1217
+    hphighX=hphigh/100*(1303-1217)+1217
+    ManaX=mana/100*(1303-1217)+1217
+    ManaKFM=92/100*(1303-1217)+1217
+    Monster1HP=20/100*(1166-1042)+1042
+    monster1hpY=33
+    paralX=1201
+    paralEndX=1246
+    paralY=297
+    attacksqX=1019
+    attacksqY=17
+    attacksqEndY=132
+    monsterhp2X=1042
+    monsterhp2Y=55
+EndIf 
 Rem Script
 Delay 50
 //spellHealer START

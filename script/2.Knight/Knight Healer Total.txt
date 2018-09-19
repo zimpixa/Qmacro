@@ -21,7 +21,7 @@ Content=
 [Script]
 VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
 VBS dim color(1),cX,cY,Key,forKey,s
-VBS dim StrikeKey(4),tStrikeKey(3)
+VBS dim StrikeKey(4),tStrike(3)
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=85 Light healing %
@@ -118,7 +118,7 @@ If Striker=1
                     tStrike(Key)=Timer()+Cooldown2
                 EndIf 
                 Key=Key+1
-                tStriker=Timer()+2.03
+                tStriker=Timer()+2.04
                 Goto StrikeEnd
             Else 
                 VBS s=s+1
@@ -161,7 +161,7 @@ Rem PotEnd
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
     tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
     tStriker=Timer():tStrike(1)=Timer():tStrike(2)=Timer()
-EndIf
+EndIf 
 //Midnight END
 Goto Script
 Sub StrikeSub
