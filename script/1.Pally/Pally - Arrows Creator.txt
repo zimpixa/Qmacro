@@ -1,0 +1,56 @@
+[General]
+Description=Arrows Creator
+BeginHotkey=57
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar spellhealing=------------------------ -------------------
+UserVar FoodEater=1 Eat Food
+UserVar FoodEaterKey=114 Food Key
+UserVar spellhealing2=------------------------ -------------------
+UserVar arrowX=861 X-Axis of Hotkey
+UserVar arrowY=832 Y-Axis of Hotkey
+UserVar spellhealing3=------------------------ -------------------
+UserVar KeepOnline=1 Keep Online
+Rem Begin
+tArrow=Timer():tKeepOnline=Timer():tFood=Timer()
+Rem Script
+Delay 1000
+If KeepOnline=1
+    VBSCall MessageBox("Remember to open NPC chat!!!")
+    If tKeepOnline<=Timer()
+        SayString("I have to stay survive (online), for all cost...")
+        KeyPress 13,1
+    EndIf 
+EndIf 
+If tArrow<=Timer()
+    SaveMousePos 
+    MoveTo arrowX,arrowY
+    Delay 100
+    LeftClick 1
+    Delay 100
+    RestoreMousePos 
+    tArrow=Timer()+600
+EndIf 
+If FoodEater=1
+    If tFood<=Timer()
+        KeyPress FoodEaterKey 1
+        tFood=Timer()+90
+    EndIf 
+EndIf 
+Goto Script

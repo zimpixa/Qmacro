@@ -119,32 +119,23 @@ ElseIf Mode="Laptop"
 EndIf 
 If HuntingPlace="Drefia"
     //ADD NEW MONSTERS TO IF AT LOOTER
-    //Grim
     VBS monstercolor(0)="050505"
-    //Gravedigger
     VBS monstercolor(1)="434D5B"
-    //Shadow_Pupil
     VBS monstercolor(2)="171717"
     VBS monstercolor(3)="433971"
     //ADD NEW MONSTERS TO IF AT LOOTER
     waypointcount=10
 ElseIf HuntingPlace="Drefia2"
     //ADD NEW MONSTERS TO IF AT LOOTER
-    //Grim
     VBS monstercolor(0)="050505"
-    //Gravedigger
     VBS monstercolor(1)="433971"
-    //Shadow_Pupil
     VBS monstercolor(2)="171717"
     //ADD NEW MONSTERS TO IF AT LOOTER
     waypointcount=9
 ElseIf HuntingPlace="MutatedTiger"
     //ADD NEW MONSTERS TO IF AT LOOTER
-    //Grim
     VBS monstercolor(0)="141845"
-    //Gravedigger
     VBS monstercolor(1)="223D87"
-    //Shadow_Pupil
     VBS monstercolor(2)="2A4595"
     VBS monstercolor(3)="2A4358"
     //ADD NEW MONSTERS TO IF AT LOOTER
@@ -189,6 +180,7 @@ If Looter=1
         VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
         If monsterPix<>monsterPixColor
             Rem LootAnyway
+			//Try800
             Delay 900
             squarespace=tileCenterSpace
             i=1
@@ -207,6 +199,7 @@ If Looter=1
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
+							//Try50/50
                             Delay 100
                             RightClick 1
                             Delay 100
