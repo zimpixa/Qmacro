@@ -147,7 +147,7 @@ ElseIf HuntingPlace="MutatedTiger2"
     VBS monstercolor(2)="2A4595"
     VBS monstercolor(3)="2A4358"
     //ADD NEW MONSTERS TO IF AT LOOTER
-    waypointcount=9
+    waypointcount=10
 EndIf 
 Rem Script
 Delay 100
@@ -335,7 +335,7 @@ If Caveboter=1
         EndIf 
         If Walking=1
             VBSCall ontargetPix=GetPixelColor(mapcenterX,mapcenterY)
-            SayString(ontargetPix&" ")
+            //SayString(ontargetPix&" ")
             If ontargetPix=markColor(waypoint)
                 Walking=0
                 tWalking=Timer()
