@@ -1,0 +1,276 @@
+[General]
+Description=Duration Debug
+BeginHotkey=54
+BeginHotkeyMod=1
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim a,x,myfile,scriptlog,fso,tsObj,objShell
+VBS dim mc,monstercolor(3),color(3),markColor(13),waypoint
+VBS dim tCDBshaker,tWalking,tAmmo,tSpectral,tFoodEater
+UserVar Caveboter=1 Cavebot
+UserVar AutoAttacker=1 Attack monsters on battle
+UserVar Looter=1 Loot monsters around
+UserVar AmmoRefiller=1 Refill bolts
+UserVar SpectralCreate=1 Create Spectral Bolts
+UserVar EmberwingActive=1 Activate Emberwing
+UserVar CDBshaker=1 CDB shaker
+UserVar FoodEater=1 Eat Food
+Ad=Timer()
+Rem Variables
+SelfX=866:SelfY=411
+SearchForLoot=0:Attacking=0:Walking=0
+VBS waypoint=1
+//Looter
+//Grim
+VBS monstercolor(0)="050505"
+//Gravedigger
+VBS monstercolor(1)="433971"
+//Shadow_Pupil
+//VBS monstercolor(2)="0E0E0E"
+tileCenterSpace=71
+//Attacker
+Monster1HP=20/100*(1715-1595)+1595
+monster1hpY=54
+monsterPixColor="000000"
+attacksqX=1572:attacksqY=38:attacksqEndY=153
+VBS color(0)="0000FF": color(1)="8080FF"
+//AmmoRefiller
+quiverX=1842:quiverY=272
+quiverPixColor="555250"
+actionBarSpectralX=1439:actionBarSpectralY=835
+spectralexistPixColor="71CFFF"
+actionbarBoltX=1400:actionbarBoltY=835
+plusbolt=0
+tAmmo=Timer()
+//CDBshaker
+shakerX=1074:shakerY=835
+shakerPixColor="1100AD"
+tCDBshaker=Timer()
+//ManaLevelChecker
+ManaX=55/100*(1857-1771)+1771
+ManaY=161
+manaPixColor="FF7174"
+//SpectralCreate
+spectralX=895:spectralY=835
+//EmberwingActive
+emberwingABX=:emberwingABY=
+//FoodEater
+FoodEaterKey=113
+tFoodEater=Timer()
+//Cavebot
+mapX=1753:mapY=27
+//mapX+103
+mapEndX=1858
+//mapY+108
+mapEndY=135
+tWalking=Timer()
+mapcenterX=1805:mapcenterY=81
+VBS markColor(1)="57CE44":markColor(2)="FF0F0F":markColor(3)="0000B9":markColor(4)="1C94F7":markColor(5)="042358":markColor(6)="303434":markColor(7)="0A41A0":markColor(8)="ACACAC":markColor(9)="F00101":markColor(10)="059BB6":markColor(11)="C0C0C0":markColor(12)="295B05"
+Rem Script
+Delay 100
+tStart=Timer()
+//MoveTo SelfX,SelfY
+//AutoAttack START
+If AutoAttacker=1
+    VBSCall Call monsterPix=GetPixelColor(Monster1HP,monster1hpY)
+    If monsterPix=monsterPixColor
+        Attacking=1
+        VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
+        VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
+        If atk0X<0 and atk1Y<0
+            SaveMousePos 
+            MoveTo m1X,m1Y
+            Delay 10
+            LeftClick 1
+            SearchForLoot=1
+            RestoreMousePos 
+        Else 
+            SearchForLoot=1
+        EndIf 
+    Else 
+        Attacking=0
+    EndIf 
+EndIf 
+//AutoAttack END
+//Looter START
+If Looter=1
+    If SearchForLoot=1
+        monsterPix=GetPixelColor(Monster1HP,monster1hpY)
+        If monsterPix<>monsterPixColor
+            squarespace=tileCenterSpace
+            i=1
+            For 3
+                spaceX=0:spaceY=squarespace
+                For 2
+                    For i
+                        lootsqX=SelfX+spaceX:lootsqY=SelfY+spaceY
+                        lootPixel=GetPixelColor(lootsqX,lootsqY)
+                        If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2)
+                            SaveMousePos 
+                            MoveTo lootsqX,lootsqY
+                            Delay 10
+                            LeftClick 1
+                            Delay 100
+                            RestoreMousePos 
+                        EndIf 
+                    EndFor 
+                    spaceX=squarespace:spaceY=0
+                    If i>2
+                        Goto End
+                    EndIf 
+                EndFor 
+                i=i+1:squarespace=squarespace*(-1)
+            EndFor 
+            Rem End
+            SearchForLoot=0
+            Attacking=0
+        EndIf 
+    EndIf 
+EndIf 
+Rem LooterEnd
+//Looter END
+//AmmoRefiller START
+If AmmoRefiller=1
+    If tAmmo<Timer()
+        quiverPix=GetPixelColor(quiverX,quiverY)
+        If quiverPix=quiverPixColor
+            spectralexistPix=GetPixelColor(actionBarSpectralX,actionBarSpectralY)
+            If spectralexistPix=spectralexistPixColor
+                plusbolt=40
+            Else 
+                plusbolt=0
+            EndIf 
+            SaveMousePos 
+            MoveTo actionbarBoltX+plusbolt,actionbarBoltY
+            Delay 10
+            LeftClick 1
+            Delay 200
+            RestoreMousePos 
+            tAmmo=Timer()+1
+        EndIf 
+    EndIf 
+EndIf 
+//AmmoRefiller END
+//CDBshaker START
+If CDBshaker=1
+    If tCDBshaker<=Timer()
+        shakerPix=GetPixelColor(shakerX,shakerY)
+        If shaperPix=shakerPixColor
+            //cpix=GetPixelColor(shakerX,shakerY)
+            //VBSCall Call MessageBox("X: "&shakerX&" Y: "&shakerY&" Color: "&cpix)
+            SaveMousePos 
+            MoveTo shakerX,shakerY
+            Delay 10
+            LeftClick 1
+            Delay 200
+            RestoreMousePos 
+            tCDBshaker=Timer()+1
+        EndIf 
+    EndIf 
+EndIf 
+//CDBshaker END
+//SpectralCreate START
+If SpectralCreate=1
+    If tSpectral<=Timer()
+        manaPix=GetPixelColor(ManaX,manaY)
+        If manaPix=manaPixColor
+            SaveMousePos 
+            MoveTo spectralX,spectralY
+            Delay 10
+            LeftClick 1
+            Delay 200
+            RestoreMousePos 
+            tSpectral=Timer()+601
+        EndIf 
+    EndIf 
+EndIf 
+//SpectralCreate END
+//EmberwingActive START
+If EmberwingActive=1
+    If tEmberwing<=Timer()
+        manaPix=GetPixelColor(ManaX,manaY)
+        If manaPix=manaPixColor
+            SaveMousePos 
+            MoveTo emberwingABX,emberwingABY
+            Delay 10
+            LeftClick 1
+            Delay 200
+            RestoreMousePos 
+            tSpectral=Timer()+1801
+        EndIf 
+    EndIf 
+EndIf 
+//EmberwingActive END
+//FoodEater START
+If FoodEater=1
+    If tFoodEater<=Timer()
+        KeyPress FoodEaterKey 1
+        tFoodEater=Timer()+90
+    EndIf 
+EndIf 
+//FoodEater END
+//Cavebot START
+If Caveboter=1
+    If Attacking=0
+        If waypoint>10
+            VBS waypoint=1
+        EndIf 
+        If Walking=1
+            ontargetPix=GetPixelColor(mapcenterX,mapcenterY)
+            If ontargetPix=markColor(waypoint)
+                Walking=0
+                tWalking=Timer()
+                VBS waypoint=waypoint+1
+                Goto CavebotEnd
+            EndIf 
+        EndIf 
+        If tWalking<=Timer()
+            VBSCall FindColor(mapX,mapY,mapEndX,mapEndY,markColor(waypoint),waypointX,waypointY)
+            If waypointX>=0 and waypointY>=0
+                SaveMousePos 
+                MoveTo waypointX,waypointY
+                Delay 10
+                LeftClick 1
+                RestoreMousePos 
+                Walking=1
+                tWalking=Timer()+5
+                Goto CavebotEnd
+            EndIf 
+        EndIf 
+    EndIf 
+EndIf 
+Rem CavebotEND
+//Cavebot END
+//Midnight START
+If (tWalking-Timer()>1000 or tCDBshaker-Timer()>1000) and Timer()<2000
+    tWalking=Timer():tCDBshaker=Timer():tAmmo=Timer():tSpectral=Timer():tFoodEater=Timer()
+EndIf 
+//Midnight END
+tEnd=Timer()
+Text=tEnd-tStart
+Gosub Log
+Goto Script
+Sub Log
+    VBS set tsObj = createobject("WScript.Shell")
+    Set objShell = CreateObject("WScript.Shell")
+    x = objShell.SpecialFolders.Item("desktop")
+    VBS set fso=CreateObject("Scripting.FileSystemObject")
+    VBS set scriptlog=fso.opentextfile(x&"\s"&Ad&".txt",8,True)
+    VBS scriptlog.writeline(Text)
+    VBS scriptlog.close
+Return Log
