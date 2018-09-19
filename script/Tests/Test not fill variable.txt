@@ -1,14 +1,14 @@
 [General]
 Description=Test not fill variable
-BeginHotkey=49
-BeginHotkeyMod=0
+BeginHotkey=50
+BeginHotkeyMod=2
 PauseHotkey=0
 PauseHotkeyMod=0
-StopHotkey=123
+StopHotkey=0
 StopHotkeyMod=0
 RunOnce=1
 EnableWindow=
-Enable=0
+Enable=1
 AutoRun=0
 [Repeat]
 Type=0
