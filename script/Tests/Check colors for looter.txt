@@ -1,0 +1,41 @@
+[General]
+Description=Check colors for looter
+BeginHotkey=55
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+UserVar SelfX=591 Self X
+UserVar SelfY=307 Self Y
+UserVar TileSpace=55 Tile Weight
+Rem begin
+VBSCall Pixel1=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
+Pixel2=GetPixelColor(SelfX,SelfY-TileSpace)
+Pixel3=GetPixelColor(SelfX+TileSpace,SelfY-TileSpace)
+Pixel4=GetPixelColor(SelfX-TileSpace,SelfY)
+Pixel5=GetPixelColor(SelfX+TileSpace,SelfY)
+Pixel6=GetPixelColor(SelfX-TileSpace,SelfY+TileSpace)
+Pixel7=GetPixelColor(SelfX,SelfY+TileSpace)
+Pixel8=GetPixelColor(SelfX+TileSpace,SelfY+TileSpace)
+SayString "1| -x -y: "&Pixel1&" "
+SayString "2| x -y: "&Pixel2&" "
+SayString "3| +x -y: "&Pixel3&" "
+SayString "4| -x y: "&Pixel4&" "
+SayString "5| +x y: "&Pixel5&" "
+SayString "6| -x +y: "&Pixel6&" "
+SayString "7| x +y: "&Pixel7&" "
+SayString "8| +x +y: "&Pixel8
