@@ -156,8 +156,10 @@ Rem SpellEnd
 //Striker START
 If Striker=1
     If tStriker<=Timer()
-        Gosub StrikeSub
         VBS s=0
+		If Key<>1
+	        Gosub StrikeSub
+		EndIf
         For 2
             VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0

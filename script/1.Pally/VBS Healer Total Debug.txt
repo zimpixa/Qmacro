@@ -147,11 +147,13 @@ Rem SpellEnd
 If Striker=1
     If tStriker<=Timer()
         VBS s=0
+		If Key<>1
+	        Gosub StrikeSub
+		EndIf
         For 2
             VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
                 If StrikerMultitarget=1
-					Gosub StrikeSub
                     VBSCall FindColor(monsterhp2X,monsterhp2Y,monsterhp2X,monsterhp2Y,"000000",m2X,m2Y)
                     If m2X>=0 and m2Y>=0
                         If Key>2 or Key=0													
