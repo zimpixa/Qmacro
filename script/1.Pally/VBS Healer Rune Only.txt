@@ -186,9 +186,9 @@ EndIf
 Rem StrikeEnd
 //Striker END
 //Pots START
-If Key=2
-    If tStriker<=Timer()+1
-        tPotion=Timer()+1
+If tStriker<=Timer()+1.05
+    If Timer()-tStriker<=0
+        tPotion=Timer()+1.05
     EndIf 
 EndIf 
 If tPotion<=Timer()

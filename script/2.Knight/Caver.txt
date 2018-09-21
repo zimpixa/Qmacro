@@ -154,10 +154,10 @@ Delay 100
 //MoveTo SelfX,SelfY
 //AutoAttack START
 If AutoAttacker=1
-    Rem MonsterFound
     VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
     //SayString("X: "&monsterPix)
     If monsterPix=monsterPixColor
+	Rem MonsterFound
         Attacking=1
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
@@ -218,6 +218,7 @@ If Looter=1
                 i=i+1:squarespace=squarespace*(-1)
             EndFor 
             Rem LooterEnd
+			VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
             If monsterPix=monsterPixColor
                 Goto MonsterFound
             EndIf 
