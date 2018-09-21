@@ -1,8 +1,8 @@
 [General]
-Description=VBS Healer Total Undead Darashia
-BeginHotkey=50
+Description=VBS Healer TH
+BeginHotkey=52
 BeginHotkeyMod=2
-PauseHotkey=19
+PauseHotkey=0
 PauseHotkeyMod=0
 StopHotkey=0
 StopHotkeyMod=0
@@ -204,7 +204,7 @@ If tPotion<=Timer()
         VBSCall FindColor(ManaX,manaY,ManaX,manaY,"FF7174",manaresX,manaresY)
         If manaresX<=0 and manaresY<=0
             KeyPress keyMana 1
-            tPotion=Timer()+1.7
+            tPotion=Timer()+1
             Goto PotEnd
         EndIf 
     EndIf 
