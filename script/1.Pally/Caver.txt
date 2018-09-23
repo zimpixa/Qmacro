@@ -134,6 +134,19 @@ ElseIf HuntingPlace="Drefia2"
     waypointcount=9
 ElseIf HuntingPlace="MutatedTiger"
     //ADD NEW MONSTERS TO IF AT LOOTER
+    //?
+    VBS monstercolor(0)="141845"
+    //MutatedTiger
+    VBS monstercolor(1)="223D87"
+    //?
+    VBS monstercolor(2)="2A4595"
+    //Gladiator
+    VBS monstercolor(3)="2A4358"
+    VBS monstercolor(4)="0D1C60"
+    //ADD NEW MONSTERS TO IF AT LOOTER
+    waypointcount=10
+ElseIf HuntingPlace="MutatedTiger2"
+    //ADD NEW MONSTERS TO IF AT LOOTER
     VBS monstercolor(0)="141845"
     VBS monstercolor(1)="223D87"
     VBS monstercolor(2)="2A4595"
@@ -141,7 +154,6 @@ ElseIf HuntingPlace="MutatedTiger"
     //ADD NEW MONSTERS TO IF AT LOOTER
     waypointcount=10
 EndIf 
-VBSCall Start=GetPixelColor(0,0)
 Rem Script
 Delay 150
 //MoveTo SelfX,SelfY
@@ -150,17 +162,18 @@ If AutoAttacker=1
     VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
     //SayString("X: "&monsterPix)
     If monsterPix=monsterPixColor
-		Rem MonsterFound
+        Rem MonsterFound
         Attacking=1
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
         If atk0X<0 and atk1Y<0
             KeyPress 27,1
+            Delay 50
             SaveMousePos 
-            MoveTo Monster1HP,monster1hpY
-            Delay 50
+            MoveTo Monster1HP,monster1hpY-2
+            Delay 60
             LeftClick 1
-            Delay 50
+            Delay 40
             RestoreMousePos 
             If SearchForLoot = 1
                 Goto LootAnyway
@@ -180,8 +193,8 @@ If Looter=1
         VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
         If monsterPix<>monsterPixColor
             Rem LootAnyway
-			//Try800
-            Delay 900
+            //Try800
+            Delay 800
             squarespace=tileCenterSpace
             i=1
             lootsqX=SelfX:lootsqY=SelfY
@@ -196,13 +209,13 @@ If Looter=1
                         EndIf 
                         VBSCall lootPixel=GetPixelColor(lootsqX,lootsqY)
                         //SayString("X: "&lootsqX&" Y: "&lootsqY&" Color: "&lootPixel&" i: "&i)
-                        If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3)
+                        If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
-							//Try50/50
+                            //Try50/50
                             Delay 100
                             RightClick 1
-                            Delay 100
+                            Delay 60
                             RestoreMousePos 
                         EndIf 
                     EndFor 
@@ -211,7 +224,7 @@ If Looter=1
                 i=i+1:squarespace=squarespace*(-1)
             EndFor 
             Rem LooterEnd
-			VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
+            VBSCall monsterPix=GetPixelColor(Monster1HP,monster1hpY)
             If monsterPix=monsterPixColor
                 Goto MonsterFound
             EndIf 
@@ -273,7 +286,7 @@ If tAdditionalTasks<=Timer()
         If tSpectral<=Timer()
             VBSCall spectralPix=GetPixelColor(spectralCDX,spectralCDY)
             If spectralPix=spectralColor
-                manaPix=GetPixelColor(ManaX,manaY)
+                VBSCall manaPix=GetPixelColor(ManaX,manaY)
                 If manaPix=manaPixColor
                     SaveMousePos 
                     MoveTo spectralX,spectralY

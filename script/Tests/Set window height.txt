@@ -1,0 +1,36 @@
+[General]
+Description=Set window height
+BeginHotkey=54
+BeginHotkeyMod=2
+PauseHotkey=105
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+Rem Begin
+Rem Script
+Delay 100
+VBSCall FindColor(915,400,915,1000,"737372",x,y)
+If X>=0 and Y>=0
+    MoveTo x,y-5
+    Delay 100
+    LeftDown 1
+    Delay 1000
+    MoveTo x,y+5
+    Delay 1000
+    MoveTo x,813+10
+    Delay 1000
+    LeftUp 1
+EndIf 

@@ -1,0 +1,76 @@
+[General]
+Description=FPS check
+BeginHotkey=53
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim a,desk,myfile,scriptlog,fso,tsObj,objShell
+VBS dim tStart,tEnd,tStart2,tEnd2
+VBS dim color1
+Ad=Timer()
+Rem Variables
+x=0
+y=0
+Rem Begin
+Rem Script
+Delay 100
+color="000000"
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+IfColor 888,236,0,0
+    color="000000"
+EndIf 
+Goto Begin
+//VBSCall FindColor(x,y,x,y,color,foundX,foundY)
+VBSCall color1=GetPixelColor(x,y)
+VBSCall FindColor(x+1,y+1,x+1,y+1,color,foundX9,foundY1)
+VBSCall FindColor(x+2,y+2,x+2,y+2,color,foundX1,foundY2)
+VBSCall FindColor(x+3,y+3,x+3,y+3,color,foundX2,foundY3)
+VBSCall FindColor(x+4,y+4,x+4,y+4,color,foundX3,foundY4)
+VBSCall FindColor(x+5,y+5,x+5,y+5,color,foundX4,foundY5)
+VBSCall FindColor(x+6,y+6,x+6,y+6,color,foundX5,foundY6)
+VBSCall FindColor(x+7,y+7,x+7,y+7,color,foundX6,foundY7)
+VBSCall FindColor(x+8,y+8,x+8,y+8,color,foundX7,foundY8)
+VBSCall FindColor(x+9,y+9,x+9,y+9,color,foundX8,foundY9)
+Goto Begin
+//SayString("ok")
