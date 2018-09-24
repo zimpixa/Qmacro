@@ -1,6 +1,6 @@
 [General]
 Description=Caver
-BeginHotkey=49
+BeginHotkey=56
 BeginHotkeyMod=2
 PauseHotkey=0
 PauseHotkeyMod=0
@@ -40,69 +40,89 @@ Rem Begin
 Goto Constant
 Rem HuntingSpots
 If Mode="Main"
-	If HuntingPlace="Drefia"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-		VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
-		waypointcount=10
-		ElseIf HuntingPlace="Drefia2"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-		VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
-		waypointcount=9
-		ElseIf HuntingPlace="MutatedTiger"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:??;1:MutatedTiger;2:??;3:Gladiator;4:Gladiator
-		VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
-		waypointcount=10
-		ElseIf HuntingPlace="Yielothax"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		VBS monstercolor(0)="6C828D"
-		waypointcount=7
-	EndIf
+    If HuntingPlace="Drefia"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
+        VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
+        waypointcount=10
+    ElseIf HuntingPlace="Drefia2"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
+        VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
+        waypointcount=9
+    ElseIf HuntingPlace="MutatedTiger"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:??;1:MutatedTiger;2:??;3:Gladiator;4:Gladiator
+        VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
+        waypointcount=10
+    ElseIf HuntingPlace="Yielothax"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        VBS monstercolor(0)="6C828D"
+        waypointcount=7
+    ElseIf HuntingPlace="Putrid"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Bonebeast;1:GS;2:putrid
+        VBS monstercolor(0)="BBBBBD":monstercolor(1)="00020F":monstercolor(2)="000A0D"
+        waypointcount=0
+    ElseIf HuntingPlace="Bogs"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Bogs
+        VBS monstercolor(0)="06BF06"
+        waypointcount=7
+    EndIf 
 ElseIf Mode="Laptop"
-	If HuntingPlace="Drefia"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-		VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
-		waypointcount=10
-		ElseIf HuntingPlace="Drefia2"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-		VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
-		waypointcount=9
-		ElseIf HuntingPlace="MutatedTiger"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:??;1:MutatedTiger;2:??;3:Gladiator;4:Gladiator
-		VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
-		waypointcount=10
-		ElseIf HuntingPlace="Yielothax"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		VBS monstercolor(0)="6C828D"
-		waypointcount=7
-	EndIf
+    If HuntingPlace="Drefia"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
+        VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
+        waypointcount=10
+    ElseIf HuntingPlace="Drefia2"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
+        VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
+        waypointcount=9
+    ElseIf HuntingPlace="MutatedTiger"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:??;1:MutatedTiger;2:??;3:Gladiator;4:Gladiator
+        VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
+        waypointcount=10
+    ElseIf HuntingPlace="Yielothax"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        VBS monstercolor(0)="6C828D"
+        waypointcount=7
+    EndIf 
 ElseIf Mode="Virtual"
-	If HuntingPlace="Drefia"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-		VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
-		waypointcount=10
-		ElseIf HuntingPlace="Drefia2"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-		VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
-		waypointcount=9
-		ElseIf HuntingPlace="MutatedTiger"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		//0:??;1:MutatedTiger;2:??;3:Gladiator;4:Gladiator
-		VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
-		waypointcount=10
-		ElseIf HuntingPlace="Yielothax"
-		//ADD NEW MONSTERS TO IF AT LOOTER
-		VBS monstercolor(0)="6C828D"
-		waypointcount=7
-	EndIf
-EndIf
+    If HuntingPlace="Drefia"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
+        VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
+        waypointcount=10
+    ElseIf HuntingPlace="Drefia2"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
+        VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
+        waypointcount=9
+    ElseIf HuntingPlace="MutatedTiger"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:??;1:MutatedTiger;2:MutatedRat;3:Gladiator;4:Gladiator
+        VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
+        waypointcount=10
+    ElseIf HuntingPlace="Yielothax"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        VBS monstercolor(0)="6C828D"
+        waypointcount=7
+    ElseIf HuntingPlace="Putrid"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Bonebeast;1:GS;2:putrid
+        VBS monstercolor(0)="BBBBBD":monstercolor(1)="00020F":monstercolor(2)="000A0D"
+        waypointcount=0
+    ElseIf HuntingPlace="Bogs"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Bogs
+        VBS monstercolor(0)="06BF06"
+        waypointcount=7
+    EndIf 
+EndIf 
 Rem Script
 Delay 150
 //AutoAttack START
@@ -141,7 +161,7 @@ If Looter=1
         VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
         If monsterPix<>monsterPixColor
             Rem LootAnyway
-            Delay 800
+            Delay 820
             squarespace=tileCenterSpace
             i=1
             lootsqX=SelfX:lootsqY=SelfY
@@ -159,9 +179,9 @@ If Looter=1
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
-                            Delay 100
+                            Delay 110
                             RightClick 1
-                            Delay 60
+                            Delay 80
                             RestoreMousePos 
                         EndIf 
                     EndFor 
@@ -293,7 +313,7 @@ If Caveboter=1
                 Walking=0
                 tWalking=Timer()
                 VBS waypoint=waypoint+1
-                Goto Caveboter
+                Goto Script
             EndIf 
         EndIf 
         If tWalking<=Timer()
@@ -330,8 +350,8 @@ Rem Variables
 If Mode="Main"
     SelfX=866:SelfY=411
     tileCenterSpace=71
-	actionBarTopY=819
-	actionBarCenterY=actionBarTopY+16
+    actionBarTopY=819
+    actionBarCenterY=actionBarTopY+16
     //Attacker
     monster1hpX=1600:monster1hpY=54
     monsterPixColor="000000"
@@ -360,12 +380,12 @@ If Mode="Main"
     mapX=1753:mapY=27
     //mapX+105:mapY+108
     mapEndX=1858:mapEndY=135
-    mapcenterX=1805:mapcenterY=81 
+    mapcenterX=1805:mapcenterY=81
 ElseIf Mode="Laptop"
     SelfX=591:SelfY=306
     tileCenterSpace=55
-	actionBarTopY=626
-	actionBarCenterY=actionBarTopY+16
+    actionBarTopY=626
+    actionBarCenterY=actionBarTopY+16
     monster1hpX=1070:monster1hpY=33
     monsterPixColor="000000"
     attacksqX=1019:attacksqY=17:attacksqEndY=112
@@ -387,6 +407,6 @@ ElseIf Mode="Laptop"
     mapX=1200:mapY=6
     mapEndX=1305:mapEndY=114
     mapcenterX=1252:mapcenterY=60
-EndIf
+EndIf 
 Goto HuntingSpots
 ----TODO----
