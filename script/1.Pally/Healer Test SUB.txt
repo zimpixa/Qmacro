@@ -216,7 +216,7 @@ If tPotion<=Timer()
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
         If atkX>=0 and atkY>=0
             VBSCall FindColor(ManaKFM-10,manaY,ManaKFM-10,manaY,"FF7174",kfmX,kfmY)
-            If kfmX<=0 and m1Y<=0
+            If kfmX<=0 and kfmY<=0
                 KeyPress keyMana 1
                 tPotion=Timer()+1
             EndIf 

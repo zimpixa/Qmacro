@@ -209,7 +209,7 @@ If tPotion<=Timer()
     If KeepFullMana=1
         VBSCall FindColor(ManaKFM,manaY,ManaKFM,manaY,"FF7174",kfmX,kfmY)
         VBSCall FindColor(Monster1HP,monster1hpY,Monster1HP,monster1hpY,"000000",m1X,m1Y)
-        If kfmX<=0 and m1Y<=0
+        If kfmX<=0 and kfmY<=0
             KeyPress keyMana 1
             tPotion=Timer()+1
         EndIf 
