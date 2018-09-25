@@ -84,7 +84,7 @@ ElseIf Mode="Laptop"
     ElseIf HuntingPlace="MutatedTiger"
         //ADD NEW MONSTERS TO IF AT LOOTER
         //0:??;1:MutatedTiger;2:??;3:Gladiator;4:Gladiator
-        VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
+        VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2E5A75":monstercolor(4)="0D1C60"
         waypointcount=10
     ElseIf HuntingPlace="Yielothax"
         //ADD NEW MONSTERS TO IF AT LOOTER
@@ -94,8 +94,8 @@ ElseIf Mode="Laptop"
 ElseIf Mode="Virtual"
     If HuntingPlace="Drefia"
         //ADD NEW MONSTERS TO IF AT LOOTER
-        //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-        VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
+        //0:Grim;1:Grim;2:Grave;3:Pupil;4:Pupil
+        VBS monstercolor(0)="000000":monstercolor(1)="323232":monstercolor(2)="231D3A":monstercolor(3)="101212":monstercolor(4)="171717"
         waypointcount=10
     ElseIf HuntingPlace="Drefia2"
         //ADD NEW MONSTERS TO IF AT LOOTER
@@ -162,7 +162,7 @@ If Looter=1
         VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
         If monsterPix<>monsterPixColor
             Rem LootAnyway
-            Delay 825
+            Delay 875
             squarespace=tileCenterSpace
             i=1
             lootsqX=SelfX:lootsqY=SelfY
@@ -180,9 +180,9 @@ If Looter=1
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
-                            Delay 100
+                            Delay 110
                             RightClick 1
-                            Delay 70
+                            Delay 80
                             RestoreMousePos 
                         EndIf 
                     EndFor 
@@ -264,7 +264,7 @@ If tAdditionalTasks<=Timer()
                     tSpectral=Timer()+60
                 EndIf 
             Else 
-                tSpectral=Timer()+20
+                tSpectral=Timer()+30
             EndIf 
         EndIf 
     EndIf 
@@ -309,10 +309,10 @@ If Caveboter=1
         EndIf 
         If Walking=1
             //VBSCall ontargetPix=GetPixelColor(mapcenterX,mapcenterY)
-			//SayString(ontargetPix&" ")
-			VBSCall FindColor(mapcenterX,mapcenterY-1,mapcenterX+1,mapcenterY,markColor(waypoint),mcX,mcY)
+            //SayString(ontargetPix&" ")
+            VBSCall FindColor(mapcenterX,mapcenterY-1,mapcenterX+1,mapcenterY,markColor(waypoint),mcX,mcY)
             If mcX>0 and mcY>0
-            //If ontargetPix=markColor(waypoint)
+                //If ontargetPix=markColor(waypoint)
                 Walking=0
                 tWalking=Timer()
                 VBS waypoint=waypoint+1
@@ -410,6 +410,40 @@ ElseIf Mode="Laptop"
     mapX=1200:mapY=6
     mapEndX=1305:mapEndY=114
     mapcenterX=1252:mapcenterY=60
+ElseIf Mode="Virtual"
+    SelfX=547:SelfY=296
+    tileCenterSpace=50
+    actionBarTopY=584
+    actionBarCenterY=actionBarTopY+16
+    monster1hpX=972:monster1hpY=54
+    monsterPixColor="000000"
+    attacksqX=932:attacksqY=55:attacksqEndY=85
+    VBS color(0)="0000FF": color(1)="8080FF"
+    //AmmoRefiller
+    quiverX=1202:quiverY=272
+    quiverPixColor="555250"
+    actionBarSpectralX=863
+    spectralexistPixColor="71CFFF"
+    actionbarBoltX=826
+    //CDBshaker
+    shakerX=606:shakerY=600
+    shakerPixColor="1100AD"
+    //ManaLevelChecker
+    ManaX=45/100*(1216-1129)+1129
+    ManaY=161
+    manaPixColor="FF7174"
+    //SpectralCreate
+    spectralABX=571
+    spectralColor="A5B705"
+    //EmberwingActive
+    emberwingABX=499
+    emberwingColor="BA0F7E"
+    //Cavebot
+    mapX=1113:mapY=27
+    //mapX+105:mapY+108
+    mapEndX=1218:mapEndY=135
+    mapcenterX=1165:mapcenterY=81
+EndIf 
 EndIf 
 Goto HuntingSpots
 ----TODO----
