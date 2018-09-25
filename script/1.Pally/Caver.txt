@@ -1,6 +1,6 @@
 [General]
 Description=Caver
-BeginHotkey=56
+BeginHotkey=49
 BeginHotkeyMod=2
 PauseHotkey=0
 PauseHotkeyMod=0
@@ -125,6 +125,7 @@ ElseIf Mode="Virtual"
 EndIf 
 Rem Script
 Delay 150
+Rem Attacker
 //AutoAttack START
 If AutoAttacker=1
     VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
@@ -139,11 +140,11 @@ If AutoAttacker=1
             Delay 50
             SaveMousePos 
             MoveTo monster1hpX,monster1hpY-2
-            Delay 60
+            Delay 40
             LeftClick 1
             Delay 40
             RestoreMousePos 
-            If SearchForLoot = 1
+            If SearchForLoot=1
                 Goto LootAnyway
             EndIf 
             SearchForLoot=1
@@ -161,7 +162,7 @@ If Looter=1
         VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
         If monsterPix<>monsterPixColor
             Rem LootAnyway
-            Delay 820
+            Delay 825
             squarespace=tileCenterSpace
             i=1
             lootsqX=SelfX:lootsqY=SelfY
@@ -179,9 +180,9 @@ If Looter=1
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
-                            Delay 110
+                            Delay 100
                             RightClick 1
-                            Delay 80
+                            Delay 70
                             RestoreMousePos 
                         EndIf 
                     EndFor 
@@ -260,7 +261,7 @@ If tAdditionalTasks<=Timer()
                     LeftClick 1
                     Delay 100
                     RestoreMousePos 
-                    tSpectral=Timer()+601
+                    tSpectral=Timer()+60
                 EndIf 
             Else 
                 tSpectral=Timer()+20
@@ -279,9 +280,9 @@ If tAdditionalTasks<=Timer()
                     MoveTo emberwingABX,actionBarCenterY
                     Delay 10
                     LeftClick 1
-                    Delay 200
+                    Delay 100
                     RestoreMousePos 
-                    tEmberwing=Timer()+1801
+                    tEmberwing=Timer()+120
                     tUseSpectral=Timer()+840
                 EndIf 
             Else 
@@ -294,7 +295,7 @@ If tAdditionalTasks<=Timer()
     If FoodEater=1
         If tFoodEater<=Timer()
             KeyPress FoodEaterKey 1
-            tFoodEater=Timer()+90
+            tFoodEater=Timer()+80
         EndIf 
     EndIf 
     //FoodEater END
@@ -307,13 +308,15 @@ If Caveboter=1
             VBS waypoint=1
         EndIf 
         If Walking=1
-            VBSCall ontargetPix=GetPixelColor(mapcenterX,mapcenterY)
-            //SayString(ontargetPix&" ")
-            If ontargetPix=markColor(waypoint)
+            //VBSCall ontargetPix=GetPixelColor(mapcenterX,mapcenterY)
+			//SayString(ontargetPix&" ")
+			VBSCall FindColor(mapcenterX,mapcenterY-1,mapcenterX+1,mapcenterY,markColor(waypoint),mcX,mcY)
+            If mcX>0 and mcY>0
+            //If ontargetPix=markColor(waypoint)
                 Walking=0
                 tWalking=Timer()
                 VBS waypoint=waypoint+1
-                Goto Script
+                Goto Attacker
             EndIf 
         EndIf 
         If tWalking<=Timer()
@@ -326,7 +329,7 @@ If Caveboter=1
                 Delay 40
                 RestoreMousePos 
                 Walking=1
-                tWalking=Timer()+4
+                tWalking=Timer()+3
             EndIf 
         EndIf 
     EndIf 
