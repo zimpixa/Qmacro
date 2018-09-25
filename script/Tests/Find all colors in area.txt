@@ -1,0 +1,52 @@
+[General]
+Description=Find all colors in area
+BeginHotkey=55
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+dim foundColor(15),colorString,monstercolor(7)
+UserVar X=1650 TopLeftCorner
+UserVar Y=195 TopRightCorner
+UserVar endX=1755 BottomLeftCorner
+UserVar endY=303 BottomRightCormer
+Rem Begin
+Delay 1000
+checkX=X
+checkY=Y
+Xfor=endX-X
+Yfor=endY-Y
+Total=Xfor*Yfor
+i=0
+tDuration=Timer()
+For Xfor
+    checkY=Y
+    For YFor
+        VBSCall colorPix=GetPixelColor(checkX,checkY)
+        Result=InStr(FoundString,colorPix)
+        If Result=0
+            i=i+1
+            FoundString=FoundString&i&": "&colorPix&vbnewline
+        EndIf 
+        //MoveTo checkX,checkY
+        checkY=checkY+1
+    EndFor 
+    checkX=checkX+1
+EndFor 
+tDurationEnd=Timer()
+Duration=Round(tDurationEnd-tDuration,2)
+VBSCall Call Messagebox("Total "&i&" colors"&vbnewline&"Total "&Total&" pixels"&vbnewline&"Found in: "&Duration&vbnewline&FoundString)
