@@ -19,11 +19,62 @@ OnSetup=
 Content=
 
 [Script]
-UserVar SelfX=591 Self X
-UserVar SelfY=307 Self Y
-UserVar TileSpace=55 Tile Weight
+UserVar Mode=Main Checking Mode
 Rem begin
-VBSCall Pixel1=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
+If Mode="Main"
+    SelfX=866
+    SelfY=441
+    TileSpace=71
+    VBSCall Pixel1=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
+    KeyDown 17 1
+    KeyPress 65 1
+    KeyUp 17 1
+    SayString "1| -x -y: "&Pixel1&" "
+ElseIf Mode="Laptop"
+    SelfX=591:SelfY=306
+    TileSpace=55
+    VBSCall Pixel1=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
+    KeyDown 17 1
+    KeyPress 65 1
+    KeyUp 17 1
+    SayString "1| -x -y: "&Pixel1&" "
+ElseIf Mode="Virtual"
+    SelfX=591:SelfY=306
+    tileCenterSpace=55
+    SelfX=591
+    SelfY=306
+    TileSpace=55
+    i=0
+    VBSCall colorPix=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
+    VBSCall colorPix2=GetPixelColor(SelfX-TileSpace+1,SelfY-TileSpace)
+    VBSCall colorPix3=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace+1)
+    VBSCall colorPix4=GetPixelColor(SelfX-TileSpace+1,SelfY-TileSpace+1)
+    Result=InStr(FoundString,colorPix)
+    If Result=0
+        i=i+1
+        FoundString=FoundString&i&": "&colorPix&" "
+    EndIf 
+    Result=InStr(FoundString,colorPix2)
+    If Result=0
+        i=i+1
+        FoundString=FoundString&i&": "&colorPix2&" "
+    EndIf 
+    Result=InStr(FoundString,colorPix3)
+    If Result=0
+        i=i+1
+        FoundString=FoundString&i&": "&colorPix3&" "
+    EndIf 
+    Result=InStr(FoundString,colorPix4)
+    If Result=0
+        i=i+1
+        FoundString=FoundString&i&": "&colorPix4&" "
+    EndIf 
+    KeyDown 17 1
+    KeyPress 65 1
+    KeyUp 17 1
+    SayString FoundString
+EndIf 
+EndScript 
 Pixel2=GetPixelColor(SelfX,SelfY-TileSpace)
 Pixel3=GetPixelColor(SelfX+TileSpace,SelfY-TileSpace)
 Pixel4=GetPixelColor(SelfX-TileSpace,SelfY)
@@ -31,6 +82,9 @@ Pixel5=GetPixelColor(SelfX+TileSpace,SelfY)
 Pixel6=GetPixelColor(SelfX-TileSpace,SelfY+TileSpace)
 Pixel7=GetPixelColor(SelfX,SelfY+TileSpace)
 Pixel8=GetPixelColor(SelfX+TileSpace,SelfY+TileSpace)
+KeyDown 17 1
+KeyPress 65 1
+KeyUp 17 1
 SayString "1| -x -y: "&Pixel1&" "
 SayString "2| x -y: "&Pixel2&" "
 SayString "3| +x -y: "&Pixel3&" "
@@ -39,3 +93,7 @@ SayString "5| +x y: "&Pixel5&" "
 SayString "6| -x +y: "&Pixel6&" "
 SayString "7| x +y: "&Pixel7&" "
 SayString "8| +x +y: "&Pixel8
+Result=InStr(FoundString,colorPix)
+If Result=0
+    i=i+1
+    FoundString=FoundString&i&": "&colorPix&vbnewline
