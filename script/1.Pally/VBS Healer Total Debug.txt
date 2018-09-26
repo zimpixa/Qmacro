@@ -102,6 +102,28 @@ attacksqY=17
 attacksqEndY=132 
 monsterhp2X=1042 
 monsterhp2Y=55 
+ElseIf Mode="Virtual"
+    hpY=148
+    manaY=161
+    VBS color(0)="0000FF": color(1)="8080FF"
+    hplowX=hplow/100*(1216-1129)+1129
+    hpPotX=hpplow/100*(1216-1129)+1129
+    hphighX=hphigh/100*(1216-1129)+1129
+    ManaX=mana/100*(1216-1129)+1129
+    ManaKFM=92/100*(1216-1129)+1129
+    Monster1HP=972
+    monster1hpY=54
+    paralX=1112
+    paralEndX=1260
+    paralY=319
+    attacksqX=932
+    attacksqY=55
+    //+115
+    attacksqEndY=160
+    //same as Monster1HP startX
+    monsterhp2X=932
+    //monster1hpY+22
+    monsterhp2Y=77
 EndIf
 Rem Script
 Delay 100
