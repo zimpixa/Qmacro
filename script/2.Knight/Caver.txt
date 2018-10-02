@@ -29,7 +29,7 @@ UserVar HuntingPlace=Drefia
 UserVar spellhealing2=------------------------ -------------------
 UserVar AutoAttacker=1 Attack monsters on battle
 UserVar Looter=1 Loot monsters around
-UserVar LootFirst=1 First loot then attack
+UserVar LootPriority=1 Loot over Attack
 UserVar AmmoRefiller=1 Refill bolts
 UserVar spellhealing3=------------------------ -------------------
 UserVar SpectralCreate=1 Create Spectral Bolts
@@ -128,6 +128,13 @@ ElseIf Mode="Virtual"
         //0:Tortoise;1:Crocodile
         VBS monstercolor(0)="132379":monstercolor(1)="192C7D":monstercolor(2)="267A26":monstercolor(3)="0D4221"
         waypointcount=8
+	ElseIf HuntingPlace="Laguna"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Tortoise;1:Crocodile
+        VBS monstercolor(0)="132379":monstercolor(1)="192C7D":monstercolor(2)="267A26":monstercolor(3)="0D4221"
+        waypointcount=8
+		ShovelPoints=""
+		RopePoints=""
     EndIf 
 EndIf 
 Rem Script
@@ -146,16 +153,16 @@ If AutoAttacker=1
     VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
     //SayString("X: "&monsterPix)
     If monsterPix=monsterPixColor
-        Rem MonsterFound
+		Rem MonsterFound
         Attacking=1
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
         If atk0X<0 and atk1Y<0
-            If LootFirst=1
-                If SearchForLoot=1
-                    Goto LootAnyway
-                EndIf 
-            EndIf 
+			If LootPriority=1
+				If SearchForLoot=1
+					Goto LootAnyway
+				EndIf
+			EndIf
             KeyPress 27,1
             Delay 50
             SaveMousePos 
@@ -163,12 +170,12 @@ If AutoAttacker=1
             Delay 40
             LeftClick 1
             Delay 40
-            RestoreMousePos 
-            If LootFirst=0
-                If SearchForLoot=1
-                    Goto LootAnyway
-                EndIf 
-            EndIf 
+            RestoreMousePos
+			If LootPriority=0
+				If SearchForLoot=1
+					Goto LootAnyway
+				EndIf
+			EndIf
             SearchForLoot=1
         Else 
             SearchForLoot=1
@@ -192,13 +199,13 @@ If Looter=1
                 spaceX=0:spaceY=squarespace
                 For 2
                     For i
-                        //SayString("X+: "&spaceX&" Y+: "&spaceY&" X: "&lootsqX&" Y: "&lootsqY)
+                        //SayString("X: "&lootsqX&" ("&spaceX&") Y: "&lootsqY&" ("&spaceY&") ")
                         lootsqX=lootsqX+spaceX:lootsqY=lootsqY+spaceY
                         If i>2 and lootsqY=(SelfY+squarespace+squarespace)
                             Goto LooterEnd
                         EndIf 
                         VBSCall lootPixel=GetPixelColor(lootsqX,lootsqY)
-                        //SayString("X: "&lootsqX&" Y: "&lootsqY&" Color: "&lootPixel&" i: "&i)
+                        //SayString("X: "&lootsqX&" Y: "&lootsqY&" Color: "&lootPixel&" i: "&i&" ")
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
@@ -213,24 +220,14 @@ If Looter=1
                 i=i+1:squarespace=squarespace*(-1)
             EndFor 
             Rem LooterEnd
-            If LootFirst=1
-                SearchForLoot=0
-            EndIf 
-            VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
+			If LootPriority=1
+				SearchForLoot=0
+			EndIf
+			VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
             If monsterPix=monsterPixColor
-                If LootFirst=1
-                    VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
-                    VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
-                    If atk0X<0 and atk1Y<0
-                        Goto MonsterFound
-                    EndIf 
-                Else 
-                    Goto MonsterFound
-                EndIf 
-            EndIf 
-            If LootFirst=0
-                SearchForLoot=0
-            EndIf 
+				Goto MonsterFound
+			EndIf   
+			SearchForLoot=0
             Attacking=0
             tWalking=Timer()
         EndIf 
@@ -338,7 +335,7 @@ EndIf
 //Cavebot START
 Rem Caveboter
 If Caveboter=1
-    If Attacking=0
+    If Attacking=0 and SearchForLoot=0
         If waypoint>waypointcount
             VBS waypoint=1
         EndIf 
@@ -349,6 +346,26 @@ If Caveboter=1
             If mcX>0 and mcY>0
                 //If ontargetPix=markColor(waypoint)
                 Walking=0
+				RopeAtPoint=InStr(RopePoints,waypoint)
+				ShovelAtPoint=InStr(ShovelPoints,waypoint)
+				If RopeAtPoint<>0
+					Delay 200
+					SaveMousePosition
+					MoveTo SelfX SelfY
+					Delay 40
+					KeyPress RopeKey 1
+					Delay 40
+					RestoreMousePosition
+				ElseIf ShovelAtPoint<>0
+					Delay 200
+					SaveMousePosition
+					MoveTo SelfX-tileCenterSpace SelfY
+					Delay 40
+					KeyPress ShovelKey 1
+					Delay 100
+					KeyPress 38 1
+					RestoreMousePosition
+				EndIf
                 tWalking=Timer()
                 VBS waypoint=waypoint+1
                 Goto Attacker
@@ -484,7 +501,9 @@ ElseIf Mode="Virtual"
     //mapX+105:mapY+108
     mapEndX=1218:mapEndY=135
     mapcenterX=1165:mapcenterY=81
-	AdditionalLooterDelay=0						
+	AdditionalLooterDelay=0
+	ShovelKey=123
+	RopeKey=123	
 EndIf 
 EndIf 
 Goto HuntingSpots

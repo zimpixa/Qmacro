@@ -22,7 +22,7 @@ Content=
 Rem Begin
 Rem Script
 Delay 100
-VBSCall FindColor(915,400,915,1000,"737372",x,y)
+VBSCall FindColor(915,300,915,1080,"737372",x,y)
 If X>=0 and Y>=0
     MoveTo x,y-5
     Delay 100
