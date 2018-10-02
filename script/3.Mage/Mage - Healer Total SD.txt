@@ -41,7 +41,9 @@ UserVar spellhealing3=------------------------ -------------------
 UserVar ManaRefill=1 Use Mana Refiller
 UserVar mana=65 Mana Refiller %
 UserVar keyMana=122 Mana Refiller Key
+UserVar AdditionalManaDelay=1 More Delay for Mana												 
 UserVar KeepFullMana=0 Refill to Full Mana
+UserVar KeepMana=1 More Mana while attack										 
 UserVar spellhealing4=------------------------ -------------------
 UserVar Striker=1 Strike Target
 UserVar StrikeKey=120 Strike Key
@@ -52,7 +54,7 @@ UserVar KeepSpellActiveKey=111 Keep Spell Active Key
 UserVar KeepSpellActiveCooldown=190 Keep Spell Active Cooldown
 Rem Begin
 Rem Constant
-tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
+tSpell=Timer():tPotion=Timer():tMana=Timer():tSpellOT=Timer()
 tStriker=Timer()
 Rem Variables
 If Mode="Main"
@@ -200,28 +202,43 @@ If tPotion<=Timer()
             Goto PotEnd
         EndIf 
     EndIf 
-    If ManaRefill=1
-        VBSCall FindColor(ManaX,manaY,ManaX,manaY,"FF7174",manaresX,manaresY)
-        If manaresX<=0 and manaresY<=0
-            KeyPress keyMana 1
-            tPotion=Timer()+1
-            Goto PotEnd
-        EndIf 
-    EndIf 
-    If KeepFullMana=1
-        VBSCall FindColor(ManaKFM,manaY,ManaKFM,manaY,"FF7174",kfmX,kfmY)
-        VBSCall FindColor(Monster1HP,monster1hpY,Monster1HP,monster1hpY,"000000",m1X,m1Y)
-        If kfmX<=0 and m1Y<=0
-            KeyPress keyMana 1
-            tPotion=Timer()+1
-        EndIf 
-    EndIf 
+	If tMana<=Timer()
+		If ManaRefill=1
+			VBSCall FindColor(ManaX,manaY,ManaX,manaY,"FF7174",manaresX,manaresY)
+			If manaresX<=0 and manaresY<=0
+				KeyPress keyMana 1
+				tPotion=Timer()+1
+				tMana=Timer()+1+AdditionalManaDelay
+				Goto PotEnd
+			EndIf 
+		EndIf 
+		If KeepFullMana=1
+			VBSCall FindColor(ManaKFM,manaY,ManaKFM,manaY,"FF7174",kfmX,kfmY)
+			VBSCall FindColor(Monster1HP,monster1hpY,Monster1HP,monster1hpY,"000000",m1X,m1Y)
+			If kfmX<=0 and m1Y<=0
+				KeyPress keyMana 1
+				tPotion=Timer()+1
+				tMana=Timer()+1+AdditionalManaDelay
+			EndIf 
+		EndIf 
+		If KeepMana=1
+			VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
+			If atkX>=0 and atkY>=0
+				VBSCall FindColor(ManaKFM-32,manaY,ManaKFM-10,manaY,"FF7174",kfmX,kfmY)
+				If kfmX<=0 and kfmY<=0
+					KeyPress keyMana 1
+					tPotion=Timer()+1
+					tMana=Timer()+1+AdditionalManaDelay
+				EndIf 
+			EndIf 
+		EndIf 
+	EndIf
 EndIf 
 Rem PotEnd
 //Pots END
 //Midnight START
 If (tSpell-Timer()>1000 or tPotion-Timer()>1000) and Timer()<2000
-    tSpell=Timer():tPotion=Timer():tSpellOT=Timer()
+    tSpell=Timer():tPotion=Timer():tMana=Timer():tSpellOT=Timer()
     tStriker=Timer()
 EndIf 
 //Midnight END
