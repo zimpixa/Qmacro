@@ -121,6 +121,11 @@ ElseIf Mode="Virtual"
         //0:Bogs
         VBS monstercolor(0)="06BF06"
         waypointcount=7
+    ElseIf HuntingPlace="Fenrock"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Tortoise;1:Crocodile
+        VBS monstercolor(0)="132379":monstercolor(1)="192C7D":monstercolor(2)="267A26":monstercolor(3)="0D4221"
+        waypointcount=8
     EndIf 
 EndIf 
 Rem Script

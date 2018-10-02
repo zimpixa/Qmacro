@@ -23,7 +23,7 @@ UserVar Mode=Main Checking Mode
 Rem begin
 If Mode="Main"
     SelfX=866
-    SelfY=441
+    SelfY=411
     TileSpace=71
     VBSCall Pixel1=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
     KeyDown 17 1
@@ -73,6 +73,31 @@ ElseIf Mode="Virtual"
     KeyPress 65 1
     KeyUp 17 1
     SayString FoundString
+ElseIf Mode="All"
+    SelfX=866
+    SelfY=411
+    TileSpace=71
+    MoveTo SelfX-TileSpace SelfY-TileSpace
+    VBSCall Pixel1=GetPixelColor(SelfX-TileSpace,SelfY-TileSpace)
+    VBSCall Pixel2=GetPixelColor(SelfX,SelfY-TileSpace)
+    VBSCall Pixel3=GetPixelColor(SelfX+TileSpace,SelfY-TileSpace)
+    VBSCall Pixel4=GetPixelColor(SelfX-TileSpace,SelfY)
+    VBSCall Pixel5=GetPixelColor(SelfX+TileSpace,SelfY)
+    VBSCall Pixel6=GetPixelColor(SelfX-TileSpace,SelfY+TileSpace)
+    VBSCall Pixel7=GetPixelColor(SelfX,SelfY+TileSpace)
+    VBSCall Pixel8=GetPixelColor(SelfX+TileSpace,SelfY+TileSpace)
+    KeyDown 17 1
+    KeyPress 65 1
+    KeyUp 17 1
+    SayString SelfX&" "&SelfY&" "&TileSpace
+    SayString "1| -x -y: "&Pixel1&" "
+    SayString "2| x -y: "&Pixel2&" "
+    SayString "3| +x -y: "&Pixel3&" "
+    SayString "4| -x y: "&Pixel4&" "
+    SayString "5| +x y: "&Pixel5&" "
+    SayString "6| -x +y: "&Pixel6&" "
+    SayString "7| x +y: "&Pixel7&" "
+    SayString "8| +x +y: "&Pixel8
 EndIf 
 EndScript 
 Pixel2=GetPixelColor(SelfX,SelfY-TileSpace)

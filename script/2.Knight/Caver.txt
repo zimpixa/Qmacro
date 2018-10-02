@@ -121,9 +121,24 @@ ElseIf Mode="Virtual"
         //0:Bogs
         VBS monstercolor(0)="06BF06"
         waypointcount=7
+    ElseIf HuntingPlace="Fenrock"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Tortoise;1:Crocodile
+        VBS monstercolor(0)="132379":monstercolor(1)="192C7D":monstercolor(2)="267A26":monstercolor(3)="0D4221"
+        waypointcount=8
     EndIf 
 EndIf 
 Rem Script
+VBSCall chatPix=GetPixelColor(chatPixX,chatPixY)
+If chatPix="5F5FF7"
+    Beep 
+    Beep 
+    Beep 
+    VBS set voice = createobject("SAPI.SpVoice")
+    VBS voice.Speak "Warning Warning"
+    voice.Speak "Error"
+    voice.Speak "Message"
+EndIf 
 Delay 150
 Rem Attacker
 //AutoAttack START
@@ -355,6 +370,8 @@ If Mode="Main"
     tileCenterSpace=71
     actionBarTopY=819
     actionBarCenterY=actionBarTopY+16
+    //Alarms
+    chatPixX=:chatPixY=
     //Attacker
     monster1hpX=1600:monster1hpY=54
     monsterPixColor="000000"
@@ -389,6 +406,7 @@ ElseIf Mode="Laptop"
     tileCenterSpace=55
     actionBarTopY=626
     actionBarCenterY=actionBarTopY+16
+    chatPixX=:chatPixY=
     monster1hpX=1070:monster1hpY=33
     monsterPixColor="000000"
     attacksqX=1019:attacksqY=17:attacksqEndY=112
@@ -415,6 +433,7 @@ ElseIf Mode="Virtual"
     tileCenterSpace=50
     actionBarTopY=584
     actionBarCenterY=actionBarTopY+16
+    chatPixX=210:chatPixY=627
     monster1hpX=972:monster1hpY=54
     monsterPixColor="000000"
     attacksqX=932:attacksqY=55:attacksqEndY=85
