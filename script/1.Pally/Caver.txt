@@ -29,6 +29,7 @@ UserVar HuntingPlace=Drefia
 UserVar spellhealing2=------------------------ -------------------
 UserVar AutoAttacker=1 Attack monsters on battle
 UserVar Looter=1 Loot monsters around
+UserVar LootFirst=1 First loot then attack										  
 UserVar AmmoRefiller=1 Refill bolts
 UserVar spellhealing3=------------------------ -------------------
 UserVar SpectralCreate=1 Create Spectral Bolts
@@ -37,6 +38,7 @@ UserVar CDBshaker=1 CDB shaker
 UserVar FoodEater=1 Eat Food
 UserVar FoodEaterKey=114 Food Key
 Rem Begin
+VBS set voice = createobject("SAPI.SpVoice")
 Goto Constant
 Rem HuntingSpots
 If Mode="Main"
@@ -74,12 +76,12 @@ ElseIf Mode="Laptop"
     If HuntingPlace="Drefia"
         //ADD NEW MONSTERS TO IF AT LOOTER
         //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-        VBS monstercolor(0)="050505":monstercolor(1)="434D5B":monstercolor(2)="171717":monstercolor(3)="433971"
+        VBS monstercolor(0)="000000":monstercolor(1)="231D3A":monstercolor(2)="101212"
         waypointcount=10
     ElseIf HuntingPlace="Drefia2"
         //ADD NEW MONSTERS TO IF AT LOOTER
         //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-        VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
+        VBS monstercolor(0)="000000":monstercolor(1)="231D3A":monstercolor(2)="101212"
         waypointcount=9
     ElseIf HuntingPlace="MutatedTiger"
         //ADD NEW MONSTERS TO IF AT LOOTER
@@ -134,10 +136,8 @@ If chatPix="5F5FF7"
     Beep 
     Beep 
     Beep 
-    VBS set voice = createobject("SAPI.SpVoice")
     VBS voice.Speak "Warning Warning"
-    voice.Speak "Error"
-    voice.Speak "Message"
+    voice.Speak "You have Message"
 EndIf 
 Delay 150
 Rem Attacker
@@ -177,7 +177,7 @@ If Looter=1
         VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
         If monsterPix<>monsterPixColor
             Rem LootAnyway
-            Delay 875
+            Delay 875+AdditionalLooterDelay
             squarespace=tileCenterSpace
             i=1
             lootsqX=SelfX:lootsqY=SelfY
@@ -195,9 +195,9 @@ If Looter=1
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4)
                             SaveMousePos 
                             MoveTo lootsqX,lootsqY
-                            Delay 110
+                            Delay 110+AdditionalLooterDelay
                             RightClick 1
-                            Delay 80
+                            Delay 80+AdditionalLooterDelay
                             RestoreMousePos 
                         EndIf 
                     EndFor 
@@ -401,12 +401,13 @@ If Mode="Main"
     //mapX+105:mapY+108
     mapEndX=1858:mapEndY=135
     mapcenterX=1805:mapcenterY=81
+	AdditionalLooterDelay=0
 ElseIf Mode="Laptop"
     SelfX=591:SelfY=306
     tileCenterSpace=55
     actionBarTopY=626
     actionBarCenterY=actionBarTopY+16
-    chatPixX=:chatPixY=
+    chatPixX=211:chatPixY=670
     monster1hpX=1070:monster1hpY=33
     monsterPixColor="000000"
     attacksqX=1019:attacksqY=17:attacksqEndY=112
@@ -428,6 +429,7 @@ ElseIf Mode="Laptop"
     mapX=1200:mapY=6
     mapEndX=1305:mapEndY=114
     mapcenterX=1252:mapcenterY=60
+	AdditionalLooterDelay=20
 ElseIf Mode="Virtual"
     SelfX=547:SelfY=296
     tileCenterSpace=50
@@ -462,6 +464,7 @@ ElseIf Mode="Virtual"
     //mapX+105:mapY+108
     mapEndX=1218:mapEndY=135
     mapcenterX=1165:mapcenterY=81
+	AdditionalLooterDelay=0
 EndIf 
 EndIf 
 Goto HuntingSpots
