@@ -29,6 +29,7 @@ UserVar HuntingPlace=Drefia
 UserVar spellhealing2=------------------------ -------------------
 UserVar AutoAttacker=1 Attack monsters on battle
 UserVar Looter=1 Loot monsters around
+UserVar LootFirst=1 First loot then attack
 UserVar AmmoRefiller=1 Refill bolts
 UserVar spellhealing3=------------------------ -------------------
 UserVar SpectralCreate=1 Create Spectral Bolts
@@ -151,6 +152,11 @@ If AutoAttacker=1
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
         If atk0X<0 and atk1Y<0
+            If LootFirst=1
+                If SearchForLoot=1
+                    Goto LootAnyway
+                EndIf 
+            EndIf 
             KeyPress 27,1
             Delay 50
             SaveMousePos 
@@ -159,8 +165,10 @@ If AutoAttacker=1
             LeftClick 1
             Delay 40
             RestoreMousePos 
-            If SearchForLoot=1
-                Goto LootAnyway
+            If LootFirst=0
+                If SearchForLoot=1
+                    Goto LootAnyway
+                EndIf 
             EndIf 
             SearchForLoot=1
         Else 
@@ -206,11 +214,24 @@ If Looter=1
                 i=i+1:squarespace=squarespace*(-1)
             EndFor 
             Rem LooterEnd
+            If LootFirst=1
+                SearchForLoot=0
+            EndIf 
             VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
             If monsterPix=monsterPixColor
-                Goto MonsterFound
+                If LootFirst=1
+                    VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
+                    VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
+                    If atk0X<0 and atk1Y<0
+                        Goto MonsterFound
+                    EndIf 
+                Else 
+                    Goto MonsterFound
+                EndIf 
             EndIf 
-            SearchForLoot=0
+            If LootFirst=0
+                SearchForLoot=0
+            EndIf 
             Attacking=0
             tWalking=Timer()
         EndIf 
