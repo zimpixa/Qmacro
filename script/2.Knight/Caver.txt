@@ -102,12 +102,12 @@ ElseIf Mode="Virtual"
     ElseIf HuntingPlace="Drefia2"
         //ADD NEW MONSTERS TO IF AT LOOTER
         //0:Grim;1:Gravedigger;2:ShadowPupil;3:??
-        VBS monstercolor(0)="050505":monstercolor(1)="433971":monstercolor(2)="171717"
+        VBS monstercolor(0)="000000":monstercolor(1)="323232":monstercolor(2)="231D3A":monstercolor(3)="101212":monstercolor(4)="171717"
         waypointcount=9
     ElseIf HuntingPlace="MutatedTiger"
         //ADD NEW MONSTERS TO IF AT LOOTER
-        //0:??;1:MutatedTiger;2:MutatedRat;3:Gladiator;4:Gladiator
-        VBS monstercolor(0)="141845":monstercolor(1)="223D87":monstercolor(2)="2A4595":monstercolor(3)="2A4358":monstercolor(4)="0D1C60"
+        //0:MutatedTiger;1:MutatedTiger;2:MutatedRat;3:Gladiator;4:Gladiator
+        VBS monstercolor(0)="112DC7":monstercolor(1)="0D1C60":monstercolor(2)="2A4595":monstercolor(3)="3F586D":monstercolor(4)="010102"
         waypointcount=10
     ElseIf HuntingPlace="Yielothax"
         //ADD NEW MONSTERS TO IF AT LOOTER
@@ -128,13 +128,18 @@ ElseIf Mode="Virtual"
         //0:Tortoise;1:Crocodile
         VBS monstercolor(0)="132379":monstercolor(1)="192C7D":monstercolor(2)="267A26":monstercolor(3)="0D4221"
         waypointcount=8
-	ElseIf HuntingPlace="Laguna"
+    ElseIf HuntingPlace="Laguna"
         //ADD NEW MONSTERS TO IF AT LOOTER
         //0:Tortoise;1:Crocodile
         VBS monstercolor(0)="132379":monstercolor(1)="192C7D":monstercolor(2)="267A26":monstercolor(3)="0D4221"
         waypointcount=8
-		ShovelPoints=""
-		RopePoints=""
+        ShovelPoints=""
+        RopePoints=""
+    ElseIf HuntingPlace="Caymans"
+        //ADD NEW MONSTERS TO IF AT LOOTER
+        //0:Tortoise;1:Crocodile
+        VBS monstercolor(0)="3A393B":monstercolor(1)="19191F"
+        waypointcount=10
     EndIf 
 EndIf 
 Rem Script
@@ -146,6 +151,27 @@ If chatPix="5F5FF7"
     VBS voice.Speak "Warning Warning"
     voice.Speak "You have Message"
 EndIf 
+//Virtual 795 613
+VBSCall manasABPix=GetPixelColor(manasABX,ammoABY)
+If manasABPix="444343"
+    Beep 
+    Beep 
+    Beep 
+    VBS voice.Speak "Warning Warning"
+    voice.Speak "Low manapotions"
+EndIf 
+If AmmoRefiller=1
+    // Virtual 825 613 lub actionbarBoltX-1,actionBarCenterY+13
+    VBSCall ammoABPix=GetPixelColor(ammoABX,ammoABY)
+    //VBSCall MessageBox(ammoABX&" "&ammoABY&" "&ammoABPix)
+    If ammoABPix="424242"
+        Beep 
+        Beep 
+        Beep 
+        VBS voice.Speak "Warning Warning"
+        voice.Speak "Low ammunition"
+    EndIf 
+EndIf 
 Delay 150
 Rem Attacker
 //AutoAttack START
@@ -153,16 +179,16 @@ If AutoAttacker=1
     VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
     //SayString("X: "&monsterPix)
     If monsterPix=monsterPixColor
-		Rem MonsterFound
+        Rem MonsterFound
         Attacking=1
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(0),atk0X,atk0Y)
         VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(1),atk1X,atk1Y)
         If atk0X<0 and atk1Y<0
-			If LootPriority=1
-				If SearchForLoot=1
-					Goto LootAnyway
-				EndIf
-			EndIf
+            If LootPriority=1
+                If SearchForLoot=1
+                    Goto LootAnyway
+                EndIf 
+            EndIf 
             KeyPress 27,1
             Delay 50
             SaveMousePos 
@@ -170,12 +196,12 @@ If AutoAttacker=1
             Delay 40
             LeftClick 1
             Delay 40
-            RestoreMousePos
-			If LootPriority=0
-				If SearchForLoot=1
-					Goto LootAnyway
-				EndIf
-			EndIf
+            RestoreMousePos 
+            If LootPriority=0
+                If SearchForLoot=1
+                    Goto LootAnyway
+                EndIf 
+            EndIf 
             SearchForLoot=1
         Else 
             SearchForLoot=1
@@ -220,14 +246,14 @@ If Looter=1
                 i=i+1:squarespace=squarespace*(-1)
             EndFor 
             Rem LooterEnd
-			If LootPriority=1
-				SearchForLoot=0
-			EndIf
-			VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
+            If LootPriority=1
+                SearchForLoot=0
+            EndIf 
+            VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
             If monsterPix=monsterPixColor
-				Goto MonsterFound
-			EndIf   
-			SearchForLoot=0
+                Goto MonsterFound
+            EndIf 
+            SearchForLoot=0
             Attacking=0
             tWalking=Timer()
         EndIf 
@@ -293,10 +319,8 @@ If tAdditionalTasks<=Timer()
                     LeftClick 1
                     Delay 100
                     RestoreMousePos 
-                    tSpectral=Timer()+60
+                    tSpectral=Timer()+30
                 EndIf 
-            Else 
-                tSpectral=Timer()+30
             EndIf 
         EndIf 
     EndIf 
@@ -314,11 +338,9 @@ If tAdditionalTasks<=Timer()
                     LeftClick 1
                     Delay 100
                     RestoreMousePos 
-                    tEmberwing=Timer()+120
+                    tEmberwing=Timer()+60
                     tUseSpectral=Timer()+840
                 EndIf 
-            Else 
-                tEmberwing=Timer()+60
             EndIf 
         EndIf 
     EndIf 
@@ -327,7 +349,7 @@ If tAdditionalTasks<=Timer()
     If FoodEater=1
         If tFoodEater<=Timer()
             KeyPress FoodEaterKey 1
-            tFoodEater=Timer()+80
+            tFoodEater=Timer()+85
         EndIf 
     EndIf 
     //FoodEater END
@@ -346,26 +368,26 @@ If Caveboter=1
             If mcX>0 and mcY>0
                 //If ontargetPix=markColor(waypoint)
                 Walking=0
-				RopeAtPoint=InStr(RopePoints,waypoint)
-				ShovelAtPoint=InStr(ShovelPoints,waypoint)
-				If RopeAtPoint<>0
-					Delay 200
-					SaveMousePosition
-					MoveTo SelfX SelfY
-					Delay 40
-					KeyPress RopeKey 1
-					Delay 40
-					RestoreMousePosition
-				ElseIf ShovelAtPoint<>0
-					Delay 200
-					SaveMousePosition
-					MoveTo SelfX-tileCenterSpace SelfY
-					Delay 40
-					KeyPress ShovelKey 1
-					Delay 100
-					KeyPress 38 1
-					RestoreMousePosition
-				EndIf
+                RopeAtPoint=InStr(RopePoints,waypoint)
+                ShovelAtPoint=InStr(ShovelPoints,waypoint)
+                If RopeAtPoint<>0
+                    Delay 200
+                    SaveMousePosition
+                    MoveTo SelfX SelfY
+                    Delay 40
+                    KeyPress RopeKey 1
+                    Delay 40
+                    RestoreMousePosition
+                ElseIf ShovelAtPoint<>0
+                    Delay 200
+                    SaveMousePosition
+                    MoveTo SelfX-tileCenterSpace SelfY
+                    Delay 40
+                    KeyPress ShovelKey 1
+                    Delay 100
+                    KeyPress 38 1
+                    RestoreMousePosition
+                EndIf 
                 tWalking=Timer()
                 VBS waypoint=waypoint+1
                 Goto Attacker
@@ -382,9 +404,20 @@ If Caveboter=1
                 RestoreMousePos 
                 Walking=1
                 tWalking=Timer()+3
+                NotFound=0
+            Else 
+                Notfound=Notfound+1
+                If Notfound>4
+                    Beep 
+                    Beep 
+                    Beep 
+                    VBS voice.Speak "Warning Warning"
+                    voice.Speak "Waypoint not found"
+                EndIf 
             EndIf 
         EndIf 
     EndIf 
+EndIf 
 EndIf 
 Rem CavebotEND
 //Cavebot END
@@ -402,6 +435,7 @@ VBS waypoint=1
 //Xsign=0000E0;Bag:53779C
 VBS markColor(1)="57CE44":markColor(2)="FF0F0F":markColor(3)="0000B9":markColor(4)="1C94F7":markColor(5)="042358":markColor(6)="303434":markColor(7)="0A41A0":markColor(8)="ACACAC":markColor(9)="F00101":markColor(10)="059BB6":markColor(11)="0000B9":markColor(12)="FF0F0F"
 Rem Variables
+Notfound=0
 If Mode="Main"
     SelfX=866:SelfY=411
     tileCenterSpace=71
@@ -409,6 +443,8 @@ If Mode="Main"
     actionBarCenterY=actionBarTopY+16
     //Alarms
     chatPixX=:chatPixY=
+    ammoABX=:ammoABY=
+    manasABX=
     //Attacker
     monster1hpX=1600:monster1hpY=54
     monsterPixColor="000000"
@@ -438,13 +474,15 @@ If Mode="Main"
     //mapX+105:mapY+108
     mapEndX=1858:mapEndY=135
     mapcenterX=1805:mapcenterY=81
-	AdditionalLooterDelay=0						
+    AdditionalLooterDelay=0
 ElseIf Mode="Laptop"
     SelfX=591:SelfY=306
     tileCenterSpace=55
     actionBarTopY=626
     actionBarCenterY=actionBarTopY+16
     chatPixX=211:chatPixY=670
+    ammoABX=:ammoABY=
+    manasABX=
     monster1hpX=1070:monster1hpY=33
     monsterPixColor="000000"
     attacksqX=1019:attacksqY=17:attacksqEndY=112
@@ -466,13 +504,15 @@ ElseIf Mode="Laptop"
     mapX=1200:mapY=6
     mapEndX=1305:mapEndY=114
     mapcenterX=1252:mapcenterY=60
-	AdditionalLooterDelay=20						 
+    AdditionalLooterDelay=20
 ElseIf Mode="Virtual"
     SelfX=547:SelfY=296
     tileCenterSpace=50
     actionBarTopY=584
     actionBarCenterY=actionBarTopY+16
     chatPixX=210:chatPixY=627
+    ammoABX=825:ammoABY=actionBarCenterY+13
+    manasABX=795
     monster1hpX=972:monster1hpY=54
     monsterPixColor="000000"
     attacksqX=932:attacksqY=55:attacksqEndY=85
@@ -501,9 +541,9 @@ ElseIf Mode="Virtual"
     //mapX+105:mapY+108
     mapEndX=1218:mapEndY=135
     mapcenterX=1165:mapcenterY=81
-	AdditionalLooterDelay=0
-	ShovelKey=123
-	RopeKey=123	
+    AdditionalLooterDelay=10
+    ShovelKey=123
+    RopeKey=123
 EndIf 
 EndIf 
 Goto HuntingSpots
