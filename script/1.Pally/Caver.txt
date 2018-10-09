@@ -151,6 +151,14 @@ If chatPix="5F5FF7"
     VBS voice.Speak "Warning Warning"
     voice.Speak "You have Message"
 EndIf 
+VBSCall FindColor(capPixX,capPixY,capPixX,capPixY+8,"C0C0C0",capX,capY)
+If capX<0 and capY<0
+    Beep 
+    Beep 
+    Beep 
+    VBS voice.Speak "Warning Warning"
+    voice.Speak "Low Capacity"
+EndIf 
 //Virtual 795 613
 VBSCall manasABPix=GetPixelColor(manasABX,ammoABY)
 If manasABPix="444343"
@@ -253,6 +261,7 @@ If Looter=1
             If monsterPix=monsterPixColor
                 Goto MonsterFound
             EndIf 
+            KeyPress 27,1
             SearchForLoot=0
             Attacking=0
             tWalking=Timer()
@@ -443,6 +452,7 @@ If Mode="Main"
     actionBarCenterY=actionBarTopY+16
     //Alarms
     chatPixX=:chatPixY=
+    capPixX=135:capPixY=156
     ammoABX=:ammoABY=
     manasABX=
     //Attacker
@@ -481,6 +491,7 @@ ElseIf Mode="Laptop"
     actionBarTopY=626
     actionBarCenterY=actionBarTopY+16
     chatPixX=211:chatPixY=670
+    capPixX=135:capPixY=156
     ammoABX=:ammoABY=
     manasABX=
     monster1hpX=1070:monster1hpY=33
@@ -511,6 +522,7 @@ ElseIf Mode="Virtual"
     actionBarTopY=584
     actionBarCenterY=actionBarTopY+16
     chatPixX=210:chatPixY=627
+    capPixX=135:capPixY=156
     ammoABX=825:ammoABY=actionBarCenterY+13
     manasABX=795
     monster1hpX=972:monster1hpY=54
@@ -541,7 +553,7 @@ ElseIf Mode="Virtual"
     //mapX+105:mapY+108
     mapEndX=1218:mapEndY=135
     mapcenterX=1165:mapcenterY=81
-    AdditionalLooterDelay=10
+    AdditionalLooterDelay=20
     ShovelKey=123
     RopeKey=123
 EndIf 
