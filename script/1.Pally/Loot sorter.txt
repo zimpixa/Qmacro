@@ -1,0 +1,108 @@
+[General]
+Description=Loot sorter
+BeginHotkey=48
+BeginHotkeyMod=2
+PauseHotkey=0
+PauseHotkeyMod=0
+StopHotkey=0
+StopHotkeyMod=0
+RunOnce=1
+EnableWindow=
+Enable=1
+AutoRun=0
+[Repeat]
+Type=0
+Number=1
+[CallBack]
+OnSetup=
+[Comment]
+Content=
+
+[Script]
+VBS dim itemgreen(8),itemblue(8),itemrashid(8)
+UserVar TDelay=100 Wait Time
+UserVar BPPixX=1 X
+UserVar BPPixY=1 Y
+VBS set voice = createobject("SAPI.SpVoice")
+GreenX=BPPixX+170
+GreenY=BPPixY+285
+BlueX=BPPixX+170+38
+BlueY=BPPixY+285
+RashidX=BPPixX+170+38+38
+RashidY=BPPixY+285
+OtherX=BPPixX+170+38+38+38
+OtherY=BPPixY+285
+//Green
+VBS itemgreen(0)="181116":itemgreen(1)="1E69C7":itemgreen(2)="262626"
+//Blue
+VBS itemblue(0)="0481F3":itemblue(1)="0568F1":itemblue(2)="0F2BB2"
+//Rashid
+VBS itemrashid(0)="AEB4BC":itemrashid(1)="323232":itemrashid(2)="D2D2D2":itemrashid(3)="E0BE92"
+Rem Check
+Delay 180
+VBSCall BPPixel=GetPixelColor(BPPixX,BPPixY)
+Delay TDelay+60
+//Green
+If BPPixel=itemgreen(0) or BPPixel=itemgreen(1) or BPPixel=itemgreen(2)
+    //SayString " green "&BPPixel
+    SaveMousePos 
+    MoveTo BPPixX,BPPixY
+    Delay TDelay
+    LeftDown 1
+    Delay TDelay
+    MoveTo GreenX,GreenY
+    Delay TDelay
+    LeftUp 1
+    Delay TDelay
+    RestoreMousePos 
+    Goto Check
+EndIf 
+//Blue
+If BPPixel=itemblue(0) or BPPixel=itemblue(1) or BPPixel=itemblue(2)
+    //SayString " blue "&BPPixel
+    SaveMousePos 
+    MoveTo BPPixX,BPPixY
+    Delay TDelay
+    LeftDown 1
+    Delay TDelay
+    MoveTo BlueX,BlueY
+    Delay TDelay
+    LeftUp 1
+    Delay TDelay
+    RestoreMousePos 
+    Goto Check
+EndIf 
+//Radhid
+If BPPixel=itemrashid(0) or BPPixel=itemrashid(1) or BPPixel=itemrashid(2) or BPPixel=itemrashid(3)
+    //SayString " rashid "&BPPixel
+    SaveMousePos 
+    MoveTo BPPixX,BPPixY
+    Delay TDelay
+    LeftDown 1
+    Delay TDelay
+    MoveTo RashidX,RashidY
+    Delay TDelay
+    LeftUp 1
+    Delay TDelay
+    RestoreMousePos 
+    Goto Check
+EndIf 
+If BPPixel="4B541D"
+    Beep 
+    VBS voice.Speak "Sorting done"
+    //SayString "Done"
+Else 
+    SayString " Other "&BPPixel
+    SaveMousePos 
+    MoveTo BPPixX,BPPixY
+    Delay TDelay
+    LeftDown 1
+    Delay TDelay
+    MoveTo OtherX,OtherY
+    Delay TDelay
+    LeftUp 1
+    Delay TDelay
+    RestoreMousePos 
+    Goto Check
+EndIf 
+//SayString "Color "&BPPixel
