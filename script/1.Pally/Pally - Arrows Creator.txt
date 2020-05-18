@@ -29,13 +29,14 @@ UserVar spellhealing3=------------------------ -------------------
 UserVar KeepOnline=1 Keep Online
 Rem Begin
 tArrow=Timer():tKeepOnline=Timer():tFood=Timer()
+VBSCall MessageBox("Remember to open NPC chat!!!")
 Rem Script
 Delay 1000
 If KeepOnline=1
-    VBSCall MessageBox("Remember to open NPC chat!!!")
     If tKeepOnline<=Timer()
         SayString("I have to stay survive (online), for all cost...")
         KeyPress 13,1
+        tKeepOnline=Timer()+600
     EndIf 
 EndIf 
 If tArrow<=Timer()
