@@ -23,7 +23,7 @@ VBS dim hphigh,hplow,keyHigh,keyLow,tSpell,tPotion,tSpellOT
 VBS dim color(1),cX,cY,Key,forKey,s
 VBS dim StrikeAOEKey(4),tStrikeAOE(3)
 UserVar spellhealing5=------------------------ -------------------
-UserVar Mode=Main Resolution Mode (Main/Laptop/Janek/Override)
+UserVar Mode=Virtual Resolution Mode (Main/Laptop/Janek/Override)
 UserVar spellhealing=------------------------ -------------------
 UserVar LightSpell=1 Use Light Healing Spell
 UserVar hphigh=92 Light healing %
@@ -44,7 +44,7 @@ UserVar mana=65 Mana Refiller %
 UserVar keyMana=122 Mana Refiller Key
 UserVar AdditionalManaDelay=1 More Delay for Mana
 UserVar KeepFullMana=0 Refill to Full Mana
-UserVar KeepMana=1 More Mana while attack
+UserVar KeepMana=0 More Mana while attack
 UserVar spellhealing4=------------------------ -------------------
 UserVar Striker=1 Strike Target
 UserVar StrikeKey=120 Strike Key
@@ -170,35 +170,44 @@ Rem SpellEnd
 //Striker START
 If Striker=1
     If tStriker<=Timer()
-        VBS s=0			   
+        VBS s=0
         If Key<>1
             Gosub StrikeSub
         EndIf 
         For 2
             VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
             If atkX>=0 and atkY>=0
-                If StrikerMultitarget=1
-                    VBSCall FindColor(monsterhp2X,monsterhp2Y,monsterhp2X,monsterhp2Y,"000000",m2X,m2Y)
-                    If m2X>=0 and m2Y>=0
-                        If Key>2 or Key=0
+                VBSCall FindColor(attacksqX+152,atkY,attacksqX+152,atkY+16,"00C000",monster1FUllHPX,monster1FUllHPY)
+                If monster1FUllHPX<0 and monster1FUllHPY<0
+                    If StrikerMultitarget=1
+                        VBSCall FindColor(monsterhp2X,monsterhp2Y,monsterhp2X,monsterhp2Y,"000000",m2X,m2Y)
+                        If m2X>=0 and m2Y>=0
+                            If Key>2 or Key=0
+                                tStriker=Timer()+2.03
+                                Goto StrikeEnd
+                            EndIf 
+                            KeyPress StrikeAOEKey(Key) 1
+                            If Key=1
+                                tStrikeAOE(Key)=Timer()+CooldownAOE1
+                            ElseIf Key=2
+                                tStrikeAOE(Key)=Timer()+CooldownAOE2
+                                tPotion=Timer()+1
+                            EndIf 
+                            Key=Key+1
                             tStriker=Timer()+2.03
                             Goto StrikeEnd
                         EndIf 
-                        KeyPress StrikeAOEKey(Key) 1
-                        If Key=1
-                            tStrikeAOE(Key)=Timer()+CooldownAOE1
-                        ElseIf Key=2
-                            tStrikeAOE(Key)=Timer()+CooldownAOE2
-                            tPotion=Timer()+1
-                        EndIf 
-                        Key=Key+1
-                        tStriker=Timer()+2.03
-                        Goto StrikeEnd
+                    EndIf 
+                    KeyPress StrikeKey 1
+                    tStriker=Timer()+2.05
+                    Goto StrikeEnd
+                Else 
+                    VBSCall FindColor(attacksqX+7,atkY-9,attacksqX+7,atkY+11,"A27F69",monsterGhostX,monsterGhostY)
+                    If monsterGhostX>=0 and monsterGhostY>=0
+                        KeyPress StrikeKey 1
+                        tStriker=Timer()+2.05
                     EndIf 
                 EndIf 
-                KeyPress StrikeKey 1
-                tStriker=Timer()+2.03
-                Goto StrikeEnd
             Else 
                 VBS s=s+1
             EndIf 
@@ -221,38 +230,38 @@ If tPotion<=Timer()
             tPotion=Timer()+1
             Goto PotEnd
         EndIf 
-    EndIf
-	If tMana<=Timer()
-		If ManaRefill=1
-			VBSCall FindColor(ManaX,manaY,ManaX,manaY,"FF7174",manaresX,manaresY)
-			If manaresX<=0 and manaresY<=0
-				KeyPress keyMana 1
-				tPotion=Timer()+1
-				tMana=Timer()+1+AdditionalManaDelay
-				Goto PotEnd
-			EndIf 
-		EndIf 
-		If KeepFullMana=1
-			VBSCall FindColor(ManaKFM,manaY,ManaKFM,manaY,"FF7174",kfmX,kfmY)
-			VBSCall FindColor(Monster1HP,monster1hpY,Monster1HP,monster1hpY,"000000",m1X,m1Y)
-			If kfmX<=0 and m1Y<=0
-				KeyPress keyMana 1
-				tPotion=Timer()+1
-				tMana=Timer()+1+AdditionalManaDelay
-			EndIf 
-		EndIf 
-		If KeepMana=1
-			VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
-			If atkX>=0 and atkY>=0
-				VBSCall FindColor(ManaKFM-32,manaY,ManaKFM-10,manaY,"FF7174",kfmX,kfmY)
-				If kfmX<=0 and kfmY<=0
-					KeyPress keyMana 1
-					tPotion=Timer()+1
-					tMana=Timer()+1+AdditionalManaDelay
-				EndIf 
-			EndIf 
-		EndIf 
-	EndIf
+    EndIf 
+    If tMana<=Timer()
+        If ManaRefill=1
+            VBSCall FindColor(ManaX,manaY,ManaX,manaY,"FF7174",manaresX,manaresY)
+            If manaresX<=0 and manaresY<=0
+                KeyPress keyMana 1
+                tPotion=Timer()+1
+                tMana=Timer()+1.03+AdditionalManaDelay
+                Goto PotEnd
+            EndIf 
+        EndIf 
+        If KeepFullMana=1
+            VBSCall FindColor(ManaKFM,manaY,ManaKFM,manaY,"FF7174",kfmX,kfmY)
+            VBSCall FindColor(Monster1HP,monster1hpY,Monster1HP,monster1hpY,"000000",m1X,m1Y)
+            If kfmX<=0 and m1Y<=0
+                KeyPress keyMana 1
+                tPotion=Timer()+1
+                tMana=Timer()+1.03+AdditionalManaDelay
+            EndIf 
+        EndIf 
+        If KeepMana=1
+            VBSCall FindColor(attacksqX,attacksqY,attacksqX,attacksqEndY,color(s),atkX,atkY)
+            If atkX>=0 and atkY>=0
+                VBSCall FindColor(ManaX+7,manaY,ManaX+7,manaY,"FF7174",kfmX,kfmY)
+                If kfmX<=0 and kfmY<=0
+                    KeyPress keyMana 1
+                    tPotion=Timer()+1
+                    tMana=Timer()+1.03+AdditionalManaDelay
+                EndIf 
+            EndIf 
+        EndIf 
+    EndIf 
 EndIf 
 Rem PotEnd
 //Pots END
