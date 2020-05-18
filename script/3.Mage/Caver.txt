@@ -1,5 +1,5 @@
 [General]
-Description=Caver Loot Priority Alarms
+Description=Caver
 BeginHotkey=57
 BeginHotkeyMod=2
 PauseHotkey=19
@@ -187,6 +187,7 @@ VBSCall chatPix=GetPixelColor(chatPixX,chatPixY)
 If chatPix="5F5FF7"
     Beep 
     Beep 
+		 
     VBS voice.Speak "Warning Warning"
     VBS voice.Speak "You have Message"
     Caveboter=0
@@ -197,6 +198,9 @@ EndIf
 If CapAlarmEnabled=1
     VBSCall FindColor(capPixX-3,capPixY,capPixX,capPixY+8,"C0C0C0",capX,capY)
     If capX<0 and capY<0  and tCapAlarm<Timer()
+		 
+		 
+		 
         VBS voice.Speak "Low Cap"
         CapAlarm=CapAlarm+1
         If CapAlarm>=10
@@ -209,6 +213,7 @@ If PotionAlarmEnabled=1
     VBSCall manasABPix=GetPixelColor(manasABX,ammoABY)
     VBSCall spiritABPix=GetPixelColor(manasABX-36,ammoABY)
     If manasABPix="444343" or spiritABPix="444343"
+		 
         Beep 
         Beep 
         VBS voice.Speak "Warning Warning"
@@ -222,6 +227,7 @@ If AmmoRefiller=1
     If ammoABPix="424242"
         Beep 
         Beep 
+			 
         VBS voice.Speak "Warning Warning"
         VBS voice.Speak "Low ammo"
     EndIf 
@@ -231,6 +237,7 @@ Rem Attacker
 //AutoAttack START
 If AutoAttacker=1
     VBSCall monsterPix=GetPixelColor(monster1hpX,monster1hpY)
+								 
     If monsterPix=monsterPixColor
         Rem MonsterFound
         Attacking=1
@@ -289,6 +296,8 @@ If Looter=1
                             Goto LooterEnd
                         EndIf 
                         VBSCall lootPixel=GetPixelColor(lootsqX,lootsqY)
+								
+																	  
                         //SayString("X: "&lootsqX&" Y: "&lootsqY&" Color: "&lootPixel&" i: "&i&" ")
                         If lootPixel=monstercolor(0) or lootPixel=monstercolor(1) or lootPixel=monstercolor(2) or lootPixel=monstercolor(3) or lootPixel=monstercolor(4) or lootPixel=monstercolor(5) or lootPixel=monstercolor(6) or lootPixel=monstercolor(7)
                             Rem LootFound
@@ -310,6 +319,9 @@ If Looter=1
                                 EndIf 
                             EndIf 
                             Delay 110+AdditionalLooterDelay
+										
+														  
+											
                         EndIf 
                     EndFor 
                     spaceX=squarespace:spaceY=0
